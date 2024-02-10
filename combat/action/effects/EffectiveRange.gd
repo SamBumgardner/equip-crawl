@@ -1,12 +1,18 @@
 class_name EffectiveRange extends RefCounted
 
-func _init():
-	pass # allow parameterized range objects to be passed in.
+var min_range : int
+var max_range : int
+var directions : int 
 
+func _init(minRange : int = 1, maxRange : int = 1, initDirections = RangeDirections.ALL):
+    min_range = minRange
+    max_range = maxRange
+    directions = initDirections
 
-# min range
-# max range
-# lateral slice(s)
-
-func is_in_range(target : Combatant) -> bool :
-	return true # TODO: check positioning information (and facing information) to see if in range.
+enum RangeDirections {
+    FRONT = 0x0001,
+    LEFT  = 0x0010,
+    RIGHT = 0x0100,
+    BACK  = 0x1000,
+    ALL   = 0x1111,
+}
