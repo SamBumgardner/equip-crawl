@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://clrmpc3p6ahmq"]
+[gd_scene load_steps=4 format=3 uid="uid://clrmpc3p6ahmq"]
 
 [ext_resource type="Script" path="res://combat/actor/Player.gd" id="1_pm2ne"]
 [ext_resource type="Script" path="res://combat/actor/Enemy.gd" id="2_17ny2"]
+[ext_resource type="Script" path="res://combat/CombatManager.gd" id="3_5rwkb"]
 
 [node name="Node2D" type="Node2D"]
 
@@ -14,3 +15,11 @@ target_other = NodePath("../Enemy")
 script = ExtResource("2_17ny2")
 health = 10.0
 target_other = NodePath("../Player")
+
+[node name="CombatManager" type="Node" parent="." node_paths=PackedStringArray("player", "enemy")]
+script = ExtResource("3_5rwkb")
+player = NodePath("../Player")
+enemy = NodePath("../Enemy")
+
+[node name="EndCombatSequenceTimer" type="Timer" parent="CombatManager"]
+one_shot = true
