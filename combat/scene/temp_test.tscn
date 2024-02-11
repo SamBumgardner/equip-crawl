@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=3 uid="uid://clrmpc3p6ahmq"]
+
+[ext_resource type="Script" path="res://combat/actor/Player.gd" id="1_pm2ne"]
+[ext_resource type="Script" path="res://combat/actor/Enemy.gd" id="2_17ny2"]
+
+[node name="Node2D" type="Node2D"]
+
+[node name="Player" type="Node" parent="." node_paths=PackedStringArray("target_other")]
+script = ExtResource("1_pm2ne")
+health = 10.0
+target_other = NodePath("../Enemy")
+
+[node name="Enemy" type="Node" parent="." node_paths=PackedStringArray("target_other")]
+script = ExtResource("2_17ny2")
+health = 10.0
+target_other = NodePath("../Player")

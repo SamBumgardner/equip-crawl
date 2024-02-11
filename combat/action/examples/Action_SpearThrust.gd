@@ -8,7 +8,8 @@ func _init():
     recovery_time = 1
     
     if (on_act_actions == null):
-        var range1 = EffectiveRange.new(1, 1, EffectiveRange.RangeDirections.FRONT)
+        var range1 = EffectiveRange.new(Position.Ranges.SHORT, Position.Ranges.SHORT, 
+            EffectiveRange.RangeDirections.FRONT)
         var damage_effect = DamageEffect.new(CombatActionEffect.Target.OTHER, range1, 5)
 
         on_act_actions = [damage_effect] 
