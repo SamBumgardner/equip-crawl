@@ -46,9 +46,9 @@ func send_current_act_effects():
 
 func receive_act_effects(received_effects: Array[CombatActionEffect]):
 	print("owner ", self, " received action effects: ", received_effects)
-	received_effects.filter(_is_received_effect_in_range)
+	received_effects.filter(_is_received_effect_in_range) \
 	#TODO: run effects through ongoing statuses, then accept the results
-	received_effects.map(_apply_received_effect)
+		.map(_apply_received_effect)
 
 func _apply_received_effect(received_effect : CombatActionEffect):
 	match received_effect.type:
