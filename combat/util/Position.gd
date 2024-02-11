@@ -3,8 +3,8 @@ class_name Position
 enum Direction {
     NORTH = 0,
     EAST  = 1,
-    WEST  = 2,
-    SOUTH = 3,
+    SOUTH = 2,
+    WEST  = 3,
 }
 
 enum Ranges {

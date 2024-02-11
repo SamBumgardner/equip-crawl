@@ -46,22 +46,25 @@ func send_current_act_effects():
 
 func receive_act_effects(received_effects: Array[CombatActionEffect]):
 	print("owner ", self, " received action effects: ", received_effects)
+	received_effects.filter(_is_effect_in_range)
 	#TODO: run effects through ongoing statuses, then accept the results
-	_apply_received_effects(received_effects)
+	received_effects.map(_apply_received_effect)
 
-func _apply_received_effects(received_effects : Array[CombatActionEffect]):
-	for combat_effect in received_effects:
-		match combat_effect.type:
-			CombatActionEffect.EffectType.DAMAGE:
-				var incoming_damage = (combat_effect as DamageEffect).amount
-				health -= incoming_damage
-				print("owner ", self, "ouch, just took ", incoming_damage, " damage, only ", health, " health remaining!")
-			CombatActionEffect.EffectType.HEAL:
-				var incoming_heal = (combat_effect as HealEffect).amount
-				health += incoming_heal
-				print("owner ", self, "whew, just got ", incoming_heal, " healing, I have ", health, " health remaining!")
-			CombatActionEffect.EffectType.STATUS:
-				pass
-			CombatActionEffect.EffectType.MOVE:
-				#TODO: call overridden function for handling movement effects(?)
-				pass
+func _apply_received_effect(received_effect : CombatActionEffect):
+	match received_effect.type:
+		CombatActionEffect.EffectType.DAMAGE:
+			var incoming_damage = (received_effect as DamageEffect).amount
+			health -= incoming_damage
+			print("owner ", self, "ouch, just took ", incoming_damage, " damage, only ", health, " health remaining!")
+		CombatActionEffect.EffectType.HEAL:
+			var incoming_heal = (received_effect as HealEffect).amount
+			health += incoming_heal
+			print("owner ", self, "whew, just got ", incoming_heal, " healing, I have ", health, " health remaining!")
+		CombatActionEffect.EffectType.STATUS:
+			pass
+		CombatActionEffect.EffectType.MOVE:
+			#TODO: call overridden function for handling movement effects(?)
+			pass
+
+func _is_effect_in_range(effect_to_check : CombatActionEffect) -> bool:
+	return true # Child classes should override this, they know how to check if they're in range or not.
