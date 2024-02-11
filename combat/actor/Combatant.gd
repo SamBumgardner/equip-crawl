@@ -46,7 +46,7 @@ func send_current_act_effects():
 
 func receive_act_effects(received_effects: Array[CombatActionEffect]):
 	print("owner ", self, " received action effects: ", received_effects)
-	received_effects.filter(_is_effect_in_range)
+	received_effects.filter(_is_received_effect_in_range)
 	#TODO: run effects through ongoing statuses, then accept the results
 	received_effects.map(_apply_received_effect)
 
@@ -66,5 +66,5 @@ func _apply_received_effect(received_effect : CombatActionEffect):
 			#TODO: call overridden function for handling movement effects(?)
 			pass
 
-func _is_effect_in_range(effect_to_check : CombatActionEffect) -> bool:
+func _is_received_effect_in_range(effect_to_check : CombatActionEffect) -> bool:
 	return true # Child classes should override this, they know how to check if they're in range or not.
