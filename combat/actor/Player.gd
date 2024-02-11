@@ -36,3 +36,11 @@ func _is_received_effect_in_range(effect_to_check : CombatActionEffect) -> bool:
 		print("Effect ", effect_to_check, " missed!")
 
 	return in_range
+
+func _apply_move_effect(received_effect : MoveEffect):
+	var unbound_distance = distance + received_effect.range_direction * received_effect.amount
+	distance = max(min(unbound_distance, Position.Ranges.LONG), Position.Ranges.SHORT)
+	var unlooped_lateral = lateral_position + received_effect.lateral_direction * received_effect.amount
+	lateral_position = ((unlooped_lateral + 4) % 4) as Position.Direction
+
+	print("combatant ", self, " moved! New position is distance ", distance, " lateral ", lateral_position)

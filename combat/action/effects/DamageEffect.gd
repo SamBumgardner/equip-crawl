@@ -3,16 +3,16 @@ class_name DamageEffect extends CombatActionEffect
 var amount : int
 var element : DamageElement
 
-func _init(initTarget:Target = Target.OTHER,
-		initRange:EffectiveRange = null, 
-		initAmount:int = 0, 
-		initElement:DamageElement = DamageElement.PHYSICAL
+func _init(target_in:Target = Target.OTHER,
+		range_in:EffectiveRange = null, 
+		amount_in:int = 0, 
+		element_in:DamageElement = DamageElement.PHYSICAL
 	):
 	type = CombatActionEffect.EffectType.DAMAGE
-	target = initTarget
-	effective_range = initRange
-	amount = initAmount
-	element = initElement
+	target = target_in
+	effective_range = range_in
+	amount = amount_in
+	element = element_in
 
 enum DamageElement {
 	PHYSICAL = 0
