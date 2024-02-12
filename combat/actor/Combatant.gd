@@ -1,14 +1,20 @@
 class_name Combatant extends Node
 
 signal combatant_defeated(combatant)
-signal health_changed(new_value)
+signal health_changed(new_value, max_value)
+signal state_changed(new_state, duration)
 
-@export var health : float:
-	get:
-		return health
+@export var max_health : float:
+	set(value):
+		max_health = value
+		if (is_inside_tree()):
+			health_changed.emit(health, max_health)
+		
+@export  var health : float:
 	set(value):
 		health = value
-		health_changed.emit(health)
+		if (is_inside_tree()):
+			health_changed.emit(health, max_health)
 		if value <= 0:
 			combatant_defeated.emit(self)
 
@@ -22,7 +28,7 @@ var current_action : Action
 
 func _ready():
 	state_machine = StateMachine.new()
-	state_machine.initialize(possible_states, CombatantStates.States.IDLE)
+	state_machine.initialize(self, possible_states, CombatantStates.States.IDLE)
 
 func _physics_process(delta):
 	state_machine.physics_process(delta)
@@ -59,6 +65,7 @@ func _apply_received_effect(received_effect : CombatActionEffect):
 		CombatActionEffect.EffectType.DAMAGE:
 			var incoming_damage = (received_effect as DamageEffect).amount
 			health -= incoming_damage
+			health_changed.emit(health, max_health)
 			print(self, " took ", incoming_damage, " damage. ", health, " health remaining.")
 		CombatActionEffect.EffectType.HEAL:
 			var incoming_heal = (received_effect as HealEffect).amount

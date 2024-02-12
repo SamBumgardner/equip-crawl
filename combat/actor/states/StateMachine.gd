@@ -1,9 +1,12 @@
 class_name StateMachine extends RefCounted
 
+var owner : Combatant
 var states : Array[ActorState]
 var current_state : ActorState
 
-func initialize(possible_states : Array[ActorState], start_state : CombatantStates.States):
+func initialize(owner_in : Combatant, possible_states : Array[ActorState], 
+		start_state : CombatantStates.States):
+	owner = owner_in
 	states = possible_states
 	current_state = possible_states[start_state]
 
@@ -15,9 +18,12 @@ func physics_process(delta : float):
 	var safety_breakout : int = 0
 	while (change.next_state != CombatantStates.States.NO_CHANGE):
 		current_state.exit()
+		var newly_selected_state = change.next_state
 		current_state = states[change.next_state]
 		current_state.enter()
 		change = current_state.physics_process(change.remaining_delta)
+		
+		owner.state_changed.emit(newly_selected_state, current_state.time_remaining)
 
 		safety_breakout += 1
 		if (safety_breakout > 100):

@@ -1,18 +1,25 @@
-[gd_scene load_steps=4 format=3 uid="uid://clrmpc3p6ahmq"]
+[gd_scene load_steps=6 format=3 uid="uid://clrmpc3p6ahmq"]
 
 [ext_resource type="Script" path="res://combat/actor/Player.gd" id="1_pm2ne"]
 [ext_resource type="Script" path="res://combat/actor/Enemy.gd" id="2_17ny2"]
 [ext_resource type="Script" path="res://combat/CombatManager.gd" id="3_5rwkb"]
+[ext_resource type="Script" path="res://combat/hud/HealthBar.gd" id="4_et7d6"]
+[ext_resource type="Script" path="res://combat/hud/CastBar.gd" id="5_sg06e"]
 
-[node name="Node2D" type="Node2D"]
+[node name="Node2D" type="Control"]
+custom_minimum_size = Vector2(1152, 648)
+layout_mode = 3
+anchors_preset = 0
 
 [node name="Player" type="Node" parent="." node_paths=PackedStringArray("target_other")]
 script = ExtResource("1_pm2ne")
+max_health = 10.0
 health = 10.0
 target_other = NodePath("../Enemy")
 
 [node name="Enemy" type="Node" parent="." node_paths=PackedStringArray("target_other")]
 script = ExtResource("2_17ny2")
+max_health = 10.0
 health = 10.0
 target_other = NodePath("../Player")
 
@@ -22,4 +29,56 @@ player = NodePath("../Player")
 enemy = NodePath("../Enemy")
 
 [node name="EndCombatSequenceTimer" type="Timer" parent="CombatManager"]
+one_shot = true
+
+[node name="Health_Enemy" type="ProgressBar" parent="." node_paths=PackedStringArray("combatant")]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 4.0
+grow_horizontal = 2
+show_percentage = false
+script = ExtResource("4_et7d6")
+combatant = NodePath("../Enemy")
+
+[node name="Health_Player" type="ProgressBar" parent="." node_paths=PackedStringArray("combatant")]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -27.0
+grow_horizontal = 2
+grow_vertical = 0
+show_percentage = false
+script = ExtResource("4_et7d6")
+combatant = NodePath("../Player")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_top = -29.0
+offset_bottom = 29.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="CastBar_Enemy" type="ProgressBar" parent="VBoxContainer" node_paths=PackedStringArray("combatant")]
+layout_mode = 2
+script = ExtResource("5_sg06e")
+combatant = NodePath("../../Enemy")
+
+[node name="Timer" type="Timer" parent="VBoxContainer/CastBar_Enemy"]
+one_shot = true
+
+[node name="CastBar_Player" type="ProgressBar" parent="VBoxContainer" node_paths=PackedStringArray("combatant")]
+layout_mode = 2
+script = ExtResource("5_sg06e")
+combatant = NodePath("../../Player")
+
+[node name="Timer" type="Timer" parent="VBoxContainer/CastBar_Player"]
 one_shot = true

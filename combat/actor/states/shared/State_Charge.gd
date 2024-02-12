@@ -1,7 +1,5 @@
 class_name State_Charge extends ActorState
 
-var time_remaining : float
-
 func physics_process(delta : float) -> StateChange:
 	if (time_remaining <= delta):
 		state_change.next_state = CombatantStates.States.ACT
