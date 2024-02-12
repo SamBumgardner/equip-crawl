@@ -45,7 +45,7 @@ func send_current_act_effects():
 		target_other.receive_act_effects(target_other_effects)
 
 func receive_act_effects(received_effects: Array[CombatActionEffect]):
-	print("combatant ", self, " received action effects: ", received_effects)
+	print(self, " received action effects: ", received_effects)
 	received_effects.filter(_is_received_effect_in_range) \
 	#TODO: run effects through ongoing statuses, then accept the results
 		.map(_apply_received_effect)
@@ -59,11 +59,11 @@ func _apply_received_effect(received_effect : CombatActionEffect):
 		CombatActionEffect.EffectType.DAMAGE:
 			var incoming_damage = (received_effect as DamageEffect).amount
 			health -= incoming_damage
-			print("combatant ", self, "ouch, just took ", incoming_damage, " damage, only ", health, " health remaining!")
+			print(self, " took ", incoming_damage, " damage. ", health, " health remaining.")
 		CombatActionEffect.EffectType.HEAL:
 			var incoming_heal = (received_effect as HealEffect).amount
 			health += incoming_heal
-			print("combatant ", self, "whew, just got ", incoming_heal, " healing, I have ", health, " health remaining!")
+			print(self, " got ", incoming_heal, " healing. ", health, " health remaining.")
 		CombatActionEffect.EffectType.STATUS:
 			pass
 		CombatActionEffect.EffectType.MOVE:

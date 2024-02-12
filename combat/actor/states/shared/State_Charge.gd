@@ -15,4 +15,4 @@ func physics_process(delta : float) -> StateChange:
 
 func enter():
 	time_remaining = owner.current_action.charge_time
-	print("combatant ", owner, " is now charging for ", owner.current_action.charge_time, " seconds")
+	print(owner, " is now charging for ", owner.current_action.charge_time, " seconds")

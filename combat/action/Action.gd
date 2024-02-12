@@ -4,6 +4,9 @@ var name : String = "unset action name"
 var charge_time : float = 0
 var recovery_time : float = 0
 
+func _to_string():
+	return name
+
 func on_act() -> Array[CombatActionEffect]:
 	return []
 

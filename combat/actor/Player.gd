@@ -11,6 +11,9 @@ func _init():
 		State_Recover.new(self),
 	]
 
+func _to_string():
+	return "Player"
+
 func _is_received_effect_in_range(effect_to_check : CombatActionEffect) -> bool:
 	var in_range : bool = true;
 
@@ -43,4 +46,4 @@ func _apply_move_effect(received_effect : MoveEffect):
 	var unlooped_lateral = lateral_position + received_effect.lateral_direction * received_effect.amount
 	lateral_position = ((unlooped_lateral + 4) % 4) as Position.Direction
 
-	print("combatant ", self, " moved! New position is distance ", distance, " lateral ", lateral_position)
+	print(self, " moved! New position is distance ", distance, " lateral ", lateral_position)

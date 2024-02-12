@@ -11,6 +11,9 @@ func _init(type_in : EffectType,
 	target = target_in
 	effective_range = effective_range_in
 
+func _to_string():
+	return EffectType.find_key(type) + " w/ range " + effective_range.to_string()
+
 enum EffectType {
 	DAMAGE = 0,
 	HEAL   = 1,

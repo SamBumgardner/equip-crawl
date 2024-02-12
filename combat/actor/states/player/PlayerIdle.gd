@@ -14,6 +14,11 @@ func physics_process(delta : float) -> StateChange:
 	if (Input.is_action_just_pressed("ui_down")):
 		owner.current_action = Action_PlayerMoveBackward.new()
 		state_change.next_state = CombatantStates.States.CHARGE
+	
+	if (Input.is_action_just_pressed("ui_select")):
+		owner.current_action = Action_PlayerAttack.new()
+		state_change.next_state = CombatantStates.States.CHARGE
+
 	return state_change 
 
 func enter():
