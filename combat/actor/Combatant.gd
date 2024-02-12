@@ -2,7 +2,7 @@ class_name Combatant extends Node
 
 signal combatant_defeated(combatant)
 signal health_changed(new_value, max_value)
-signal state_changed(new_state, duration)
+signal state_changed(new_state, duration, current_action)
 
 @export var max_health : float:
 	set(value):

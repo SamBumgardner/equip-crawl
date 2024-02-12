@@ -3,7 +3,7 @@ class_name Action_PlayerMoveForward extends Action
 static var on_act_actions:Array[CombatActionEffect]
 
 func _init():
-	name = "Sidestep Forward"
+	name = "Step Forward"
 	charge_time = 0
 	recovery_time = .5
 	
