@@ -1,5 +1,7 @@
 class_name Player extends Combatant
 
+signal player_move(distance : Position.Ranges, lateral_position : Position.Direction)
+
 @export var distance : Position.Ranges = Position.Ranges.MEDIUM
 @export var lateral_position : Position.Direction = Position.Direction.EAST
 
@@ -45,5 +47,6 @@ func _apply_move_effect(received_effect : MoveEffect):
 	distance = max(min(unbound_distance, Position.Ranges.LONG), Position.Ranges.SHORT)
 	var unlooped_lateral = lateral_position + received_effect.lateral_direction * received_effect.amount
 	lateral_position = ((unlooped_lateral + 4) % 4) as Position.Direction
-
+	
 	print(self, " moved! New position is distance ", distance, " lateral ", lateral_position)
+	player_move.emit(distance, lateral_position)

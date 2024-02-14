@@ -1,5 +1,7 @@
 class_name Enemy extends Combatant
 
+signal enemy_turn(direction : Position.Direction)
+
 var facing : Position.Direction = Position.Direction.SOUTH
 
 func _init():
