@@ -8,7 +8,7 @@ signal player_move(distance : Position.Ranges, lateral_position : Position.Direc
 func _init():
 	possible_states = [
 		PlayerIdle.new(self),
-		State_Charge.new(self),
+		Player_AltCharge.new(self),
 		State_Act.new(self),
 		State_Recover.new(self),
 	]

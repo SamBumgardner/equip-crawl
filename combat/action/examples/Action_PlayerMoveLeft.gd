@@ -5,7 +5,7 @@ static var on_act_actions:Array[CombatActionEffect]
 func _init():
 	name = "Sidestep Left"
 	charge_time = 0
-	recovery_time = .5
+	recovery_time = .25
 	
 	if (on_act_actions.is_empty()):
 		var range1 = EffectiveRange.new(Position.Ranges.SHORT, Position.Ranges.LONG, 
