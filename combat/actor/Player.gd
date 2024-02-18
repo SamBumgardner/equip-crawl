@@ -21,7 +21,7 @@ func _is_received_effect_in_range(effect_to_check : CombatActionEffect) -> bool:
 
 	var effect_range = effect_to_check.effective_range;
 	
-	if (effect_to_check.target == CombatActionEffect.Target.OTHER):
+	if (effect_to_check.target == CombatActionEffect.Target.OTHER && effect_range != null):
 		# effect came from enemy
 		var enemy = target_other as Enemy
 		var within_distance = distance <= effect_range.max_range and distance >= effect_range.min_range

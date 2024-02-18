@@ -14,7 +14,7 @@ func _init(target_in : CombatActionEffect.Target,
 	self.lateral_direction = lateral_direction_in
 	self.range_direction = range_direction_in
 	self.type = CombatActionEffect.EffectType.MOVE
-	self.target = target
+	self.target = target_in
 	self.effective_range = range_in
 
 enum LateralDirection {
@@ -25,7 +25,7 @@ enum LateralDirection {
 }
 
 enum RangeDirection {
-	PLAYER_FORWARD  = -1,
-	PLAYER_BACKWARD =  1,
+	PLAYER_IN  = -1,
+	PLAYER_OUT =  1,
 	NONE = 0
 }

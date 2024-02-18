@@ -11,7 +11,7 @@ func _init():
 		var range1 = EffectiveRange.new(Position.Ranges.SHORT, Position.Ranges.LONG, 
 			EffectiveRange.RangeDirections.ALL)
 		var move_effect = MoveEffect.new(CombatActionEffect.Target.SELF, range1, 1, 
-			MoveEffect.LateralDirection.NONE, MoveEffect.RangeDirection.PLAYER_FORWARD)
+			MoveEffect.LateralDirection.NONE, MoveEffect.RangeDirection.PLAYER_IN)
 
 		on_act_actions = [move_effect] 
 

@@ -50,3 +50,6 @@ func get_turn_direction_toward_player() -> MoveEffect.LateralDirection:
 		3: turn_direction_to_player = MoveEffect.LateralDirection.CCW
 	
 	return turn_direction_to_player
+
+func get_distance_to_player() -> Position.Ranges:
+	return (target_other as Player).distance
