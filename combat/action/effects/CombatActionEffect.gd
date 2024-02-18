@@ -12,7 +12,10 @@ func _init(type_in : EffectType,
 	effective_range = effective_range_in
 
 func _to_string():
-	return EffectType.find_key(type) + " w/ range " + effective_range.to_string()
+	var string_representation = EffectType.find_key(type)
+	if effective_range != null:
+		string_representation += " w/ range " + effective_range.to_string()
+	return string_representation
 
 enum EffectType {
 	DAMAGE = 0,

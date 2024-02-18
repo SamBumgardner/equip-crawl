@@ -4,6 +4,11 @@ var name : String = "unset action name"
 var charge_time : float = 0
 var recovery_time : float = 0
 
+# This may be better refactored to just be included on actions that need it,
+#  but it's more convenient to expose it here for now.
+var player : Player
+var enemy : Enemy
+
 func _to_string():
 	return name
 

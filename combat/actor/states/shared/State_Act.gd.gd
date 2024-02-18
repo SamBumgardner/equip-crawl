@@ -7,4 +7,4 @@ func physics_process(delta : float) -> StateChange:
 
 func enter():
 	print(owner, " is now taking action ", owner.current_action)
-	owner.send_current_act_effects()
+	owner.send_combat_effects(CombatantStates.States.ACT)

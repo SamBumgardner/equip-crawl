@@ -18,9 +18,10 @@ func _init(target_in : CombatActionEffect.Target,
 	self.effective_range = range_in
 
 enum LateralDirection {
-	PLAYER_LEFT  =  1,
-	PLAYER_RIGHT = -1,
-	NONE = 0
+	CW  =  1,
+	CCW = -1,
+	NONE = 0,
+	OPPOSITE = 2
 }
 
 enum RangeDirection {

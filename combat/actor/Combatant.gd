@@ -33,8 +33,17 @@ func _ready():
 func _physics_process(delta):
 	state_machine.physics_process(delta)
 
-func send_current_act_effects():
-	var combat_effects = current_action.on_act()
+func send_combat_effects(current_state : CombatantStates.States):
+	var combat_effects : Array[CombatActionEffect]
+	
+	match current_state:
+		CombatantStates.States.CHARGE:
+			combat_effects = current_action.on_charge_start()
+		CombatantStates.States.ACT:
+			combat_effects = current_action.on_act()
+		_:
+			combat_effects = []
+	
 	#TODO: run effects through ongoing statuses, then send em to their target
 	var target_self_effects : Array[CombatActionEffect] = []
 	var target_other_effects : Array[CombatActionEffect] = []
@@ -46,11 +55,11 @@ func send_current_act_effects():
 			target_other_effects.append(effect)
 	
 	if (target_self_effects.size() > 0):
-		self.receive_act_effects(target_self_effects)
+		self.receive_combat_effects(target_self_effects)
 	if (target_other_effects.size() > 0):
-		target_other.receive_act_effects(target_other_effects)
+		target_other.receive_combat_effects(target_other_effects)
 
-func receive_act_effects(received_effects: Array[CombatActionEffect]):
+func receive_combat_effects(received_effects: Array[CombatActionEffect]):
 	print(self, " received action effects: ", received_effects)
 	received_effects.filter(_is_received_effect_in_range) \
 	#TODO: run effects through ongoing statuses, then accept the results
