@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://rryeqwioikth"]
+[gd_scene load_steps=17 format=3 uid="uid://rryeqwioikth"]
 
 [ext_resource type="Script" path="res://combat/actor/Player.gd" id="1_pm2ne"]
 [ext_resource type="Script" path="res://combat/actor/Enemy.gd" id="2_17ny2"]
@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://c84dm2wmi7hvj" path="res://combat/hud/CastBar.tscn" id="5_gqmjx"]
 [ext_resource type="PackedScene" uid="uid://bp38hjotenmy4" path="res://combat/hud/radar.tscn" id="6_y3lgh"]
 [ext_resource type="Script" path="res://combat/hud/BigEnemySprite.gd" id="8_nngec"]
+[ext_resource type="Script" path="res://combat/util/AnimationManager.gd" id="8_nwi0n"]
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_dmas6"]
 load_path = "res://.godot/imported/skeleton_spear.png-ffdc3a3fa9e04d0fdc16576652e8227c.ctex"
@@ -155,3 +156,6 @@ animation = &"front"
 script = ExtResource("8_nngec")
 player = NodePath("../Player")
 enemy = NodePath("../Enemy")
+
+[node name="AnimationManager" type="Node" parent="."]
+script = ExtResource("8_nwi0n")
