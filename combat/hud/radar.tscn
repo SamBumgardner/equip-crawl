@@ -1,0 +1,54 @@
+[gd_scene load_steps=5 format=3 uid="uid://bp38hjotenmy4"]
+
+[ext_resource type="Texture2D" uid="uid://07dvdalok5wj" path="res://art/combat/radar.png" id="1_jbnld"]
+[ext_resource type="Script" path="res://combat/hud/radar.gd" id="2_siuei"]
+[ext_resource type="Texture2D" uid="uid://cytwme61gfeus" path="res://art/combat/enemy.png" id="3_dcxb1"]
+[ext_resource type="Texture2D" uid="uid://dg4x105xtrefo" path="res://art/combat/player.png" id="4_vvojq"]
+
+[node name="Radar" type="Sprite2D"]
+texture = ExtResource("1_jbnld")
+script = ExtResource("2_siuei")
+
+[node name="Node" type="Node2D" parent="."]
+
+[node name="East_Short" type="Node2D" parent="Node"]
+position = Vector2(37, 0)
+
+[node name="East_Medium" type="Node2D" parent="Node"]
+position = Vector2(72, 0)
+
+[node name="East_Long" type="Node2D" parent="Node"]
+position = Vector2(108, 0)
+
+[node name="North_Short" type="Node2D" parent="Node"]
+position = Vector2(0, -37)
+
+[node name="North_Medium" type="Node2D" parent="Node"]
+position = Vector2(0, -70)
+
+[node name="North_Long" type="Node2D" parent="Node"]
+position = Vector2(0, -106)
+
+[node name="South_Short" type="Node2D" parent="Node"]
+position = Vector2(0, 37)
+
+[node name="South_Medium" type="Node2D" parent="Node"]
+position = Vector2(0, 70)
+
+[node name="South_Long" type="Node2D" parent="Node"]
+position = Vector2(0, 107)
+
+[node name="West_Short" type="Node2D" parent="Node"]
+position = Vector2(-37, 0)
+
+[node name="West_Medium" type="Node2D" parent="Node"]
+position = Vector2(-72, 0)
+
+[node name="West_Long" type="Node2D" parent="Node"]
+position = Vector2(-108, 0)
+
+[node name="Enemy" type="Sprite2D" parent="."]
+texture = ExtResource("3_dcxb1")
+
+[node name="Player" type="Sprite2D" parent="."]
+texture = ExtResource("4_vvojq")

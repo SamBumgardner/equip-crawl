@@ -1,0 +1,157 @@
+[gd_scene load_steps=16 format=3 uid="uid://rryeqwioikth"]
+
+[ext_resource type="Script" path="res://combat/actor/Player.gd" id="1_pm2ne"]
+[ext_resource type="Script" path="res://combat/actor/Enemy.gd" id="2_17ny2"]
+[ext_resource type="Script" path="res://combat/CombatManager.gd" id="3_5rwkb"]
+[ext_resource type="Script" path="res://combat/hud/HealthBar.gd" id="4_et7d6"]
+[ext_resource type="PackedScene" uid="uid://c84dm2wmi7hvj" path="res://combat/hud/CastBar.tscn" id="5_gqmjx"]
+[ext_resource type="PackedScene" uid="uid://bp38hjotenmy4" path="res://combat/hud/radar.tscn" id="6_y3lgh"]
+[ext_resource type="Script" path="res://combat/hud/BigEnemySprite.gd" id="8_nngec"]
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_dmas6"]
+load_path = "res://.godot/imported/skeleton_spear.png-ffdc3a3fa9e04d0fdc16576652e8227c.ctex"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_evc8h"]
+atlas = SubResource("CompressedTexture2D_dmas6")
+region = Rect2(256, 0, 256, 256)
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_an75c"]
+load_path = "res://.godot/imported/skeleton_spear.png-ffdc3a3fa9e04d0fdc16576652e8227c.ctex"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lpthw"]
+atlas = SubResource("CompressedTexture2D_an75c")
+region = Rect2(0, 0, 256, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_r475d"]
+atlas = SubResource("CompressedTexture2D_an75c")
+region = Rect2(0, 0, 256, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yatbm"]
+atlas = SubResource("CompressedTexture2D_an75c")
+region = Rect2(256, 256, 256, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_uqp0l"]
+atlas = SubResource("CompressedTexture2D_an75c")
+region = Rect2(0, 256, 256, 256)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_fgj0i"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_evc8h")
+}],
+"loop": true,
+"name": &"back",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lpthw")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_r475d")
+}],
+"loop": true,
+"name": &"front",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yatbm")
+}],
+"loop": true,
+"name": &"left",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_uqp0l")
+}],
+"loop": true,
+"name": &"right",
+"speed": 5.0
+}]
+
+[node name="Node2D" type="Control"]
+custom_minimum_size = Vector2(1152, 648)
+layout_mode = 3
+anchors_preset = 0
+
+[node name="Player" type="Node" parent="." node_paths=PackedStringArray("target_other")]
+script = ExtResource("1_pm2ne")
+max_health = 10.0
+health = 10.0
+target_other = NodePath("../Enemy")
+
+[node name="Enemy" type="Node" parent="." node_paths=PackedStringArray("target_other")]
+script = ExtResource("2_17ny2")
+max_health = 10.0
+health = 10.0
+target_other = NodePath("../Player")
+
+[node name="CombatManager" type="Node" parent="." node_paths=PackedStringArray("player", "enemy")]
+script = ExtResource("3_5rwkb")
+player = NodePath("../Player")
+enemy = NodePath("../Enemy")
+
+[node name="EndCombatSequenceTimer" type="Timer" parent="CombatManager"]
+one_shot = true
+
+[node name="Health_Enemy" type="ProgressBar" parent="." node_paths=PackedStringArray("combatant")]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 4.0
+grow_horizontal = 2
+show_percentage = false
+script = ExtResource("4_et7d6")
+combatant = NodePath("../Enemy")
+
+[node name="Health_Player" type="ProgressBar" parent="." node_paths=PackedStringArray("combatant")]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -27.0
+grow_horizontal = 2
+grow_vertical = 0
+show_percentage = false
+script = ExtResource("4_et7d6")
+combatant = NodePath("../Player")
+
+[node name="CastBar_Enemy" parent="." node_paths=PackedStringArray("combatant") instance=ExtResource("5_gqmjx")]
+layout_mode = 1
+anchor_top = 0.15
+anchor_bottom = 0.15
+offset_top = 0.0
+offset_bottom = 0.0
+combatant = NodePath("../Enemy")
+
+[node name="CastBar_Player" parent="." node_paths=PackedStringArray("combatant") instance=ExtResource("5_gqmjx")]
+layout_mode = 1
+anchor_top = 0.85
+anchor_bottom = 0.85
+offset_top = 0.0
+offset_bottom = 0.0
+combatant = NodePath("../Player")
+
+[node name="Radar" parent="." node_paths=PackedStringArray("player", "enemy") instance=ExtResource("6_y3lgh")]
+position = Vector2(996, 200)
+player = NodePath("../Player")
+enemy = NodePath("../Enemy")
+
+[node name="BigEnemySprite" type="AnimatedSprite2D" parent="." node_paths=PackedStringArray("player", "enemy")]
+position = Vector2(575, 330)
+sprite_frames = SubResource("SpriteFrames_fgj0i")
+animation = &"front"
+script = ExtResource("8_nngec")
+player = NodePath("../Player")
+enemy = NodePath("../Enemy")
