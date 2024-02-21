@@ -49,8 +49,9 @@ func _lunge_offset(lunge_distance : float):
 
 func _player_lateral_move(direction : MoveEffect.LateralDirection):
 	var new_tween : Tween = player_sprite.reset_tweening()
-	new_tween.tween_method(_player_lateral_offset.bind(direction), 0, 100, 0)
-	new_tween.tween_method(_player_lateral_offset.bind(direction), 100, 0, .4)
+	new_tween.tween_method(_player_lateral_offset.bind(direction), 0, 300, 0)
+	new_tween.set_trans(Tween.TRANS_QUAD)
+	new_tween.tween_method(_player_lateral_offset.bind(direction), 300, 0, .4)
 
 func _player_lateral_offset(move_distance : float, direction : MoveEffect.LateralDirection):
 	var offset_coefficient : Vector2 = Vector2.ZERO
