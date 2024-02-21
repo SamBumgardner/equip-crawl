@@ -9,7 +9,9 @@ var possible_effects : Dictionary = {
 	"enemy_move": _enemy_move,
 	"enemy_lunge": _enemy_lunge,
 	"player_move_cw": _player_lateral_move.bind(MoveEffect.LateralDirection.CW),
-	"player_move_ccw": _player_lateral_move.bind(MoveEffect.LateralDirection.CCW)
+	"player_move_ccw": _player_lateral_move.bind(MoveEffect.LateralDirection.CCW),
+	"player_move_in": _player_vertical_move.bind(MoveEffect.RangeDirection.PLAYER_IN),
+	"player_move_out": _player_vertical_move.bind(MoveEffect.RangeDirection.PLAYER_OUT)
 }
 
 func _ready():
@@ -49,18 +51,32 @@ func _lunge_offset(lunge_distance : float):
 
 func _player_lateral_move(direction : MoveEffect.LateralDirection):
 	var new_tween : Tween = player_sprite.reset_tweening()
-	new_tween.tween_method(_player_lateral_offset.bind(direction), 0, 300, 0)
+	new_tween.tween_method(_player_offset.bind(direction, 0), 0, 600, 0)
 	new_tween.set_trans(Tween.TRANS_QUAD)
-	new_tween.tween_method(_player_lateral_offset.bind(direction), 300, 0, .4)
+	new_tween.tween_method(_player_offset.bind(direction, 0), 600, 0, .2)
 
-func _player_lateral_offset(move_distance : float, direction : MoveEffect.LateralDirection):
+func _player_vertical_move(direction : MoveEffect.RangeDirection):
+	var new_tween : Tween = player_sprite.reset_tweening()
+	new_tween.tween_method(_player_offset.bind(0, direction), 0, 30, 0)
+	new_tween.set_trans(Tween.TRANS_QUAD)
+	new_tween.tween_method(_player_offset.bind(0, direction), 30, 0, .2)
+
+func _player_offset(move_distance : float, 
+		lateral_direction : MoveEffect.LateralDirection = MoveEffect.LateralDirection.NONE, 
+		range_direction : MoveEffect.RangeDirection = MoveEffect.RangeDirection.NONE):
 	var offset_coefficient : Vector2 = Vector2.ZERO
 	
-	match direction:
+	match lateral_direction:
 		MoveEffect.LateralDirection.CW:
-			offset_coefficient = Vector2(1, 0)
+			offset_coefficient.x += 1
 		MoveEffect.LateralDirection.CCW:
-			offset_coefficient = Vector2(-1, 0)
+			offset_coefficient.x -= 1
 	
-	player_sprite.position = player_sprite.start_position + Vector2(move_distance, 0) * offset_coefficient
+	match range_direction:
+		MoveEffect.RangeDirection.PLAYER_IN:
+			offset_coefficient.y += 1
+		MoveEffect.RangeDirection.PLAYER_OUT:
+			offset_coefficient.y -= 1
+	
+	player_sprite.position = player_sprite.start_position + Vector2(move_distance, move_distance) * offset_coefficient
 		

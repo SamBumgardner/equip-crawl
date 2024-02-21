@@ -12,8 +12,9 @@ func _init():
 			EffectiveRange.RangeDirections.ALL)
 		var move_effect = MoveEffect.new(CombatActionEffect.Target.SELF, range1, 1, 
 			MoveEffect.LateralDirection.NONE, MoveEffect.RangeDirection.PLAYER_OUT)
+		var visual_effect = VisualEffect.new("player_move_out")
 
-		on_act_actions = [move_effect] 
+		on_act_actions = [move_effect, visual_effect] 
 
 func on_act() -> Array[CombatActionEffect]:
 	return on_act_actions
