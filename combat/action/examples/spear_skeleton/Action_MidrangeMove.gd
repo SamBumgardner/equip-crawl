@@ -12,7 +12,8 @@ func _init(owning_enemy : Enemy):
 	if (on_act_actions.is_empty()):
 		var move_effect = MoveEffect.new(CombatActionEffect.Target.OTHER, null,
 			1, MoveEffect.LateralDirection.NONE, MoveEffect.RangeDirection.NONE)
-		on_act_actions = [move_effect] 
+		var visual_effect = VisualEffect.new("enemy_move")
+		on_act_actions = [move_effect, visual_effect] 
 
 func _update_move_effect_to_stay_medium():
 	var move_direction = Position.Ranges.MEDIUM - enemy.get_distance_to_player()

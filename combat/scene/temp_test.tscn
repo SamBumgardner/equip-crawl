@@ -157,5 +157,7 @@ script = ExtResource("8_nngec")
 player = NodePath("../Player")
 enemy = NodePath("../Enemy")
 
-[node name="AnimationManager" type="Node" parent="."]
+[node name="AnimationManager" type="Node" parent="." node_paths=PackedStringArray("enemy", "enemySprite")]
 script = ExtResource("8_nwi0n")
+enemy = NodePath("../Enemy")
+enemySprite = NodePath("../BigEnemySprite")

@@ -3,6 +3,7 @@ class_name Combatant extends Node
 signal combatant_defeated(combatant)
 signal health_changed(new_value, max_value)
 signal state_changed(new_state, duration, current_action)
+signal visual_effect_triggered(effect_name : String, origin : CombatActionEffect)
 
 @export var max_health : float:
 	set(value):
@@ -84,6 +85,8 @@ func _apply_received_effect(received_effect : CombatActionEffect):
 			pass
 		CombatActionEffect.EffectType.MOVE:
 			_apply_move_effect(received_effect)
+		CombatActionEffect.EffectType.VISUAL:
+			visual_effect_triggered.emit(received_effect.visual_effect_to_play, received_effect)
 
 # Abstract. Child classes should override this for functionality.
 func _apply_move_effect(received_effect : MoveEffect):
