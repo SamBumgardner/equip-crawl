@@ -3,6 +3,7 @@ class_name Action extends RefCounted
 var name : String = "unset action name"
 var charge_time : float = 0
 var recovery_time : float = 0
+var display_cast_bar : bool = true
 
 # This may be better refactored to just be included on actions that need it,
 #  but it's more convenient to expose it here for now.

@@ -8,6 +8,7 @@ func _init(owning_enemy : Enemy):
 	name = "Reposition"
 	charge_time = .5
 	recovery_time = 0
+	display_cast_bar = false
 	
 	if (on_act_actions.is_empty()):
 		var move_effect = MoveEffect.new(CombatActionEffect.Target.OTHER, null,
