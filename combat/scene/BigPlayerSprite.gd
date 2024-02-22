@@ -7,6 +7,7 @@ var current_tween : Tween
 func reset_tweening():
 	# reset position
 	position = start_position
+	modulate = Color.WHITE
 	
 	if current_tween != null:
 		current_tween.kill()

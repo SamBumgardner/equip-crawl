@@ -35,9 +35,10 @@ func _play_facing_animation(player_lateral_position, enemy_facing):
 		3: side_of_enemy_player_sees = "right"
 	play(side_of_enemy_player_sees)
 
-func reset_tweening():
+func reset_tweening(): # TODO: tag system for visual effects to determine what should be reset and what should be retained.
 	# reset position
 	position = start_position
+	modulate = Color.WHITE
 	
 	if current_tween != null:
 		current_tween.kill()

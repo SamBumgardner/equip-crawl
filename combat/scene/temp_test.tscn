@@ -98,6 +98,8 @@ anchors_preset = 0
 
 [node name="Player" type="Node" parent="." node_paths=PackedStringArray("target_other")]
 script = ExtResource("1_pm2ne")
+distance = null
+lateral_position = null
 max_health = 10.0
 health = 10.0
 target_other = NodePath("../Enemy")
