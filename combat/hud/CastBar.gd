@@ -13,5 +13,6 @@ func _ready():
 
 func _on_combatant_state_change(new_state : CombatantStates.States, duration : float,
 		current_action : Action):
+	visible = current_action.display_cast_bar
 	action_name_label.text = current_action.name
 	# add logic here to selectively fade out stuff

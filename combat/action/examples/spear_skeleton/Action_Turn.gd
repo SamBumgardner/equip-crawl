@@ -10,6 +10,7 @@ func _init(owning_enemy : Enemy):
 	name = "Refocus"
 	charge_time = .5
 	recovery_time = 0
+	display_cast_bar = false
 	
 	if (on_act_actions.is_empty()):
 		var turn_effect = MoveEffect.new(CombatActionEffect.Target.SELF, null,

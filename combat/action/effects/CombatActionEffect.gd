@@ -21,7 +21,8 @@ enum EffectType {
 	DAMAGE = 0,
 	HEAL   = 1,
 	STATUS = 2,
-	MOVE   = 3
+	MOVE   = 3,
+	VISUAL = 4,
 }
 
 enum Target {

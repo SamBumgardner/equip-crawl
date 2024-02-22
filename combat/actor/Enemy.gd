@@ -11,7 +11,8 @@ func _init():
 		State_Act.new(self),
 		State_Recover.new(self),
 	]
-
+	hurt_visual_effect = VisualEffect.new("enemy_hurt")
+	block_visual_effect = VisualEffect.new("enemy_block")
 	current_action = Action_SpearThrust.new(self)
 
 func _to_string():

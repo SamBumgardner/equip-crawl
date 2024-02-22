@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://rryeqwioikth"]
+[gd_scene load_steps=20 format=3 uid="uid://rryeqwioikth"]
 
 [ext_resource type="Script" path="res://combat/actor/Player.gd" id="1_pm2ne"]
 [ext_resource type="Script" path="res://combat/actor/Enemy.gd" id="2_17ny2"]
@@ -6,7 +6,10 @@
 [ext_resource type="Script" path="res://combat/hud/HealthBar.gd" id="4_et7d6"]
 [ext_resource type="PackedScene" uid="uid://c84dm2wmi7hvj" path="res://combat/hud/CastBar.tscn" id="5_gqmjx"]
 [ext_resource type="PackedScene" uid="uid://bp38hjotenmy4" path="res://combat/hud/radar.tscn" id="6_y3lgh"]
+[ext_resource type="Texture2D" uid="uid://c2tvvpousoq80" path="res://art/combat/player_silhouette.png" id="8_cn1j3"]
 [ext_resource type="Script" path="res://combat/hud/BigEnemySprite.gd" id="8_nngec"]
+[ext_resource type="Script" path="res://combat/util/AnimationManager.gd" id="8_nwi0n"]
+[ext_resource type="Script" path="res://combat/scene/BigPlayerSprite.gd" id="9_5kj47"]
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_dmas6"]
 load_path = "res://.godot/imported/skeleton_spear.png-ffdc3a3fa9e04d0fdc16576652e8227c.ctex"
@@ -77,6 +80,17 @@ animations = [{
 "speed": 5.0
 }]
 
+[sub_resource type="SpriteFrames" id="SpriteFrames_gk418"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("8_cn1j3")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
 [node name="Node2D" type="Control"]
 custom_minimum_size = Vector2(1152, 648)
 layout_mode = 3
@@ -84,14 +98,16 @@ anchors_preset = 0
 
 [node name="Player" type="Node" parent="." node_paths=PackedStringArray("target_other")]
 script = ExtResource("1_pm2ne")
+distance = null
+lateral_position = null
 max_health = 10.0
 health = 10.0
 target_other = NodePath("../Enemy")
 
 [node name="Enemy" type="Node" parent="." node_paths=PackedStringArray("target_other")]
 script = ExtResource("2_17ny2")
-max_health = 10.0
-health = 10.0
+max_health = 30.0
+health = 30.0
 target_other = NodePath("../Player")
 
 [node name="CombatManager" type="Node" parent="." node_paths=PackedStringArray("player", "enemy")]
@@ -149,9 +165,23 @@ player = NodePath("../Player")
 enemy = NodePath("../Enemy")
 
 [node name="BigEnemySprite" type="AnimatedSprite2D" parent="." node_paths=PackedStringArray("player", "enemy")]
-position = Vector2(575, 330)
+z_index = -2
+position = Vector2(575, 300)
 sprite_frames = SubResource("SpriteFrames_fgj0i")
 animation = &"front"
 script = ExtResource("8_nngec")
 player = NodePath("../Player")
 enemy = NodePath("../Enemy")
+
+[node name="BigPlayerSprite" type="AnimatedSprite2D" parent="."]
+z_index = -1
+position = Vector2(579, 495)
+sprite_frames = SubResource("SpriteFrames_gk418")
+script = ExtResource("9_5kj47")
+
+[node name="AnimationManager" type="Node" parent="." node_paths=PackedStringArray("enemy", "player", "enemySprite", "player_sprite")]
+script = ExtResource("8_nwi0n")
+enemy = NodePath("../Enemy")
+player = NodePath("../Player")
+enemySprite = NodePath("../BigEnemySprite")
+player_sprite = NodePath("../BigPlayerSprite")

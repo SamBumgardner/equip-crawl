@@ -12,6 +12,8 @@ func _init():
 		State_Act.new(self),
 		State_Recover.new(self),
 	]
+	hurt_visual_effect = VisualEffect.new("player_hurt")
+	block_visual_effect = VisualEffect.new("player_block")
 
 func _to_string():
 	return "Player"

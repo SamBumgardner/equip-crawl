@@ -11,8 +11,9 @@ func _init():
 		var range1 = EffectiveRange.new(Position.Ranges.SHORT, Position.Ranges.SHORT, 
 			EffectiveRange.RangeDirections.ALL)
 		var damage_effect = DamageEffect.new(CombatActionEffect.Target.OTHER, range1, 1)
+		var visual_effect = VisualEffect.new("player_bounce_forward")
 
-		on_act_actions = [damage_effect] 
+		on_act_actions = [damage_effect, visual_effect] 
 
 func on_act() -> Array[CombatActionEffect]:
 	return on_act_actions

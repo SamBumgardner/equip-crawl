@@ -1,10 +1,14 @@
-extends AnimatedSprite2D
+class_name BigEnemySprite extends AnimatedSprite2D
 
 @export var player : Player
 @export var enemy : Enemy
 
+@onready var start_position : Vector2 = position
+
 # angle we should rotate the icon for different directions
 var enemy_sizes : Array[Vector2] = [Vector2(1.5, 1.5), Vector2(1, 1), Vector2(.75, .75)]
+
+var current_tween : Tween
 
 func _ready():
 	if player != null:
@@ -30,3 +34,14 @@ func _play_facing_animation(player_lateral_position, enemy_facing):
 		2: side_of_enemy_player_sees = "back"
 		3: side_of_enemy_player_sees = "right"
 	play(side_of_enemy_player_sees)
+
+func reset_tweening(): # TODO: tag system for visual effects to determine what should be reset and what should be retained.
+	# reset position
+	position = start_position
+	modulate = Color.WHITE
+	
+	if current_tween != null:
+		current_tween.kill()
+	
+	current_tween = create_tween()
+	return current_tween
