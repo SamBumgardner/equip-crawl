@@ -14,7 +14,7 @@ func _init(owning_enemy : Enemy):
 	if (on_act_actions.is_empty()):
 		var range1 = EffectiveRange.new(Position.Ranges.SHORT, Position.Ranges.MEDIUM, 
 			EffectiveRange.RangeDirections.FRONT)
-		var damage_effect = DamageEffect.new(CombatActionEffect.Target.OTHER, range1, 0)
+		var damage_effect = DamageEffect.new(CombatActionEffect.Target.OTHER, range1, 2)
 		var visual_effect = VisualEffect.new("enemy_lunge")
 
 		on_act_actions = [damage_effect, visual_effect] 

@@ -106,8 +106,8 @@ target_other = NodePath("../Enemy")
 
 [node name="Enemy" type="Node" parent="." node_paths=PackedStringArray("target_other")]
 script = ExtResource("2_17ny2")
-max_health = 10.0
-health = 10.0
+max_health = 30.0
+health = 30.0
 target_other = NodePath("../Player")
 
 [node name="CombatManager" type="Node" parent="." node_paths=PackedStringArray("player", "enemy")]

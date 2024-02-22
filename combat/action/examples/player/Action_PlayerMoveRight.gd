@@ -6,6 +6,7 @@ func _init():
 	name = "Sidestep Right"
 	charge_time = 0
 	recovery_time = .25
+	display_cast_bar = false
 	
 	if (on_act_actions.is_empty()):
 		var range1 = EffectiveRange.new(Position.Ranges.SHORT, Position.Ranges.LONG, 

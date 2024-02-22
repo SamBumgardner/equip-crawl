@@ -14,6 +14,9 @@ class_name AnimationManager extends Node
 	"player_move_ccw": _player_lateral_move.bind(MoveEffect.LateralDirection.CCW),
 	"player_move_in": _player_vertical_move.bind(MoveEffect.RangeDirection.PLAYER_IN),
 	"player_move_out": _player_vertical_move.bind(MoveEffect.RangeDirection.PLAYER_OUT),
+	"player_bounce_forward": _player_bounce_forward,
+	"player_charge": _player_charge,
+	"player_slash": _player_slash,
 	"player_hurt": _combatant_modulate.bind(player_sprite, Color.DARK_RED),
 	"player_block": _combatant_modulate.bind(player_sprite, Color.DIM_GRAY)
 }
@@ -30,15 +33,17 @@ func _on_play_effect(name : String, _triggered_by : Object):
 
 func _enemy_move():
 	var new_tween : Tween = enemySprite.reset_tweening()
-	new_tween.tween_method(_movement_wiggle, 0, PI * 2, .25)
+	new_tween.tween_method(_movement_wiggle, 0, 10, .1)
+	new_tween.tween_method(_movement_wiggle, 10, -10, .1)
+	new_tween.tween_method(_movement_wiggle, -10, 0, .1)
 
 func _enemy_lunge():
 	var new_tween : Tween = enemySprite.reset_tweening()
 	new_tween.tween_method(_lunge_offset, 0, 30, .05)
 	new_tween.tween_method(_lunge_offset, 30, 0, .2)
 
-func _movement_wiggle(time_passed : float):
-	enemySprite.position.y = enemySprite.start_position.y - sin(time_passed) * 10
+func _movement_wiggle(distance : float):
+	enemySprite.position.y = enemySprite.start_position.y - distance
 
 func _lunge_offset(lunge_distance : float):
 	var lunge_offset : Vector2
@@ -82,7 +87,38 @@ func _player_offset(move_distance : float,
 		offset_coefficient.y += 1
 	
 	player_sprite.position = player_sprite.start_position + Vector2(move_distance, move_distance) * offset_coefficient
-		
+
+func _player_bounce_forward():
+	var new_tween : Tween = player_sprite.reset_tweening()
+	new_tween.tween_method(_player_offset.bind(0, MoveEffect.RangeDirection.PLAYER_OUT), 0, 30, .05)
+	new_tween.tween_method(_player_offset.bind(0, MoveEffect.RangeDirection.PLAYER_OUT), 30, -30, .05)
+	new_tween.tween_method(_player_offset.bind(0, MoveEffect.RangeDirection.PLAYER_OUT), -30, 0, .2)
+
+func _player_charge():
+	var charge_wiggle_frequency = .02
+	var charge_wiggle_distance = 20
+	var charge_wiggle_cycles = 4
+	
+	var new_tween : Tween = player_sprite.reset_tweening()
+	new_tween.tween_method(_player_offset.bind(0, MoveEffect.RangeDirection.PLAYER_OUT), 0, 30, .05)
+	new_tween.parallel().tween_property(player_sprite, "scale", Vector2(.85, 1), .05)
+	new_tween.tween_method(_player_offset.bind(1, 0), 0, charge_wiggle_distance, .05)
+	for i in range(charge_wiggle_cycles):
+		new_tween.tween_method(_player_offset.bind(1, 0), charge_wiggle_distance, -charge_wiggle_distance, charge_wiggle_frequency)
+		new_tween.tween_method(_player_offset.bind(-1, 0), charge_wiggle_distance, -charge_wiggle_distance, charge_wiggle_frequency)
+	new_tween.tween_method(_player_offset.bind(1,0), charge_wiggle_distance, 0, .1)
+
+func _player_slash():
+	var slash_distance = 50
+	var hang_time = .1
+	var slash_time = .05
+	var recover_time = .5
+	
+	var new_tween : Tween = player_sprite.reset_tweening()
+	new_tween.tween_method(_player_offset.bind(1, -1), 0, slash_distance, 0)
+	new_tween.tween_interval(hang_time)
+	new_tween.tween_method(_player_offset.bind(1, -1), slash_distance, -slash_distance, slash_time)
+	new_tween.tween_method(_player_offset.bind(1, -1), -slash_distance, 0, recover_time)
 
 func _combatant_modulate(combatant_sprite, start_color : Color):
 	var new_tween : Tween = combatant_sprite.reset_tweening()

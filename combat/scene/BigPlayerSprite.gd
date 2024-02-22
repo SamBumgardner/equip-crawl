@@ -8,6 +8,7 @@ func reset_tweening():
 	# reset position
 	position = start_position
 	modulate = Color.WHITE
+	scale = Vector2.ONE
 	
 	if current_tween != null:
 		current_tween.kill()
