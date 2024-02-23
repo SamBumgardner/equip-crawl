@@ -1,4 +1,4 @@
-[gd_scene load_steps=31 format=3 uid="uid://rryeqwioikth"]
+[gd_scene load_steps=30 format=3 uid="uid://rryeqwioikth"]
 
 [ext_resource type="Script" path="res://combat/actor/Player.gd" id="1_pm2ne"]
 [ext_resource type="Script" path="res://combat/actor/Enemy.gd" id="2_17ny2"]
@@ -11,7 +11,6 @@
 [ext_resource type="Script" path="res://combat/util/AnimationManager.gd" id="8_nwi0n"]
 [ext_resource type="Script" path="res://combat/scene/BigPlayerSprite.gd" id="9_5kj47"]
 [ext_resource type="Script" path="res://combat/util/WarningManager.gd" id="11_giy1w"]
-[ext_resource type="Texture2D" uid="uid://dhudwc1ogu156" path="res://art/combat/warning_sign.png" id="12_pvqhy"]
 [ext_resource type="Script" path="res://combat/hud/WarningSprite_Player.gd" id="13_g1sir"]
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_dmas6"]
@@ -101,13 +100,6 @@ colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 1)
 gradient = SubResource("Gradient_g8e8f")
 width = 128
 
-[sub_resource type="Gradient" id="Gradient_mr6cj"]
-colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 1)
-
-[sub_resource type="GradientTexture1D" id="GradientTexture1D_c3ry5"]
-gradient = SubResource("Gradient_mr6cj")
-width = 128
-
 [sub_resource type="Gradient" id="Gradient_j5rp6"]
 colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
 
@@ -121,6 +113,13 @@ colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 1)
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_j6uhj"]
 gradient = SubResource("Gradient_m4gbb")
 width = 128
+
+[sub_resource type="Gradient" id="Gradient_mr6cj"]
+colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_c3ry5"]
+gradient = SubResource("Gradient_mr6cj")
+width = 64
 
 [node name="Node2D" type="Control"]
 custom_minimum_size = Vector2(1152, 648)
@@ -222,36 +221,32 @@ enemy = NodePath("../Enemy")
 
 [node name="Warnings" type="Node" parent="."]
 
-[node name="WarningSprite" type="Sprite2D" parent="Warnings" node_paths=PackedStringArray("player", "warning_manager")]
-position = Vector2(416, 211)
-texture = ExtResource("12_pvqhy")
-script = ExtResource("13_g1sir")
-player = NodePath("../../Player")
-warning_manager = NodePath("../../WarningManager")
-
 [node name="WarningSprite_In" type="Sprite2D" parent="Warnings" node_paths=PackedStringArray("player", "warning_manager")]
-position = Vector2(574.781, 114)
+modulate = Color(1, 1, 1, 0.498039)
+position = Vector2(589, 483)
 rotation = 4.71239
-scale = Vector2(1, 1146.7)
+scale = Vector2(0.441929, 284.738)
 texture = SubResource("GradientTexture1D_fyfwo")
 script = ExtResource("13_g1sir")
 player = NodePath("../../Player")
 position_offset = Vector2i(0, -1)
 warning_manager = NodePath("../../WarningManager")
 
-[node name="WarningSprite_Out" type="Sprite2D" parent="Warnings" node_paths=PackedStringArray("player", "warning_manager")]
-position = Vector2(576, 533)
-rotation = 1.5708
-scale = Vector2(1, 1145.52)
-texture = SubResource("GradientTexture1D_c3ry5")
+[node name="WarningSprite_In2" type="Sprite2D" parent="Warnings" node_paths=PackedStringArray("player", "warning_manager")]
+modulate = Color(1, 1, 1, 0.498039)
+position = Vector2(578, 420)
+rotation = -1.5708
+scale = Vector2(0.441929, 178.382)
+texture = SubResource("GradientTexture1D_fyfwo")
 script = ExtResource("13_g1sir")
 player = NodePath("../../Player")
-position_offset = Vector2i(0, 1)
+position_offset = Vector2i(0, -2)
 warning_manager = NodePath("../../WarningManager")
 
 [node name="WarningSprite_Left" type="Sprite2D" parent="Warnings" node_paths=PackedStringArray("player", "warning_manager")]
-position = Vector2(66, 325)
-scale = Vector2(1, 549.5)
+modulate = Color(1, 1, 1, 0.498039)
+position = Vector2(260, 377)
+scale = Vector2(0.773438, 124)
 texture = SubResource("GradientTexture1D_asm7i")
 script = ExtResource("13_g1sir")
 player = NodePath("../../Player")
@@ -259,10 +254,70 @@ position_offset = Vector2i(1, 0)
 warning_manager = NodePath("../../WarningManager")
 
 [node name="WarningSprite_Right" type="Sprite2D" parent="Warnings" node_paths=PackedStringArray("player", "warning_manager")]
-position = Vector2(1085, 322.875)
-scale = Vector2(1, 543.75)
+modulate = Color(1, 1, 1, 0.498039)
+position = Vector2(965, 380)
+scale = Vector2(0.714843, 140.937)
 texture = SubResource("GradientTexture1D_j6uhj")
 script = ExtResource("13_g1sir")
 player = NodePath("../../Player")
 position_offset = Vector2i(-1, 0)
+warning_manager = NodePath("../../WarningManager")
+
+[node name="WarningSprite_Left2" type="Sprite2D" parent="Warnings" node_paths=PackedStringArray("player", "warning_manager")]
+modulate = Color(1, 1, 1, 0.498039)
+position = Vector2(397, 379)
+scale = Vector2(0.921875, 82.6875)
+texture = SubResource("GradientTexture1D_asm7i")
+script = ExtResource("13_g1sir")
+player = NodePath("../../Player")
+position_offset = Vector2i(1, -1)
+warning_manager = NodePath("../../WarningManager")
+
+[node name="WarningSprite_Right2" type="Sprite2D" parent="Warnings" node_paths=PackedStringArray("player", "warning_manager")]
+modulate = Color(1, 1, 1, 0.498039)
+position = Vector2(786, 377)
+scale = Vector2(0.644531, 89.875)
+texture = SubResource("GradientTexture1D_j6uhj")
+script = ExtResource("13_g1sir")
+player = NodePath("../../Player")
+position_offset = Vector2i(-1, -1)
+warning_manager = NodePath("../../WarningManager")
+
+[node name="WarningSprite_Surround" type="Sprite2D" parent="Warnings" node_paths=PackedStringArray("player", "warning_manager")]
+modulate = Color(1, 1, 1, 0.498039)
+position = Vector2(575, 565)
+rotation = 1.5708
+scale = Vector2(1, 1150)
+texture = SubResource("GradientTexture1D_c3ry5")
+script = ExtResource("13_g1sir")
+player = NodePath("../../Player")
+warning_manager = NodePath("../../WarningManager")
+
+[node name="WarningSprite_Surround2" type="Sprite2D" parent="Warnings" node_paths=PackedStringArray("player", "warning_manager")]
+modulate = Color(1, 1, 1, 0.498039)
+position = Vector2(575, 80)
+rotation = 4.71239
+scale = Vector2(1, 1150)
+texture = SubResource("GradientTexture1D_c3ry5")
+script = ExtResource("13_g1sir")
+player = NodePath("../../Player")
+warning_manager = NodePath("../../WarningManager")
+
+[node name="WarningSprite_Surround3" type="Sprite2D" parent="Warnings" node_paths=PackedStringArray("player", "warning_manager")]
+modulate = Color(1, 1, 1, 0.498039)
+position = Vector2(1120, 323)
+scale = Vector2(1, 550)
+texture = SubResource("GradientTexture1D_c3ry5")
+script = ExtResource("13_g1sir")
+player = NodePath("../../Player")
+warning_manager = NodePath("../../WarningManager")
+
+[node name="WarningSprite_Surround4" type="Sprite2D" parent="Warnings" node_paths=PackedStringArray("player", "warning_manager")]
+modulate = Color(1, 1, 1, 0.498039)
+position = Vector2(32, 323)
+rotation = 3.14159
+scale = Vector2(1, 550)
+texture = SubResource("GradientTexture1D_c3ry5")
+script = ExtResource("13_g1sir")
+player = NodePath("../../Player")
 warning_manager = NodePath("../../WarningManager")
