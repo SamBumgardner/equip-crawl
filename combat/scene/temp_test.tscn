@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://rryeqwioikth"]
+[gd_scene load_steps=23 format=3 uid="uid://rryeqwioikth"]
 
 [ext_resource type="Script" path="res://combat/actor/Player.gd" id="1_pm2ne"]
 [ext_resource type="Script" path="res://combat/actor/Enemy.gd" id="2_17ny2"]
@@ -10,6 +10,9 @@
 [ext_resource type="Script" path="res://combat/hud/BigEnemySprite.gd" id="8_nngec"]
 [ext_resource type="Script" path="res://combat/util/AnimationManager.gd" id="8_nwi0n"]
 [ext_resource type="Script" path="res://combat/scene/BigPlayerSprite.gd" id="9_5kj47"]
+[ext_resource type="Script" path="res://combat/util/WarningManager.gd" id="11_giy1w"]
+[ext_resource type="Texture2D" uid="uid://dhudwc1ogu156" path="res://art/combat/warning_sign.png" id="12_pvqhy"]
+[ext_resource type="Script" path="res://combat/hud/WarningSprite_Player.gd" id="13_g1sir"]
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_dmas6"]
 load_path = "res://.godot/imported/skeleton_spear.png-ffdc3a3fa9e04d0fdc16576652e8227c.ctex"
@@ -157,10 +160,11 @@ offset_top = 0.0
 offset_bottom = 0.0
 combatant = NodePath("../Player")
 
-[node name="Radar" parent="." node_paths=PackedStringArray("player", "enemy") instance=ExtResource("6_y3lgh")]
+[node name="Radar" parent="." node_paths=PackedStringArray("player", "enemy", "warning_manager") instance=ExtResource("6_y3lgh")]
 position = Vector2(996, 200)
 player = NodePath("../Player")
 enemy = NodePath("../Enemy")
+warning_manager = NodePath("../WarningManager")
 
 [node name="BigEnemySprite" type="AnimatedSprite2D" parent="." node_paths=PackedStringArray("player", "enemy")]
 z_index = -2
@@ -183,3 +187,14 @@ enemy = NodePath("../Enemy")
 player = NodePath("../Player")
 enemySprite = NodePath("../BigEnemySprite")
 player_sprite = NodePath("../BigPlayerSprite")
+
+[node name="WarningManager" type="Node" parent="." node_paths=PackedStringArray("enemy")]
+script = ExtResource("11_giy1w")
+enemy = NodePath("../Enemy")
+
+[node name="WarningSprite" type="Sprite2D" parent="." node_paths=PackedStringArray("player", "warning_manager")]
+position = Vector2(389, 198)
+texture = ExtResource("12_pvqhy")
+script = ExtResource("13_g1sir")
+player = NodePath("../Player")
+warning_manager = NodePath("../WarningManager")
