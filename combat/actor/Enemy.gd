@@ -1,6 +1,11 @@
 class_name Enemy extends Combatant
 
 signal enemy_turn(direction : Position.Direction)
+signal threat_warning_new(
+	threatened_positions : Array[Vector2], 
+	time_until_triggered : float, 
+	triggering_action : Action)
+signal threat_warning_cancel(canceled_action : Action)
 
 var facing : Position.Direction = Position.Direction.SOUTH
 
@@ -54,3 +59,17 @@ func get_turn_direction_toward_player() -> MoveEffect.LateralDirection:
 
 func get_distance_to_player() -> Position.Ranges:
 	return (target_other as Player).distance
+
+func broadcast_threat_warning(triggering_action : Action):
+	var threatened_ranges_by_action_state = current_action.get_all_threatened_ranges()
+	var threatened_positions_charge_start = []
+	var threatened_positions_act = []
+	var threatened_positions_recovery_end = []
+	
+	for effectiveRange in threatened_ranges_by_action_state[0]:
+		threatened_positions_charge_start.append_array(convert_effective_range_to_position(effectiveRange))
+	
+	threat_warning_new.emit(threatened_positions_charge_start, 0, )
+
+func convert_effective_range_to_position(effectiveRange : EffectiveRange) -> Array[Vector2]:
+	return []
