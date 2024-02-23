@@ -16,11 +16,15 @@ func _ready():
 		enemy.threat_warning_new.connect(_on_threat_warning_new)
 
 func get_warning_for_position(requested_position : Vector2i) -> WarningTracker:
-	var warnings_for_position = warning_positions[requested_position.x][requested_position.y - 1]
-	if warnings_for_position.is_empty():
+	if requested_position.x >= 4 || requested_position.x < 0 \
+			|| requested_position.y >= 4 || requested_position.y < 1:
 		return null
 	else:
-		return warnings_for_position[0]
+		var warnings_for_position = warning_positions[requested_position.x][requested_position.y - 1]
+		if !warnings_for_position.is_empty():
+			return warnings_for_position[0]
+		else:
+			return null
 
 func _process(delta):
 	for lateral_i in range(warning_positions.size()):
