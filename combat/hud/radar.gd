@@ -2,6 +2,7 @@ extends Sprite2D
 
 @export var player : Player
 @export var enemy : Enemy
+@export var warning_manager : WarningManager
 
 @onready var player_icon : Sprite2D = $Player
 @onready var enemy_icon : Sprite2D = $Enemy
@@ -26,6 +27,11 @@ func _init_player_positions():
 		[$Node/South_Short, $Node/South_Medium, $Node/South_Long],
 		[$Node/West_Short, $Node/West_Medium, $Node/West_Long]
 	]
+	# initialize position-specific WarningSprites
+	for x in range(player_positions.size()):
+		for y in range(player_positions[x].size()):
+			var warning_sprite = player_positions[x][y].get_children()[0] as WarningSprite
+			warning_sprite.initialize(warning_manager, Vector2i(x, y + 1))
 
 func _on_player_move(distance : Position.Ranges, lateral_position : Position.Direction):
 	player_icon.reparent(player_positions[lateral_position][distance - 1])

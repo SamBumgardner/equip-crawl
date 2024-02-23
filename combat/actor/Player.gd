@@ -3,7 +3,7 @@ class_name Player extends Combatant
 signal player_move(distance : Position.Ranges, lateral_position : Position.Direction)
 
 @export var distance : Position.Ranges = Position.Ranges.MEDIUM
-@export var lateral_position : Position.Direction = Position.Direction.EAST
+@export var lateral_position : Position.Direction = Position.Direction.SOUTH
 
 func _init():
 	possible_states = [

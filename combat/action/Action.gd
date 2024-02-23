@@ -19,12 +19,21 @@ func on_act() -> Array[CombatActionEffect]:
 func on_charge_start() -> Array[CombatActionEffect]:
 	return []
 
-func on_recovery_start() -> Array[CombatActionEffect]:
+func on_recovery_end() -> Array[CombatActionEffect]:
 	return []
 
-func report_ranges():
-	for combat_effect in on_act():
-		if (combat_effect.type == CombatActionEffect.EffectType.DAMAGE):
-			print("incoming attack at ranges ", combat_effect.effective_range, " in ", charge_time, " seconds ")
-# TODO: Create some function to "compile" the threat ranges of upcoming attacks.
-# Need to communicate that out in one way or another.
+func get_all_threatened_ranges():
+	var threatened_ranges = []
+	threatened_ranges.append(_extract_threatened_ranges(on_charge_start()))
+	threatened_ranges.append(_extract_threatened_ranges(on_act()))
+	threatened_ranges.append(_extract_threatened_ranges(on_recovery_end()))
+	
+	return threatened_ranges
+
+func _extract_threatened_ranges(effects_to_check : Array[CombatActionEffect]):
+	var result : Array[EffectiveRange] = []
+	for effect in effects_to_check:
+		if effect.type == CombatActionEffect.EffectType.DAMAGE \
+				and effect.target == CombatActionEffect.Target.OTHER:
+			result.append(effect.effective_range)
+	return result

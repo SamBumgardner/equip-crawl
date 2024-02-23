@@ -27,7 +27,11 @@ var hurt_visual_effect : VisualEffect # child classes are responsible for settin
 var block_visual_effect : VisualEffect # child classes are responsible for setting this up in _init
 # current_status_effects
 var available_actions : Array[Action]
-var current_action : Action
+var current_action : Action:
+	set(value): 
+		current_action = value
+		if (is_inside_tree()):
+			_set_current_action_side_effects(value)
 
 func _ready():
 	state_machine = StateMachine.new()
@@ -101,4 +105,8 @@ func _apply_damage_effect(received_effect : DamageEffect):
 
 # Abstract. Child classes should override this for functionality.
 func _apply_move_effect(received_effect : MoveEffect):
+	pass
+
+# Abstract. Child classes should override this for functionality
+func _set_current_action_side_effects(new_value : Action):
 	pass
