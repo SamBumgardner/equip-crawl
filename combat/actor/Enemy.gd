@@ -2,7 +2,7 @@ class_name Enemy extends Combatant
 
 signal enemy_turn(direction : Position.Direction)
 signal threat_warning_new(
-	threatened_positions : Array[Vector2], 
+	threatened_positions : Array[Vector2i], 
 	time_until_triggered : float, 
 	triggering_action : Action)
 signal threat_warning_cancel(canceled_action : Action)
@@ -61,15 +61,40 @@ func get_distance_to_player() -> Position.Ranges:
 	return (target_other as Player).distance
 
 func broadcast_threat_warning(triggering_action : Action):
-	var threatened_ranges_by_action_state = current_action.get_all_threatened_ranges()
+	var threatened_ranges_by_action_state = triggering_action.get_all_threatened_ranges()
 	var threatened_positions_charge_start = []
 	var threatened_positions_act = []
 	var threatened_positions_recovery_end = []
 	
 	for effectiveRange in threatened_ranges_by_action_state[0]:
-		threatened_positions_charge_start.append_array(convert_effective_range_to_position(effectiveRange))
+		threatened_positions_charge_start \
+			.append_array(convert_effective_range_to_position(effectiveRange))
+	threat_warning_new.emit(threatened_positions_charge_start, 0, triggering_action)
 	
-	threat_warning_new.emit(threatened_positions_charge_start, 0, )
+	for effectiveRange in threatened_ranges_by_action_state[1]:
+		threatened_positions_act \
+			.append_array(convert_effective_range_to_position(effectiveRange))
+	threat_warning_new.emit(threatened_positions_act, 
+		triggering_action.charge_time, triggering_action)
+	
+	for effectiveRange in threatened_ranges_by_action_state[2]:
+		threatened_positions_recovery_end \
+			.append_array(convert_effective_range_to_position(effectiveRange))
+	threat_warning_new.emit(threatened_positions_recovery_end, 
+		triggering_action.charge_time + triggering_action.recovery_time, triggering_action)
 
-func convert_effective_range_to_position(effectiveRange : EffectiveRange) -> Array[Vector2]:
-	return []
+func convert_effective_range_to_position(effectiveRange : EffectiveRange) -> Array[Vector2i]:
+	var threatened_positions : Array[Vector2i] = []
+	for i in range(effectiveRange.min_range, effectiveRange.max_range + 1):
+		if (effectiveRange.directions & EffectiveRange.RangeDirections.FRONT):
+			threatened_positions.append(Vector2i(facing, i))
+		if (effectiveRange.directions & EffectiveRange.RangeDirections.RIGHT):
+			threatened_positions.append(Vector2i((facing + 1) % 4, i))
+		if (effectiveRange.directions & EffectiveRange.RangeDirections.BACK):
+			threatened_positions.append(Vector2i((facing + 2) % 4, i))
+		if (effectiveRange.directions & EffectiveRange.RangeDirections.LEFT):
+			threatened_positions.append(Vector2i((facing + 3) % 4, i))
+	return threatened_positions
+
+func _set_current_action_side_effects(new_value : Action):
+	broadcast_threat_warning(new_value)

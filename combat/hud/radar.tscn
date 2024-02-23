@@ -1,9 +1,11 @@
-[gd_scene load_steps=5 format=3 uid="uid://bp38hjotenmy4"]
+[gd_scene load_steps=7 format=3 uid="uid://bp38hjotenmy4"]
 
 [ext_resource type="Texture2D" uid="uid://07dvdalok5wj" path="res://art/combat/radar.png" id="1_jbnld"]
 [ext_resource type="Script" path="res://combat/hud/radar.gd" id="2_siuei"]
 [ext_resource type="Texture2D" uid="uid://cytwme61gfeus" path="res://art/combat/enemy.png" id="3_dcxb1"]
+[ext_resource type="Texture2D" uid="uid://cfcca4jots2es" path="res://art/combat/radar_warning.png" id="3_n1b51"]
 [ext_resource type="Texture2D" uid="uid://dg4x105xtrefo" path="res://art/combat/player.png" id="4_vvojq"]
+[ext_resource type="Script" path="res://combat/hud/Warning.gd" id="4_y0g7c"]
 
 [node name="Radar" type="Sprite2D"]
 texture = ExtResource("1_jbnld")
@@ -14,38 +16,86 @@ script = ExtResource("2_siuei")
 [node name="East_Short" type="Node2D" parent="Node"]
 position = Vector2(37, 0)
 
+[node name="Warning" type="Sprite2D" parent="Node/East_Short"]
+texture = ExtResource("3_n1b51")
+script = ExtResource("4_y0g7c")
+
 [node name="East_Medium" type="Node2D" parent="Node"]
 position = Vector2(72, 0)
+
+[node name="Warning" type="Sprite2D" parent="Node/East_Medium"]
+texture = ExtResource("3_n1b51")
+script = ExtResource("4_y0g7c")
 
 [node name="East_Long" type="Node2D" parent="Node"]
 position = Vector2(108, 0)
 
+[node name="Warning" type="Sprite2D" parent="Node/East_Long"]
+texture = ExtResource("3_n1b51")
+script = ExtResource("4_y0g7c")
+
 [node name="North_Short" type="Node2D" parent="Node"]
 position = Vector2(0, -37)
+
+[node name="Warning" type="Sprite2D" parent="Node/North_Short"]
+texture = ExtResource("3_n1b51")
+script = ExtResource("4_y0g7c")
 
 [node name="North_Medium" type="Node2D" parent="Node"]
 position = Vector2(0, -70)
 
+[node name="Warning" type="Sprite2D" parent="Node/North_Medium"]
+texture = ExtResource("3_n1b51")
+script = ExtResource("4_y0g7c")
+
 [node name="North_Long" type="Node2D" parent="Node"]
 position = Vector2(0, -106)
+
+[node name="Warning" type="Sprite2D" parent="Node/North_Long"]
+texture = ExtResource("3_n1b51")
+script = ExtResource("4_y0g7c")
 
 [node name="South_Short" type="Node2D" parent="Node"]
 position = Vector2(0, 37)
 
+[node name="Warning" type="Sprite2D" parent="Node/South_Short"]
+texture = ExtResource("3_n1b51")
+script = ExtResource("4_y0g7c")
+
 [node name="South_Medium" type="Node2D" parent="Node"]
 position = Vector2(0, 70)
+
+[node name="Warning" type="Sprite2D" parent="Node/South_Medium"]
+texture = ExtResource("3_n1b51")
+script = ExtResource("4_y0g7c")
 
 [node name="South_Long" type="Node2D" parent="Node"]
 position = Vector2(0, 107)
 
+[node name="Warning" type="Sprite2D" parent="Node/South_Long"]
+texture = ExtResource("3_n1b51")
+script = ExtResource("4_y0g7c")
+
 [node name="West_Short" type="Node2D" parent="Node"]
 position = Vector2(-37, 0)
+
+[node name="Warning" type="Sprite2D" parent="Node/West_Short"]
+texture = ExtResource("3_n1b51")
+script = ExtResource("4_y0g7c")
 
 [node name="West_Medium" type="Node2D" parent="Node"]
 position = Vector2(-72, 0)
 
+[node name="Warning" type="Sprite2D" parent="Node/West_Medium"]
+texture = ExtResource("3_n1b51")
+script = ExtResource("4_y0g7c")
+
 [node name="West_Long" type="Node2D" parent="Node"]
 position = Vector2(-108, 0)
+
+[node name="Warning" type="Sprite2D" parent="Node/West_Long"]
+texture = ExtResource("3_n1b51")
+script = ExtResource("4_y0g7c")
 
 [node name="Enemy" type="Sprite2D" parent="."]
 texture = ExtResource("3_dcxb1")
