@@ -114,7 +114,7 @@ script = ExtResource("1_sflhy")
 distance = null
 lateral_position = null
 max_health = 10.0
-health = 1.0
+health = 10.0
 target_other = NodePath("../Enemy")
 
 [node name="Enemy" type="Node" parent="." node_paths=PackedStringArray("target_other")]
@@ -200,7 +200,8 @@ player_sprite = NodePath("../BigPlayerSprite")
 script = ExtResource("11_atr0g")
 enemy = NodePath("../Enemy")
 
-[node name="Warnings" type="Node" parent="."]
+[node name="Warnings" type="Node2D" parent="."]
+visible = false
 
 [node name="Front" type="Node2D" parent="Warnings"]
 
@@ -398,7 +399,7 @@ position_offset = Vector2i(-1, -2)
 visible_ranges = Array[int]([3])
 warning_manager = NodePath("../../../WarningManager")
 
-[node name="ScreenSurround" type="Node" parent="Warnings"]
+[node name="ScreenSurround" type="Node2D" parent="Warnings"]
 
 [node name="WarningSprite_Surround" type="Sprite2D" parent="Warnings/ScreenSurround" node_paths=PackedStringArray("player", "warning_manager")]
 modulate = Color(1, 1, 1, 0.498039)

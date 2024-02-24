@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="equip-crawl"
-run/main_scene="res://combat/scene/Combat.tscn"
+run/main_scene="res://general/scene/Gameplay.tscn"
 config/features=PackedStringArray("4.2", "GL Compatibility")
 config/icon="res://icon.svg"
 

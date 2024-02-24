@@ -10,13 +10,14 @@ func _ready():
 	action_name_label.text = ""
 	if (combatant != null):
 		combatant.state_changed.connect(_on_combatant_state_change)
+	hide()
 
 func _on_combatant_state_change(new_state : CombatantStates.States, duration : float,
 		current_action : Action):
 	visible = current_action.display_cast_bar
 	action_name_label.text = current_action.name
 	if new_state == CombatantStates.States.IDLE:
-		visible = false
+		hide()
 	# add logic here to selectively fade out stuff
 
 func _on_combat_finished():

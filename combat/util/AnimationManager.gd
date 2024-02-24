@@ -149,8 +149,8 @@ func _defeat_combatant(combatant_sprite):
 		new_tween.tween_method(_sprite_offset.bind(combatant_sprite, screen_left), charge_wiggle_distance, -charge_wiggle_distance, charge_wiggle_frequency)
 		new_tween.tween_method(_sprite_offset.bind(combatant_sprite, screen_right), charge_wiggle_distance, -charge_wiggle_distance, charge_wiggle_frequency)
 	new_tween.tween_method(_sprite_offset.bind(combatant_sprite, screen_left), charge_wiggle_distance, 0, .05)
-	new_tween.tween_interval(.35)
-	new_tween.tween_property(combatant_sprite, "modulate", Color.TRANSPARENT, 1)
+	new_tween.tween_interval(.5)
+	new_tween.tween_property(combatant_sprite, "modulate", Color.TRANSPARENT, .25)
 
 func _sprite_offset(distance : float, combatant_sprite, screen_direction : Vector2i):
 	combatant_sprite.position = combatant_sprite.start_position + screen_direction * distance

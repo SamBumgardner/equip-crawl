@@ -29,6 +29,7 @@ func _on_combat_end_sequence_finished():
 
 func _process(delta : float):
 	if !end_combat_timer.is_stopped() \
-			&& end_combat_timer.time_left <= end_combat_timer.wait_time - 1:
+			and end_combat_timer.time_left <= end_combat_timer.wait_time - .75 \
+			and Input.is_action_pressed("ui_cancel"):
 		end_combat_timer.stop()
 		_on_combat_end_sequence_finished()
