@@ -39,6 +39,11 @@ func _signal_transition_out():
 	if received_transition_data == null:
 		received_transition_data = TransitionData.new()
 	received_transition_data.next_scene_name = "exploration"
+	
+	var player : Player = $Player
+	received_transition_data.player_data.max_health = player.max_health
+	received_transition_data.player_data.current_health = player.health
+	
 	#todo: update transition_data with new values
 	start_transition_out.emit(received_transition_data, _cleanup_scene)
 
@@ -47,6 +52,9 @@ func _cleanup_scene():
 
 func init_scene(transitionData : TransitionData):
 	received_transition_data = transitionData
+	var player : Player = $Player
+	player.max_health = received_transition_data.player_data.max_health
+	player.health = received_transition_data.player_data.current_health
 	pass # do stuff to make the transition smooth, persist data that needs to be persisted
 
 func start_scene():
