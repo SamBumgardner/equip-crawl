@@ -41,6 +41,9 @@ func init_scene(transitionData : TransitionData):
 
 func start_scene():
 	process_mode = Node.PROCESS_MODE_INHERIT
+	# Turning on processing and showing warnings on the same frame makes them appear
+	#  all at once non-transparent for one frame. Could be solved by making the warnings not show
+	#  by default, but this is a bit quicker to implement for now.
 	var hacky_tween : Tween = create_tween()
 	hacky_tween.tween_interval(.05)
 	hacky_tween.tween_callback($Warnings.show)
