@@ -14,6 +14,8 @@ func _ready():
 	if self == get_tree().current_scene || is_starting_scene:
 		root_scene_actions()
 	increment_floor_number()
+	if current_floor_number == 1:
+		$FloorNumberDisplay/DelvingLine_2.text = "Your expedition begins..."
 
 func _input(event : InputEvent):
 	if event.is_action_pressed("ui_accept") or event.is_action_pressed("ui_cancel"):

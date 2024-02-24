@@ -12,8 +12,6 @@ grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("1_p7ofc")
 script = ExtResource("2_mtbd8")
-is_starting_scene = null
-current_floor_number = null
 
 [node name="ColorRect" type="ColorRect" parent="."]
 layout_mode = 1
@@ -55,8 +53,8 @@ grow_vertical = 2
 [node name="Body" type="Label" parent="BodyContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 40
-text = "It'd be nice if there was a way 
-to prepare for the caverns below..."
+text = "It would be nice if there was a way 
+to prepare for the dungeon below..."
 horizontal_alignment = 1
 
 [node name="FooterContainer" type="MarginContainer" parent="."]

@@ -16,6 +16,7 @@ signal start_transition_out(transition_data : TransitionData, cleanup_callback :
 	]
 
 var received_transition_data : TransitionData
+var victory : bool = false;
 
 func _ready():
 	process_mode = Node.PROCESS_MODE_DISABLED
@@ -28,7 +29,8 @@ func _ready():
 	for receiver in combat_finished_receivers:
 		combat_finished.connect(receiver._on_combat_finished)
 
-func _on_combat_ended_sequence_begin():
+func _on_combat_ended_sequence_begin(player_won : bool):
+	victory = player_won
 	combat_finished.emit()
 
 func _on_combat_ended_sequence_finish():
@@ -38,7 +40,11 @@ func _on_combat_ended_sequence_finish():
 func _signal_transition_out():
 	if received_transition_data == null:
 		received_transition_data = TransitionData.new()
-	received_transition_data.next_scene_name = Transition.EXPLORATION
+	
+	if victory:
+		received_transition_data.next_scene_name = Transition.EXPLORATION
+	else:
+		received_transition_data.next_scene_name = Transition.DEFEATED
 	
 	var player : Player = $Player
 	received_transition_data.player_data.max_health = player.max_health

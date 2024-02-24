@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://b2v6i5lium1ue"]
+[gd_scene load_steps=3 format=3 uid="uid://b2v6i5lium1ue"]
 
 [ext_resource type="Theme" uid="uid://cu2c5rnghr6e2" path="res://art/theme/new_theme.tres" id="1_34vga"]
+[ext_resource type="Script" path="res://defeat/DefeatedScene.gd" id="2_l81uw"]
 
 [node name="DefeatedScene" type="Control"]
 layout_mode = 3
@@ -10,6 +11,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("1_34vga")
+script = ExtResource("2_l81uw")
 
 [node name="Background" type="ColorRect" parent="."]
 layout_mode = 1

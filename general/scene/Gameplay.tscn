@@ -2,7 +2,7 @@
 
 [ext_resource type="Theme" uid="uid://cu2c5rnghr6e2" path="res://art/theme/new_theme.tres" id="1_wo2r2"]
 [ext_resource type="Script" path="res://general/transition/Transition.gd" id="2_t0hd0"]
-[ext_resource type="PackedScene" uid="uid://rryeqwioikth" path="res://combat/scene/Combat.tscn" id="3_78152"]
+[ext_resource type="PackedScene" uid="uid://dh3qbsstasby4" path="res://preparation/PreparationScene.tscn" id="3_fc5qx"]
 
 [node name="Gameplay" type="Node"]
 
@@ -38,7 +38,7 @@ theme_override_font_sizes/font_size = 24
 text = "EQUIP-CRAWL"
 horizontal_alignment = 2
 
-[node name="Combat" parent="." instance=ExtResource("3_78152")]
+[node name="PreparationScene" parent="." instance=ExtResource("3_fc5qx")]
 is_starting_scene = true
 
-[connection signal="start_transition_out" from="Combat" to="Transition" method="_on_start_transition_out"]
+[connection signal="start_transition_out" from="PreparationScene" to="Transition" method="_on_start_transition_out"]

@@ -15,7 +15,8 @@ func _ready():
 
 func _on_combatant_defeated(defeated : Combatant):
 	print("\nGAMEPLAY MANAGER ANNOUNCEMENT:\n", defeated, " was defeated! Starting end sequence now\n")
-	combat_ended_sequence_begin.emit()
+	
+	combat_ended_sequence_begin.emit(defeated is Enemy) # report victory or loss
 	# For this version, we will just assume that all things finish their 
 	# game over sequence in 3 seconds. This expects that everything's 
 	# already been triggered by the thing that became defeated (sent visual events and whatever).
