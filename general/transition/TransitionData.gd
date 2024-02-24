@@ -30,6 +30,9 @@ class ExplorationData:
 		result += "Exploration data:\n"
 		result += "  floor number: %d\n" % [floor_number]
 		return result
+	
+	func reset():
+		floor_number = 0
 
 class PlayerData:
 	var max_health : int = 10
@@ -41,3 +44,6 @@ class PlayerData:
 		result += "  max health: %d\n" % [max_health]
 		result += "  current health: %d\n" % [current_health]
 		return result
+	
+	func restore():
+		current_health = max_health

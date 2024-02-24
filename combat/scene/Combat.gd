@@ -38,7 +38,7 @@ func _on_combat_ended_sequence_finish():
 func _signal_transition_out():
 	if received_transition_data == null:
 		received_transition_data = TransitionData.new()
-	received_transition_data.next_scene_name = "exploration"
+	received_transition_data.next_scene_name = Transition.EXPLORATION
 	
 	var player : Player = $Player
 	received_transition_data.player_data.max_health = player.max_health
