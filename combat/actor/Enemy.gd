@@ -18,7 +18,7 @@ func _init():
 	]
 	hurt_visual_effect = VisualEffect.new("enemy_hurt")
 	block_visual_effect = VisualEffect.new("enemy_block")
-	current_action = Action_SpearThrust.new(self)
+	set_current_action(Action_SpearThrust.new(self))
 
 func _to_string():
 	return "Enemy"
@@ -60,7 +60,7 @@ func get_turn_direction_toward_player() -> MoveEffect.LateralDirection:
 func get_distance_to_player() -> Position.Ranges:
 	return (target_other as Player).distance
 
-func broadcast_threat_warning(triggering_action : Action):
+func broadcast_threat_warning(triggering_action : Action, head_start : float = 0):
 	var threatened_ranges_by_action_state = triggering_action.get_all_threatened_ranges()
 	var threatened_positions_charge_start = []
 	var threatened_positions_act = []
@@ -75,13 +75,13 @@ func broadcast_threat_warning(triggering_action : Action):
 		threatened_positions_act \
 			.append_array(convert_effective_range_to_position(effectiveRange))
 	threat_warning_new.emit(threatened_positions_act, 
-		triggering_action.charge_time, triggering_action)
+		triggering_action.charge_time - head_start, triggering_action)
 	
 	for effectiveRange in threatened_ranges_by_action_state[2]:
 		threatened_positions_recovery_end \
 			.append_array(convert_effective_range_to_position(effectiveRange))
 	threat_warning_new.emit(threatened_positions_recovery_end, 
-		triggering_action.charge_time + triggering_action.recovery_time, triggering_action)
+		triggering_action.charge_time + triggering_action.recovery_time - head_start, triggering_action)
 
 func convert_effective_range_to_position(effectiveRange : EffectiveRange) -> Array[Vector2i]:
 	var threatened_positions : Array[Vector2i] = []
@@ -96,5 +96,6 @@ func convert_effective_range_to_position(effectiveRange : EffectiveRange) -> Arr
 			threatened_positions.append(Vector2i((facing + 3) % 4, i))
 	return threatened_positions
 
-func _set_current_action_side_effects(new_value : Action):
-	broadcast_threat_warning(new_value)
+func set_current_action(new_value : Action, head_start : float = 0):
+	super(new_value, head_start)
+	broadcast_threat_warning(new_value, head_start)

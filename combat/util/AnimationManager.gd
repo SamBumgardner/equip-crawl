@@ -14,6 +14,7 @@ class_name AnimationManager extends Node
 	"player_move_ccw": _player_lateral_move.bind(MoveEffect.LateralDirection.CCW),
 	"player_move_in": _player_vertical_move.bind(MoveEffect.RangeDirection.PLAYER_IN),
 	"player_move_out": _player_vertical_move.bind(MoveEffect.RangeDirection.PLAYER_OUT),
+	"player_knockback": _player_knockback,
 	"player_bounce_forward": _player_bounce_forward,
 	"player_charge": _player_charge,
 	"player_slash": _player_slash,
@@ -71,6 +72,13 @@ func _player_vertical_move(direction : MoveEffect.RangeDirection):
 	new_tween.tween_method(_player_offset.bind(0, direction), 0, 30, 0)
 	new_tween.set_trans(Tween.TRANS_QUAD)
 	new_tween.tween_method(_player_offset.bind(0, direction), 30, 0, .2)
+
+func _player_knockback():
+	var new_tween : Tween = player_sprite.reset_tweening()
+	new_tween.tween_method(_player_offset.bind(0, 1), 0, 60, .1)
+	new_tween.set_trans(Tween.TRANS_QUAD)
+	new_tween.tween_method(_player_offset.bind(0, 1), 60, 0, .4)
+	
 
 func _player_offset(move_distance : float, 
 		lateral_direction : MoveEffect.LateralDirection = MoveEffect.LateralDirection.NONE, 
