@@ -1,24 +1,34 @@
 class_name CombatManager extends Node
 
+signal combat_ended_sequence_begin()
+signal combat_ended_sequence_finish()
+
 @export var player : Player
 @export var enemy  : Enemy
+
+@onready var end_combat_timer : Timer = $EndCombatSequenceTimer
 
 func _ready():
 	player.combatant_defeated.connect(_on_combatant_defeated)
 	enemy.combatant_defeated.connect(_on_combatant_defeated)
-	$EndCombatSequenceTimer.timeout.connect(_on_combat_end_sequence_finished)
+	end_combat_timer.timeout.connect(_on_combat_end_sequence_finished)
 
 func _on_combatant_defeated(defeated : Combatant):
 	print("\nGAMEPLAY MANAGER ANNOUNCEMENT:\n", defeated, " was defeated! Starting end sequence now\n")
-	player.process_mode = Node.PROCESS_MODE_DISABLED
-	enemy.process_mode = Node.PROCESS_MODE_DISABLED
-	#todo: emit signal saying let's begin game-over-ing
-	# For this version, we can just have a rule that all things finish their 
-	# game over sequence in 3 seconds. This just assumes that everything's 
+	combat_ended_sequence_begin.emit()
+	# For this version, we will just assume that all things finish their 
+	# game over sequence in 3 seconds. This expects that everything's 
 	# already been triggered by the thing that became defeated (sent visual events and whatever).
-	$EndCombatSequenceTimer.start()
+	end_combat_timer.start()
 
 func _on_combat_end_sequence_finished():
 	print("\nGAMEPLAY MANAGER ANNOUNCEMENT:\nend sequence finished. Cleaning up nodes")
+	combat_ended_sequence_finish.emit()
 	#todo: push event to Combat, Combat pushes out event to the void saying it's all done now.
 	# Combat then just waits, transitioning thing can handle queue_free ing it.
+
+func _process(delta : float):
+	if !end_combat_timer.is_stopped() \
+			&& end_combat_timer.time_left <= end_combat_timer.wait_time - 1:
+		end_combat_timer.stop()
+		_on_combat_end_sequence_finished()

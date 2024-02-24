@@ -17,7 +17,7 @@ signal visual_effect_triggered(effect_name : String, origin : CombatActionEffect
 		if (is_inside_tree()):
 			health_changed.emit(health, max_health)
 		if value <= 0:
-			combatant_defeated.emit(self)
+			_defeated()
 
 @export var target_other : Combatant
 
@@ -25,6 +25,7 @@ var state_machine : StateMachine
 var possible_states : Array[ActorState] # child classes are responsible for setting this up in _init()
 var hurt_visual_effect : VisualEffect # child classes are responsible for setting this up in _init
 var block_visual_effect : VisualEffect # child classes are responsible for setting this up in _init
+var defeated_visual_effect : VisualEffect
 # current_status_effects
 var available_actions : Array[Action]
 var _current_action : Action
@@ -93,14 +94,14 @@ func _apply_received_effect(received_effect : CombatActionEffect):
 
 func _apply_damage_effect(received_effect : DamageEffect):
 	var incoming_damage = received_effect.amount
-	health -= incoming_damage
-	health_changed.emit(health, max_health)
 	
 	if incoming_damage > 0:
 		visual_effect_triggered.emit(hurt_visual_effect.visual_effect_to_play, hurt_visual_effect)
 	elif incoming_damage == 0:
 		visual_effect_triggered.emit(block_visual_effect.visual_effect_to_play, block_visual_effect)
 	
+	health -= incoming_damage
+	health_changed.emit(health, max_health)
 	print(self, " took ", incoming_damage, " damage. ", health, " health remaining.")
 
 # Abstract. Child classes should override this for functionality.
@@ -114,3 +115,10 @@ func _apply_stun_effect(received_effect : StunEffect):
 
 func set_current_action(new_action : Action, _head_start : float = 0):
 	_current_action = new_action
+
+func _defeated():
+	visual_effect_triggered.emit(defeated_visual_effect.visual_effect_to_play, defeated_visual_effect)
+	combatant_defeated.emit(self)
+
+func _on_combat_finished():
+	process_mode = Node.PROCESS_MODE_DISABLED

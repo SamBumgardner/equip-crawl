@@ -40,3 +40,6 @@ func _on_player_move(distance : Position.Ranges, lateral_position : Position.Dir
 
 func _on_enemy_turn(direction : Position.Direction):
 	enemy_icon.rotation_degrees = enemy_rotations[direction]
+
+func _on_combat_finished():
+	create_tween().tween_property(self, "modulate", Color.TRANSPARENT, 1.5)

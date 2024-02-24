@@ -55,3 +55,8 @@ func _add_warning(time_until_triggered : float, position_warnings : Array):
 		position_warnings.push_front(new_warning)
 	else:
 		position_warnings.push_back(new_warning)
+
+func _on_combat_finished():
+	for lateral_i in range(warning_positions.size()):
+		for range_i in range(warning_positions[lateral_i].size()):
+			warning_positions[lateral_i][range_i] = []

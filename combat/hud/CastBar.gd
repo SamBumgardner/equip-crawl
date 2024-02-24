@@ -18,3 +18,8 @@ func _on_combatant_state_change(new_state : CombatantStates.States, duration : f
 	if new_state == CombatantStates.States.IDLE:
 		visible = false
 	# add logic here to selectively fade out stuff
+
+func _on_combat_finished():
+	cast_progress_bar.process_mode =Node.PROCESS_MODE_DISABLED
+	var fade_out_tween = create_tween()
+	fade_out_tween.tween_property(self, "modulate", Color.TRANSPARENT, 1.5)

@@ -18,6 +18,7 @@ func _init():
 	]
 	hurt_visual_effect = VisualEffect.new("enemy_hurt")
 	block_visual_effect = VisualEffect.new("enemy_block")
+	defeated_visual_effect = VisualEffect.new("enemy_defeated_default")
 	set_current_action(Action_SpearThrust.new(self))
 
 func _to_string():
