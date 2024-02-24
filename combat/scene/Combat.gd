@@ -15,6 +15,8 @@ signal start_transition_out(transition_data : TransitionData, cleanup_callback :
 		$Radar
 	]
 
+var received_transition_data : TransitionData
+
 func _ready():
 	process_mode = Node.PROCESS_MODE_DISABLED
 	if self == get_tree().current_scene || is_starting_scene:
@@ -30,13 +32,21 @@ func _on_combat_ended_sequence_begin():
 	combat_finished.emit()
 
 func _on_combat_ended_sequence_finish():
-	var transition_data = TransitionData.new("combat")
-	start_transition_out.emit(transition_data, _cleanup_scene)
+	_signal_transition_out()
+
+#region State Transition Support
+func _signal_transition_out():
+	if received_transition_data == null:
+		received_transition_data = TransitionData.new()
+	received_transition_data.next_scene_name = "exploration"
+	#todo: update transition_data with new values
+	start_transition_out.emit(received_transition_data, _cleanup_scene)
 
 func _cleanup_scene():
 	queue_free()
 
 func init_scene(transitionData : TransitionData):
+	received_transition_data = transitionData
 	pass # do stuff to make the transition smooth, persist data that needs to be persisted
 
 func start_scene():
@@ -51,3 +61,4 @@ func start_scene():
 func root_scene_actions():
 	is_starting_scene = true
 	start_scene()
+#endregion

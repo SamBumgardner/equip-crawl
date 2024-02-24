@@ -11,9 +11,10 @@ func _init():
 	visible = false
 
 func _on_start_transition_out(transition_data : TransitionData, cleanup_callback : Callable):
+	print("\n", transition_data)
 	var next_scene_name = "exploration" #default val in case something goes wrong.
 	if transition_data.next_scene_name in transitionable_scenes.keys():
-		next_scene_name = "combat"
+		next_scene_name = transition_data.next_scene_name
 	
 	var fade_in_tween = create_fade_in_tween()
 	fade_in_tween.tween_callback(cleanup_callback)

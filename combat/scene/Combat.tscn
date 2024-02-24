@@ -108,6 +108,7 @@ custom_minimum_size = Vector2(1152, 648)
 layout_mode = 3
 anchors_preset = 0
 script = ExtResource("1_6tv01")
+is_starting_scene = null
 
 [node name="Player" type="Node" parent="." node_paths=PackedStringArray("target_other")]
 script = ExtResource("1_sflhy")
