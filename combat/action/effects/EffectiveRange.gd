@@ -12,7 +12,7 @@ func _init(minRange : Position.Ranges = Position.Ranges.SHORT,
 	directions = initDirections
 
 func _to_string():
-	return "[%d,%d] " % [min_range, max_range] + RangeDirections.find_key(directions)
+	return "[%d,%d] " % [min_range, max_range] + str(directions)
 
 enum RangeDirections {
 	FRONT = 0b0001,

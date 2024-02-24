@@ -24,7 +24,7 @@ func physics_process(delta : float):
 		change = current_state.physics_process(change.remaining_delta)
 		
 		owner.state_changed.emit(newly_selected_state, current_state.time_remaining,
-			owner.current_action)
+			owner._current_action)
 
 		safety_breakout += 1
 		if (safety_breakout > 100):
