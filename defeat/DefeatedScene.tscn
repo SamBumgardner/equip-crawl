@@ -1,17 +1,17 @@
-[gd_scene load_steps=3 format=3 uid="uid://bxlfg0h305d7d"]
+[gd_scene load_steps=3 format=3 uid="uid://b2v6i5lium1ue"]
 
-[ext_resource type="Theme" uid="uid://cu2c5rnghr6e2" path="res://art/theme/new_theme.tres" id="1_mw3o0"]
-[ext_resource type="Script" path="res://exploration/scene/ExplorationLoop.gd" id="2_bbnl1"]
+[ext_resource type="Theme" uid="uid://cu2c5rnghr6e2" path="res://art/theme/new_theme.tres" id="1_34vga"]
+[ext_resource type="Script" path="res://defeat/DefeatedScene.gd" id="2_l81uw"]
 
-[node name="ExplorationLoop" type="Control"]
+[node name="DefeatedScene" type="Control"]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme = ExtResource("1_mw3o0")
-script = ExtResource("2_bbnl1")
+theme = ExtResource("1_34vga")
+script = ExtResource("2_l81uw")
 
 [node name="Background" type="ColorRect" parent="."]
 layout_mode = 1
@@ -20,7 +20,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0.0156863, 0.027451, 0.156863, 1)
+color = Color(0.156863, 0.027451, 0.0156863, 1)
 
 [node name="TitleDisplay" type="MarginContainer" parent="."]
 layout_mode = 1
@@ -32,7 +32,7 @@ theme_override_constants/margin_top = 50
 [node name="TitleText" type="Label" parent="TitleDisplay"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 64
-text = "Exploration"
+text = "DEFEAT"
 horizontal_alignment = 1
 
 [node name="FloorNumberDisplay" type="VBoxContainer" parent="."]
@@ -49,22 +49,22 @@ offset_bottom = 38.5
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="DelvingLine_0" type="Label" parent="FloorNumberDisplay"]
+[node name="FloorLine_0" type="Label" parent="FloorNumberDisplay"]
 layout_mode = 2
-theme_override_font_sizes/font_size = 40
-text = "You have reached Floor"
+theme_override_font_sizes/font_size = 48
+text = "You have fallen..."
+horizontal_alignment = 1
+
+[node name="FloorLine_1" type="Label" parent="FloorNumberDisplay"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "But managed to reach Floor"
 horizontal_alignment = 1
 
 [node name="FloorNumber" type="Label" parent="FloorNumberDisplay"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 80
 text = "X"
-horizontal_alignment = 1
-
-[node name="DelvingLine_2" type="Label" parent="FloorNumberDisplay"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 48
-text = "Your expedition continues..."
 horizontal_alignment = 1
 
 [node name="PressToContinueDisplay" type="MarginContainer" parent="."]
@@ -81,5 +81,5 @@ theme_override_constants/margin_bottom = 50
 [node name="ContinueText" type="Label" parent="PressToContinueDisplay"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 48
-text = "Press any Button to Continue"
+text = "Press any Button to Play Again"
 horizontal_alignment = 1

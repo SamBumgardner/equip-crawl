@@ -1,8 +1,16 @@
 class_name Transition extends ColorRect
 
+# valid transition scene targets
+const COMBAT = "combat"
+const EXPLORATION = "exploration"
+const DEFEATED = "defeated"
+const PREPARATION = "preparation"
+
 static var transitionable_scenes = {
-	"combat": preload("res://combat/scene/Combat.tscn"),
-	"exploration": preload("res://exploration/scene/ExplorationLoop.tscn") 
+	COMBAT: preload("res://combat/scene/Combat.tscn"),
+	EXPLORATION: preload("res://exploration/scene/ExplorationLoop.tscn"),
+	DEFEATED: preload("res://defeat/DefeatedScene.tscn"),
+	PREPARATION: preload("res://preparation/PreparationScene.tscn")
 }
 
 var current_scene;
@@ -12,7 +20,7 @@ func _init():
 
 func _on_start_transition_out(transition_data : TransitionData, cleanup_callback : Callable):
 	print("\n", transition_data)
-	var next_scene_name = "exploration" #default val in case something goes wrong.
+	var next_scene_name = EXPLORATION #default val in case something goes wrong.
 	if transition_data.next_scene_name in transitionable_scenes.keys():
 		next_scene_name = transition_data.next_scene_name
 	
@@ -44,6 +52,4 @@ func set_up_new_transitionable_scene(next_scene_name : String, transition_data :
 
 func finished_fading_in():
 	current_scene.start_scene()
-
-func no_op():
-	pass
+	
