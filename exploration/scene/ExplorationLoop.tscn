@@ -1,0 +1,86 @@
+[gd_scene load_steps=3 format=3 uid="uid://bxlfg0h305d7d"]
+
+[ext_resource type="Theme" uid="uid://cu2c5rnghr6e2" path="res://art/theme/new_theme.tres" id="1_mw3o0"]
+[ext_resource type="Script" path="res://exploration/scene/ExplorationLoop.gd" id="2_bbnl1"]
+
+[node name="ExplorationLoop" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_mw3o0")
+script = ExtResource("2_bbnl1")
+
+[node name="Background" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.0156863, 0.027451, 0.156863, 1)
+
+[node name="TitleDisplay" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+grow_horizontal = 2
+theme_override_constants/margin_top = 50
+
+[node name="TitleText" type="Label" parent="TitleDisplay"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 64
+text = "Exploration"
+horizontal_alignment = 1
+
+[node name="FloorNumberDisplay" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -91.0
+offset_top = -38.5
+offset_right = 91.0
+offset_bottom = 38.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="DelvingLine_0" type="Label" parent="FloorNumberDisplay"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 48
+text = "Delving Ever Deeper,
+"
+horizontal_alignment = 1
+
+[node name="DelvingLine_1" type="Label" parent="FloorNumberDisplay"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "You have reached Floor"
+horizontal_alignment = 1
+
+[node name="FloorNumber" type="Label" parent="FloorNumberDisplay"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 80
+text = "X"
+horizontal_alignment = 1
+
+[node name="PressToContinueDisplay" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -23.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_constants/margin_bottom = 50
+
+[node name="ContinueText" type="Label" parent="PressToContinueDisplay"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 48
+text = "Press any Button to Continue"
+horizontal_alignment = 1

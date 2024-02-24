@@ -1,19 +1,20 @@
-[gd_scene load_steps=26 format=3 uid="uid://rryeqwioikth"]
+[gd_scene load_steps=27 format=3 uid="uid://rryeqwioikth"]
 
-[ext_resource type="Script" path="res://combat/actor/Player.gd" id="1_pm2ne"]
-[ext_resource type="Script" path="res://combat/actor/Enemy.gd" id="2_17ny2"]
-[ext_resource type="Script" path="res://combat/CombatManager.gd" id="3_5rwkb"]
-[ext_resource type="Script" path="res://combat/hud/HealthBar.gd" id="4_et7d6"]
-[ext_resource type="PackedScene" uid="uid://c84dm2wmi7hvj" path="res://combat/hud/CastBar.tscn" id="5_gqmjx"]
-[ext_resource type="PackedScene" uid="uid://bp38hjotenmy4" path="res://combat/hud/radar.tscn" id="6_y3lgh"]
-[ext_resource type="Texture2D" uid="uid://c2tvvpousoq80" path="res://art/combat/player_silhouette.png" id="8_cn1j3"]
-[ext_resource type="Script" path="res://combat/hud/BigEnemySprite.gd" id="8_nngec"]
-[ext_resource type="Script" path="res://combat/util/AnimationManager.gd" id="8_nwi0n"]
-[ext_resource type="Script" path="res://combat/scene/BigPlayerSprite.gd" id="9_5kj47"]
-[ext_resource type="Script" path="res://combat/util/WarningManager.gd" id="11_giy1w"]
-[ext_resource type="Texture2D" uid="uid://dr1hw3nsnbb2b" path="res://art/combat/danger_panel.png" id="12_dpynk"]
-[ext_resource type="Script" path="res://combat/hud/WarningSprite_Player.gd" id="13_g1sir"]
-[ext_resource type="Texture2D" uid="uid://x4jtmox8c8gi" path="res://art/combat/side_panel.png" id="14_7jc2v"]
+[ext_resource type="Script" path="res://combat/scene/Combat.gd" id="1_6tv01"]
+[ext_resource type="Script" path="res://combat/actor/Player.gd" id="1_sflhy"]
+[ext_resource type="Script" path="res://combat/actor/Enemy.gd" id="2_mj7ad"]
+[ext_resource type="Script" path="res://combat/hud/HealthBar.gd" id="4_k71jw"]
+[ext_resource type="PackedScene" uid="uid://cbn4igbnqmkil" path="res://combat/util/CombatManager.tscn" id="4_l55h8"]
+[ext_resource type="PackedScene" uid="uid://c84dm2wmi7hvj" path="res://combat/hud/CastBar.tscn" id="5_yh8wn"]
+[ext_resource type="PackedScene" uid="uid://bp38hjotenmy4" path="res://combat/hud/radar.tscn" id="6_th5sy"]
+[ext_resource type="Script" path="res://combat/hud/BigEnemySprite.gd" id="7_sxnab"]
+[ext_resource type="Texture2D" uid="uid://c2tvvpousoq80" path="res://art/combat/player_silhouette.png" id="8_xfxku"]
+[ext_resource type="Script" path="res://combat/hud/BigPlayerSprite.gd" id="9_h8oon"]
+[ext_resource type="Script" path="res://combat/util/AnimationManager.gd" id="10_6l13k"]
+[ext_resource type="Script" path="res://combat/util/WarningManager.gd" id="11_atr0g"]
+[ext_resource type="Texture2D" uid="uid://dr1hw3nsnbb2b" path="res://art/combat/danger_panel.png" id="12_6momg"]
+[ext_resource type="Script" path="res://combat/hud/WarningSprite_Player.gd" id="13_kxryw"]
+[ext_resource type="Texture2D" uid="uid://x4jtmox8c8gi" path="res://art/combat/side_panel.png" id="14_upo2c"]
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_dmas6"]
 load_path = "res://.godot/imported/skeleton_spear.png-ffdc3a3fa9e04d0fdc16576652e8227c.ctex"
@@ -88,7 +89,7 @@ animations = [{
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("8_cn1j3")
+"texture": ExtResource("8_xfxku")
 }],
 "loop": true,
 "name": &"default",
@@ -102,30 +103,30 @@ colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 1)
 gradient = SubResource("Gradient_mr6cj")
 width = 64
 
-[node name="Node2D" type="Control"]
+[node name="Combat" type="Control"]
 custom_minimum_size = Vector2(1152, 648)
 layout_mode = 3
 anchors_preset = 0
+script = ExtResource("1_6tv01")
+is_starting_scene = null
 
 [node name="Player" type="Node" parent="." node_paths=PackedStringArray("target_other")]
-script = ExtResource("1_pm2ne")
+script = ExtResource("1_sflhy")
+distance = null
+lateral_position = null
 max_health = 10.0
 health = 10.0
 target_other = NodePath("../Enemy")
 
 [node name="Enemy" type="Node" parent="." node_paths=PackedStringArray("target_other")]
-script = ExtResource("2_17ny2")
+script = ExtResource("2_mj7ad")
 max_health = 30.0
 health = 30.0
 target_other = NodePath("../Player")
 
-[node name="CombatManager" type="Node" parent="." node_paths=PackedStringArray("player", "enemy")]
-script = ExtResource("3_5rwkb")
+[node name="CombatManager" parent="." node_paths=PackedStringArray("player", "enemy") instance=ExtResource("4_l55h8")]
 player = NodePath("../Player")
 enemy = NodePath("../Enemy")
-
-[node name="EndCombatSequenceTimer" type="Timer" parent="CombatManager"]
-one_shot = true
 
 [node name="Health_Enemy" type="ProgressBar" parent="." node_paths=PackedStringArray("combatant")]
 custom_minimum_size = Vector2(0, 50)
@@ -135,7 +136,7 @@ anchor_right = 1.0
 offset_bottom = 4.0
 grow_horizontal = 2
 show_percentage = false
-script = ExtResource("4_et7d6")
+script = ExtResource("4_k71jw")
 combatant = NodePath("../Enemy")
 
 [node name="Health_Player" type="ProgressBar" parent="." node_paths=PackedStringArray("combatant")]
@@ -149,10 +150,10 @@ offset_top = -27.0
 grow_horizontal = 2
 grow_vertical = 0
 show_percentage = false
-script = ExtResource("4_et7d6")
+script = ExtResource("4_k71jw")
 combatant = NodePath("../Player")
 
-[node name="CastBar_Enemy" parent="." node_paths=PackedStringArray("combatant") instance=ExtResource("5_gqmjx")]
+[node name="CastBar_Enemy" parent="." node_paths=PackedStringArray("combatant") instance=ExtResource("5_yh8wn")]
 layout_mode = 1
 anchor_top = 0.15
 anchor_bottom = 0.15
@@ -160,7 +161,7 @@ offset_top = 0.0
 offset_bottom = 0.0
 combatant = NodePath("../Enemy")
 
-[node name="CastBar_Player" parent="." node_paths=PackedStringArray("combatant") instance=ExtResource("5_gqmjx")]
+[node name="CastBar_Player" parent="." node_paths=PackedStringArray("combatant") instance=ExtResource("5_yh8wn")]
 layout_mode = 1
 anchor_top = 0.85
 anchor_bottom = 0.85
@@ -168,7 +169,7 @@ offset_top = 0.0
 offset_bottom = 0.0
 combatant = NodePath("../Player")
 
-[node name="Radar" parent="." node_paths=PackedStringArray("player", "enemy", "warning_manager") instance=ExtResource("6_y3lgh")]
+[node name="Radar" parent="." node_paths=PackedStringArray("player", "enemy", "warning_manager") instance=ExtResource("6_th5sy")]
 position = Vector2(996, 200)
 player = NodePath("../Player")
 enemy = NodePath("../Enemy")
@@ -179,7 +180,7 @@ z_index = -2
 position = Vector2(575, 300)
 sprite_frames = SubResource("SpriteFrames_fgj0i")
 animation = &"front"
-script = ExtResource("8_nngec")
+script = ExtResource("7_sxnab")
 player = NodePath("../Player")
 enemy = NodePath("../Enemy")
 
@@ -187,20 +188,21 @@ enemy = NodePath("../Enemy")
 z_index = -1
 position = Vector2(579, 495)
 sprite_frames = SubResource("SpriteFrames_gk418")
-script = ExtResource("9_5kj47")
+script = ExtResource("9_h8oon")
 
-[node name="AnimationManager" type="Node" parent="." node_paths=PackedStringArray("enemy", "player", "enemySprite", "player_sprite")]
-script = ExtResource("8_nwi0n")
+[node name="AnimationManager" type="Node" parent="." node_paths=PackedStringArray("enemy", "player", "enemy_sprite", "player_sprite")]
+script = ExtResource("10_6l13k")
 enemy = NodePath("../Enemy")
 player = NodePath("../Player")
-enemySprite = NodePath("../BigEnemySprite")
+enemy_sprite = NodePath("../BigEnemySprite")
 player_sprite = NodePath("../BigPlayerSprite")
 
 [node name="WarningManager" type="Node" parent="." node_paths=PackedStringArray("enemy")]
-script = ExtResource("11_giy1w")
+script = ExtResource("11_atr0g")
 enemy = NodePath("../Enemy")
 
-[node name="Warnings" type="Node" parent="."]
+[node name="Warnings" type="Node2D" parent="."]
+visible = false
 
 [node name="Front" type="Node2D" parent="Warnings"]
 
@@ -208,8 +210,8 @@ enemy = NodePath("../Enemy")
 modulate = Color(1, 1, 1, 0.498039)
 position = Vector2(585, 493)
 scale = Vector2(1.2, 1.2)
-texture = ExtResource("12_dpynk")
-script = ExtResource("13_g1sir")
+texture = ExtResource("12_6momg")
+script = ExtResource("13_kxryw")
 player = NodePath("../../../Player")
 position_offset = Vector2i(0, -1)
 warning_manager = NodePath("../../../WarningManager")
@@ -218,8 +220,8 @@ warning_manager = NodePath("../../../WarningManager")
 modulate = Color(1, 1, 1, 0.498039)
 position = Vector2(586, 428)
 scale = Vector2(0.8, 0.8)
-texture = ExtResource("12_dpynk")
-script = ExtResource("13_g1sir")
+texture = ExtResource("12_6momg")
+script = ExtResource("13_kxryw")
 player = NodePath("../../../Player")
 position_offset = Vector2i(0, -2)
 warning_manager = NodePath("../../../WarningManager")
@@ -231,8 +233,8 @@ modulate = Color(1, 1, 1, 0.498039)
 position = Vector2(269, 446)
 rotation = -3.14159
 scale = Vector2(6.1342, 2.60641)
-texture = ExtResource("14_7jc2v")
-script = ExtResource("13_g1sir")
+texture = ExtResource("14_upo2c")
+script = ExtResource("13_kxryw")
 player = NodePath("../../../Player")
 position_offset = Vector2i(1, 0)
 visible_ranges = Array[int]([1])
@@ -243,8 +245,8 @@ modulate = Color(1, 1, 1, 0.498039)
 position = Vector2(887, 442)
 rotation = 3.14159
 scale = Vector2(-5.76205, 2.451)
-texture = ExtResource("14_7jc2v")
-script = ExtResource("13_g1sir")
+texture = ExtResource("14_upo2c")
+script = ExtResource("13_kxryw")
 player = NodePath("../../../Player")
 position_offset = Vector2i(-1, 0)
 visible_ranges = Array[int]([1])
@@ -255,8 +257,8 @@ modulate = Color(1, 1, 1, 0.498039)
 position = Vector2(-95, 455)
 rotation = -3.14159
 scale = Vector2(6.1342, 4.59473)
-texture = ExtResource("14_7jc2v")
-script = ExtResource("13_g1sir")
+texture = ExtResource("14_upo2c")
+script = ExtResource("13_kxryw")
 player = NodePath("../../../Player")
 position_offset = Vector2i(1, 1)
 visible_ranges = Array[int]([1])
@@ -267,8 +269,8 @@ modulate = Color(1, 1, 1, 0.498039)
 position = Vector2(1238, 453)
 rotation = 3.14159
 scale = Vector2(-5.76205, 5.16564)
-texture = ExtResource("14_7jc2v")
-script = ExtResource("13_g1sir")
+texture = ExtResource("14_upo2c")
+script = ExtResource("13_kxryw")
 player = NodePath("../../../Player")
 position_offset = Vector2i(-1, 1)
 visible_ranges = Array[int]([1])
@@ -281,8 +283,8 @@ modulate = Color(1, 1, 1, 0.498039)
 position = Vector2(207, 414.969)
 rotation = -3.14159
 scale = Vector2(3.54038, 2.0206)
-texture = ExtResource("14_7jc2v")
-script = ExtResource("13_g1sir")
+texture = ExtResource("14_upo2c")
+script = ExtResource("13_kxryw")
 player = NodePath("../../../Player")
 position_offset = Vector2i(1, 0)
 visible_ranges = Array[int]([2])
@@ -293,8 +295,8 @@ modulate = Color(1, 1, 1, 0.498039)
 position = Vector2(955, 412)
 rotation = 3.14159
 scale = Vector2(-3.5, 2)
-texture = ExtResource("14_7jc2v")
-script = ExtResource("13_g1sir")
+texture = ExtResource("14_upo2c")
+script = ExtResource("13_kxryw")
 player = NodePath("../../../Player")
 position_offset = Vector2i(-1, 0)
 visible_ranges = Array[int]([2])
@@ -305,8 +307,8 @@ modulate = Color(1, 1, 1, 0.498039)
 position = Vector2(406, 408)
 rotation = -3.14159
 scale = Vector2(2.8685, 1.21655)
-texture = ExtResource("14_7jc2v")
-script = ExtResource("13_g1sir")
+texture = ExtResource("14_upo2c")
+script = ExtResource("13_kxryw")
 player = NodePath("../../../Player")
 position_offset = Vector2i(1, -1)
 visible_ranges = Array[int]([2])
@@ -317,8 +319,8 @@ modulate = Color(1, 1, 1, 0.498039)
 position = Vector2(765, 405)
 rotation = 3.14159
 scale = Vector2(-2.8, 1.2)
-texture = ExtResource("14_7jc2v")
-script = ExtResource("13_g1sir")
+texture = ExtResource("14_upo2c")
+script = ExtResource("13_kxryw")
 player = NodePath("../../../Player")
 position_offset = Vector2i(-1, -1)
 visible_ranges = Array[int]([2])
@@ -331,8 +333,8 @@ modulate = Color(1, 1, 1, 0.498039)
 position = Vector2(173.244, 398.241)
 rotation = -3.14159
 scale = Vector2(3.14401, 3.0044)
-texture = ExtResource("14_7jc2v")
-script = ExtResource("13_g1sir")
+texture = ExtResource("14_upo2c")
+script = ExtResource("13_kxryw")
 player = NodePath("../../../Player")
 position_offset = Vector2i(1, 0)
 visible_ranges = Array[int]([3])
@@ -343,8 +345,8 @@ modulate = Color(1, 1, 1, 0.498039)
 position = Vector2(345, 392)
 rotation = -3.14159
 scale = Vector2(2.60726, 1.67892)
-texture = ExtResource("14_7jc2v")
-script = ExtResource("13_g1sir")
+texture = ExtResource("14_upo2c")
+script = ExtResource("13_kxryw")
 player = NodePath("../../../Player")
 position_offset = Vector2i(1, -1)
 visible_ranges = Array[int]([3])
@@ -355,8 +357,8 @@ modulate = Color(1, 1, 1, 0.498039)
 position = Vector2(478.739, 389.003)
 rotation = -3.14159
 scale = Vector2(1.71764, 0.906355)
-texture = ExtResource("14_7jc2v")
-script = ExtResource("13_g1sir")
+texture = ExtResource("14_upo2c")
+script = ExtResource("13_kxryw")
 player = NodePath("../../../Player")
 position_offset = Vector2i(1, -2)
 visible_ranges = Array[int]([3])
@@ -367,8 +369,8 @@ modulate = Color(1, 1, 1, 0.498039)
 position = Vector2(980, 394)
 rotation = 3.14159
 scale = Vector2(-3.137, 2.957)
-texture = ExtResource("14_7jc2v")
-script = ExtResource("13_g1sir")
+texture = ExtResource("14_upo2c")
+script = ExtResource("13_kxryw")
 player = NodePath("../../../Player")
 position_offset = Vector2i(-1, 0)
 visible_ranges = Array[int]([3])
@@ -379,8 +381,8 @@ modulate = Color(1, 1, 1, 0.498039)
 position = Vector2(811, 390)
 rotation = 3.14159
 scale = Vector2(-2.6, 1.648)
-texture = ExtResource("14_7jc2v")
-script = ExtResource("13_g1sir")
+texture = ExtResource("14_upo2c")
+script = ExtResource("13_kxryw")
 player = NodePath("../../../Player")
 position_offset = Vector2i(-1, -1)
 visible_ranges = Array[int]([3])
@@ -391,14 +393,14 @@ modulate = Color(1, 1, 1, 0.498039)
 position = Vector2(681, 386)
 rotation = 3.14159
 scale = Vector2(-1.844, 0.945)
-texture = ExtResource("14_7jc2v")
-script = ExtResource("13_g1sir")
+texture = ExtResource("14_upo2c")
+script = ExtResource("13_kxryw")
 player = NodePath("../../../Player")
 position_offset = Vector2i(-1, -2)
 visible_ranges = Array[int]([3])
 warning_manager = NodePath("../../../WarningManager")
 
-[node name="ScreenSurround" type="Node" parent="Warnings"]
+[node name="ScreenSurround" type="Node2D" parent="Warnings"]
 
 [node name="WarningSprite_Surround" type="Sprite2D" parent="Warnings/ScreenSurround" node_paths=PackedStringArray("player", "warning_manager")]
 modulate = Color(1, 1, 1, 0.498039)
@@ -406,7 +408,7 @@ position = Vector2(575, 565)
 rotation = 1.5708
 scale = Vector2(1, 1150)
 texture = SubResource("GradientTexture1D_c3ry5")
-script = ExtResource("13_g1sir")
+script = ExtResource("13_kxryw")
 player = NodePath("../../../Player")
 warning_manager = NodePath("../../../WarningManager")
 
@@ -416,7 +418,7 @@ position = Vector2(575, 80)
 rotation = -1.5708
 scale = Vector2(1, 1150)
 texture = SubResource("GradientTexture1D_c3ry5")
-script = ExtResource("13_g1sir")
+script = ExtResource("13_kxryw")
 player = NodePath("../../../Player")
 warning_manager = NodePath("../../../WarningManager")
 
@@ -425,7 +427,7 @@ modulate = Color(1, 1, 1, 0.498039)
 position = Vector2(1120, 323)
 scale = Vector2(1, 550)
 texture = SubResource("GradientTexture1D_c3ry5")
-script = ExtResource("13_g1sir")
+script = ExtResource("13_kxryw")
 player = NodePath("../../../Player")
 warning_manager = NodePath("../../../WarningManager")
 
@@ -435,6 +437,6 @@ position = Vector2(32, 323)
 rotation = -3.14159
 scale = Vector2(1, 550)
 texture = SubResource("GradientTexture1D_c3ry5")
-script = ExtResource("13_g1sir")
+script = ExtResource("13_kxryw")
 player = NodePath("../../../Player")
 warning_manager = NodePath("../../../WarningManager")

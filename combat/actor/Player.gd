@@ -14,6 +14,7 @@ func _init():
 	]
 	hurt_visual_effect = VisualEffect.new("player_hurt")
 	block_visual_effect = VisualEffect.new("player_block")
+	defeated_visual_effect = VisualEffect.new("player_defeated")
 
 func _to_string():
 	return "Player"

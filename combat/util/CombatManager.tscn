@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://cbn4igbnqmkil"]
+
+[ext_resource type="Script" path="res://combat/util/CombatManager.gd" id="1_l15wh"]
+
+[node name="CombatManager" type="Node"]
+script = ExtResource("1_l15wh")
+
+[node name="EndCombatSequenceTimer" type="Timer" parent="."]
+wait_time = 1.5
+one_shot = true
