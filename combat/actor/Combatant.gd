@@ -29,6 +29,8 @@ var block_visual_effect : VisualEffect # child classes are responsible for setti
 var available_actions : Array[Action]
 var _current_action : Action
 
+var unapplied_stun_duration : float = 0
+
 func _ready():
 	state_machine = StateMachine.new()
 	state_machine.initialize(self, possible_states, CombatantStates.States.IDLE)
@@ -86,6 +88,8 @@ func _apply_received_effect(received_effect : CombatActionEffect):
 			_apply_move_effect(received_effect)
 		CombatActionEffect.EffectType.VISUAL:
 			visual_effect_triggered.emit(received_effect.visual_effect_to_play, received_effect)
+		CombatActionEffect.EffectType.STUN:
+			_apply_stun_effect(received_effect)
 
 func _apply_damage_effect(received_effect : DamageEffect):
 	var incoming_damage = received_effect.amount
@@ -103,6 +107,10 @@ func _apply_damage_effect(received_effect : DamageEffect):
 func _apply_move_effect(received_effect : MoveEffect):
 	pass
 
+func _apply_stun_effect(received_effect : StunEffect):
+	print("*** STUNNED ***")
+	unapplied_stun_duration = max(unapplied_stun_duration, received_effect.duration)
+	# todo: cancel any on-going warnings (just something enemies gotta do)
 
 func set_current_action(new_action : Action, _head_start : float = 0):
 	_current_action = new_action

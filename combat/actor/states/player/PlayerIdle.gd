@@ -1,6 +1,13 @@
 class_name PlayerIdle extends ActorState
 
 func physics_process(delta : float) -> StateChange:
+	if owner.unapplied_stun_duration > 0:
+		owner.set_current_action(Action_Stunned.new(owner.unapplied_stun_duration))
+		owner.unapplied_stun_duration = 0
+		state_change.next_state = CombatantStates.States.ACT
+		state_change.remaining_delta = delta
+		return state_change
+	
 	# todo: have input handling here to decide whether a new action should begin
 	if (Input.is_action_pressed("ui_left")):
 		owner.set_current_action(Action_PlayerMoveLeft.new(), delta)

@@ -23,6 +23,7 @@ enum EffectType {
 	STATUS = 2,
 	MOVE   = 3,
 	VISUAL = 4,
+	STUN = 5,
 }
 
 enum Target {

@@ -1,6 +1,13 @@
 class_name Player_AltCharge extends ActorState
 
 func physics_process(delta : float) -> StateChange:
+	if owner.unapplied_stun_duration > 0:
+		owner.set_current_action(Action_Stunned.new(owner.unapplied_stun_duration))
+		owner.unapplied_stun_duration = 0
+		state_change.next_state = CombatantStates.States.ACT
+		state_change.remaining_delta = delta
+		return state_change
+	
 	if (Input.is_action_just_pressed("ui_left") and !(owner._current_action is Action_PlayerMoveLeft)):
 		owner.set_current_action(Action_PlayerMoveLeft.new(), delta)
 		state_change.next_state = CombatantStates.States.CHARGE

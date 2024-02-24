@@ -16,12 +16,14 @@ func _init(owning_enemy : Enemy):
 			EffectiveRange.RangeDirections.RIGHT + EffectiveRange.RangeDirections.LEFT + EffectiveRange.RangeDirections.FRONT)
 		var damage_effect = DamageEffect.new(CombatActionEffect.Target.OTHER, range1, 1)
 		var move_effect = MoveEffect.new(CombatActionEffect.Target.OTHER, range1, 1, 0, 1)
+		var stun_effect = StunEffect.new(CombatActionEffect.Target.OTHER, range1, 1)
 		var knockback_visual_effect = VisualEffect.new("player_knockback", 
 			CombatActionEffect.Target.OTHER, range1)
 		var attack_visual_effect = VisualEffect.new("enemy_lunge")
 		# visual effect with range
 
-		on_act_actions = [damage_effect, move_effect, attack_visual_effect, knockback_visual_effect] 
+		on_act_actions = [damage_effect, move_effect, stun_effect, 
+			attack_visual_effect, knockback_visual_effect] 
 
 func on_act() -> Array[CombatActionEffect]:
 	return on_act_actions
