@@ -27,6 +27,8 @@ func _signal_transition_out():
 	received_transition_data.exploration_data.reset()
 	received_transition_data.player_data.restore()
 	start_transition_out.emit(received_transition_data, _cleanup_scene)
+	# need to stop own input processing:
+	process_mode = Node.PROCESS_MODE_DISABLED
 
 func _cleanup_scene():
 	queue_free()

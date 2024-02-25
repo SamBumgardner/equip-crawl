@@ -32,6 +32,8 @@ func _signal_transition_out():
 		received_transition_data = TransitionData.new()
 	received_transition_data.next_scene_name = Transition.PREPARATION
 	start_transition_out.emit(received_transition_data, _cleanup_scene)
+	# need to stop own input processing:
+	process_mode = Node.PROCESS_MODE_DISABLED
 
 func _cleanup_scene():
 	queue_free()
