@@ -37,6 +37,16 @@ class ExplorationData:
 class PlayerData:
 	var max_health : int = 10
 	var current_health : int = 10
+	var current_actions : Array[Action] = [
+	Action_PlayerMoveForward.new(),
+	Action_PlayerMoveRight.new(),
+	Action_PlayerMoveBackward.new(),
+	Action_PlayerMoveLeft.new(),
+	null,
+	null,
+	Action_PlayerAttack.new(),
+	Action_PlayerPowerAttack.new(),
+]
 
 	func _to_string():
 		var result = ""
@@ -47,3 +57,6 @@ class PlayerData:
 	
 	func restore():
 		current_health = max_health
+		for action in current_actions:
+			if action != null:
+				action.remaining_uses = 10
