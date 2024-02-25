@@ -5,6 +5,7 @@ var charge_time : float = 0
 var recovery_time : float = 0
 var display_cast_bar : bool = true
 
+var max_uses : int = 10
 var remaining_uses : int = 10
 var icon : Texture2D = preload("res://art/input_display/action_icons/unknown.png")
 

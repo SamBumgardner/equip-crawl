@@ -59,4 +59,4 @@ class PlayerData:
 		current_health = max_health
 		for action in current_actions:
 			if action != null:
-				action.remaining_uses = 10
+				action.remaining_uses = action.max_uses
