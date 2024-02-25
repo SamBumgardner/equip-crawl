@@ -113,8 +113,6 @@ script = ExtResource("1_6tv01")
 
 [node name="Player" type="Node" parent="." node_paths=PackedStringArray("target_other")]
 script = ExtResource("1_sflhy")
-distance = null
-lateral_position = null
 max_health = 10.0
 health = 10.0
 target_other = NodePath("../Enemy")
