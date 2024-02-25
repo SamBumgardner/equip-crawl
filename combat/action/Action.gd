@@ -5,6 +5,10 @@ var charge_time : float = 0
 var recovery_time : float = 0
 var display_cast_bar : bool = true
 
+var max_uses : int = 10
+var remaining_uses : int = 10
+var icon : Texture2D = preload("res://art/input_display/action_icons/unknown.png")
+
 # This may be better refactored to just be included on actions that need it,
 #  but it's more convenient to expose it here for now.
 var player : Player
@@ -37,3 +41,9 @@ func _extract_threatened_ranges(effects_to_check : Array[CombatActionEffect]):
 				and effect.target == CombatActionEffect.Target.OTHER:
 			result.append(effect.effective_range)
 	return result
+
+func consume_use() -> bool:
+	if remaining_uses > 0:
+		remaining_uses -= 1
+		return true
+	return false

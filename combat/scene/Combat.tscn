@@ -1,10 +1,11 @@
-[gd_scene load_steps=27 format=3 uid="uid://ctcumrw8jrht"]
+[gd_scene load_steps=29 format=3 uid="uid://ctcumrw8jrht"]
 
 [ext_resource type="Script" path="res://combat/scene/Combat.gd" id="1_6tv01"]
+[ext_resource type="Theme" uid="uid://cu2c5rnghr6e2" path="res://art/theme/new_theme.tres" id="1_f5rn2"]
 [ext_resource type="Script" path="res://combat/actor/Player.gd" id="1_sflhy"]
 [ext_resource type="Script" path="res://combat/actor/Enemy.gd" id="2_mj7ad"]
 [ext_resource type="Script" path="res://combat/hud/HealthBar.gd" id="4_k71jw"]
-[ext_resource type="PackedScene" path="res://combat/util/CombatManager.tscn" id="4_l55h8"]
+[ext_resource type="PackedScene" uid="uid://cbn4igbnqmkil" path="res://combat/util/CombatManager.tscn" id="4_l55h8"]
 [ext_resource type="PackedScene" uid="uid://c84dm2wmi7hvj" path="res://combat/hud/CastBar.tscn" id="5_yh8wn"]
 [ext_resource type="PackedScene" uid="uid://bp38hjotenmy4" path="res://combat/hud/radar.tscn" id="6_th5sy"]
 [ext_resource type="Script" path="res://combat/hud/BigEnemySprite.gd" id="7_sxnab"]
@@ -15,6 +16,7 @@
 [ext_resource type="Texture2D" uid="uid://dr1hw3nsnbb2b" path="res://art/combat/danger_panel.png" id="12_6momg"]
 [ext_resource type="Script" path="res://combat/hud/WarningSprite_Player.gd" id="13_kxryw"]
 [ext_resource type="Texture2D" uid="uid://x4jtmox8c8gi" path="res://art/combat/side_panel.png" id="14_upo2c"]
+[ext_resource type="PackedScene" uid="uid://b4lk70r2fvrfs" path="res://combat/hud/input/InputDisplay.tscn" id="17_gjpcg"]
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_dmas6"]
 load_path = "res://.godot/imported/skeleton_spear.png-ffdc3a3fa9e04d0fdc16576652e8227c.ctex"
@@ -107,20 +109,19 @@ width = 64
 custom_minimum_size = Vector2(1152, 648)
 layout_mode = 3
 anchors_preset = 0
+theme = ExtResource("1_f5rn2")
 script = ExtResource("1_6tv01")
 
 [node name="Player" type="Node" parent="." node_paths=PackedStringArray("target_other")]
 script = ExtResource("1_sflhy")
-distance = null
-lateral_position = null
 max_health = 10.0
 health = 10.0
 target_other = NodePath("../Enemy")
 
 [node name="Enemy" type="Node" parent="." node_paths=PackedStringArray("target_other")]
 script = ExtResource("2_mj7ad")
-max_health = 30.0
-health = 30.0
+max_health = 5.0
+health = 5.0
 target_other = NodePath("../Player")
 
 [node name="CombatManager" parent="." node_paths=PackedStringArray("player", "enemy") instance=ExtResource("4_l55h8")]
@@ -439,3 +440,7 @@ texture = SubResource("GradientTexture1D_c3ry5")
 script = ExtResource("13_kxryw")
 player = NodePath("../../../Player")
 warning_manager = NodePath("../../../WarningManager")
+
+[node name="InputDisplay" parent="." node_paths=PackedStringArray("player") instance=ExtResource("17_gjpcg")]
+layout_mode = 1
+player = NodePath("../Player")

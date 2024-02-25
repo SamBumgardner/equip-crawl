@@ -6,6 +6,9 @@ func _init():
 	name = "Basic Attack"
 	charge_time = 0
 	recovery_time = .5
+	icon = preload("res://art/input_display/action_icons/basic_attack.png")
+	max_uses = 15
+	remaining_uses = 15
 	
 	if (on_act_actions.is_empty()):
 		var range1 = EffectiveRange.new(Position.Ranges.SHORT, Position.Ranges.SHORT, 

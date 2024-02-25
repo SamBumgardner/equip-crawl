@@ -30,11 +30,11 @@ offset_top = -40.0
 grow_horizontal = 0
 grow_vertical = 0
 theme_override_constants/margin_right = 24
-theme_override_constants/margin_bottom = 24
+theme_override_constants/margin_bottom = 16
 
 [node name="Label" type="Label" parent="Transition/MarginContainer"]
 layout_mode = 2
-theme_override_font_sizes/font_size = 24
+theme_override_font_sizes/font_size = 32
 text = "EQUIP-CRAWL"
 horizontal_alignment = 2
 

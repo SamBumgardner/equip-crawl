@@ -27,7 +27,6 @@ var hurt_visual_effect : VisualEffect # child classes are responsible for settin
 var block_visual_effect : VisualEffect # child classes are responsible for setting this up in _init
 var defeated_visual_effect : VisualEffect
 # current_status_effects
-var available_actions : Array[Action]
 var _current_action : Action
 
 var unapplied_stun_duration : float = 0

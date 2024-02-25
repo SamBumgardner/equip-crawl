@@ -1,5 +1,6 @@
-[gd_scene load_steps=3 format=3 uid="uid://c84dm2wmi7hvj"]
+[gd_scene load_steps=4 format=3 uid="uid://c84dm2wmi7hvj"]
 
+[ext_resource type="Theme" uid="uid://cu2c5rnghr6e2" path="res://art/theme/new_theme.tres" id="1_4imiw"]
 [ext_resource type="Script" path="res://combat/hud/CastBar.gd" id="1_bir3w"]
 [ext_resource type="Script" path="res://combat/hud/CastProgress.gd" id="1_ry2v3"]
 
@@ -13,20 +14,21 @@ offset_top = -29.0
 offset_bottom = 29.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("1_4imiw")
 theme_override_constants/separation = -8
 script = ExtResource("1_bir3w")
 
 [node name="NameContainer" type="MarginContainer" parent="."]
 z_index = 1
 layout_mode = 2
-theme_override_constants/margin_left = 20
+theme_override_constants/margin_left = 16
 
 [node name="ActionName" type="Label" parent="NameContainer"]
 layout_mode = 2
 size_flags_horizontal = 0
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 5
-theme_override_font_sizes/font_size = 20
+theme_override_font_sizes/font_size = 16
 text = "Action Name Goes Here
 "
 horizontal_alignment = 1

@@ -1,9 +1,21 @@
 class_name Player extends Combatant
 
 signal player_move(distance : Position.Ranges, lateral_position : Position.Direction)
+signal action_used(action_index : InputIndices, remaining_count : int)
 
 @export var distance : Position.Ranges = Position.Ranges.MEDIUM
 @export var lateral_position : Position.Direction = Position.Direction.SOUTH
+
+var available_actions : Array[Action] = [
+	Action_PlayerMoveForward.new(),
+	Action_PlayerMoveRight.new(),
+	Action_PlayerMoveBackward.new(),
+	Action_PlayerMoveLeft.new(),
+	null,
+	null,
+	Action_PlayerAttack.new(),
+	Action_PlayerPowerAttack.new(),
+]
 
 func _init():
 	possible_states = [
@@ -53,3 +65,34 @@ func _apply_move_effect(received_effect : MoveEffect):
 	
 	print(self, " moved! New position is distance ", distance, " lateral ", lateral_position)
 	player_move.emit(distance, lateral_position)
+
+func get_available_action(input : InputIndices) -> Action:
+	var result = null
+	if available_actions.size() > input:
+		var selected_action = available_actions[input]
+		if selected_action != null and selected_action.consume_use():
+			action_used.emit(input, selected_action.remaining_uses)
+			result = available_actions[input]
+	return result
+
+enum InputIndices {
+	UP = 0,
+	RIGHT = 1,
+	DOWN = 2,
+	LEFT = 3,
+	BUTTON_0_0 = 4,
+	BUTTON_1_0 = 5,
+	BUTTON_0_1 = 6,
+	BUTTON_1_1 = 7
+}
+
+const PLAYER_INPUTS = {
+	"direction_up": InputIndices.UP,
+	"direction_right": InputIndices.RIGHT,
+	"direction_down": InputIndices.DOWN,
+	"direction_left": InputIndices.LEFT,
+	"action_0_0": InputIndices.BUTTON_0_0,
+	"action_1_0": InputIndices.BUTTON_1_0,
+	"action_0_1": InputIndices.BUTTON_0_1,
+	"action_1_1": InputIndices.BUTTON_1_1,
+}
