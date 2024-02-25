@@ -21,7 +21,7 @@ script = ExtResource("1_bir3w")
 [node name="NameContainer" type="MarginContainer" parent="."]
 z_index = 1
 layout_mode = 2
-theme_override_constants/margin_left = 20
+theme_override_constants/margin_left = 16
 
 [node name="ActionName" type="Label" parent="NameContainer"]
 layout_mode = 2
