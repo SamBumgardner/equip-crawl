@@ -1,0 +1,102 @@
+[gd_scene load_steps=8 format=3 uid="uid://b4lk70r2fvrfs"]
+
+[ext_resource type="Theme" uid="uid://cu2c5rnghr6e2" path="res://art/theme/new_theme.tres" id="1_8lxpd"]
+[ext_resource type="Script" path="res://combat/hud/input/InputDisplay.gd" id="2_equog"]
+[ext_resource type="PackedScene" uid="uid://dqackltvr38uj" path="res://combat/hud/input/ButtonDisplay.tscn" id="2_risl5"]
+[ext_resource type="Texture2D" uid="uid://dbjkslh2yx5vo" path="res://art/input_display/button_backgrounds/directional_button_up.png" id="3_fly6k"]
+[ext_resource type="Texture2D" uid="uid://dsgs5q2615whs" path="res://art/input_display/button_backgrounds/directional_button_right.png" id="4_t0rhr"]
+[ext_resource type="Texture2D" uid="uid://cjc2yw01x2biw" path="res://art/input_display/button_backgrounds/directional_button_down.png" id="5_2r2iu"]
+[ext_resource type="Texture2D" uid="uid://crcyctha2le2u" path="res://art/input_display/button_backgrounds/directional_button_left.png" id="6_wfsli"]
+
+[node name="InputDisplay" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_8lxpd")
+script = ExtResource("2_equog")
+
+[node name="Face_Buttons" type="Control" parent="."]
+layout_mode = 1
+anchor_left = 0.1
+anchor_top = 0.8
+anchor_right = 0.1
+anchor_bottom = 0.8
+
+[node name="Button_0_0" parent="Face_Buttons" instance=ExtResource("2_risl5")]
+layout_mode = 0
+offset_left = -60.0
+offset_top = -60.0
+offset_right = -12.0
+offset_bottom = -12.0
+input_action_name = "action_0_0"
+
+[node name="Button_1_0" parent="Face_Buttons" instance=ExtResource("2_risl5")]
+layout_mode = 0
+offset_left = 12.0
+offset_top = -60.0
+offset_right = 60.0
+offset_bottom = -12.0
+input_action_name = "action_1_0"
+
+[node name="Button_0_1" parent="Face_Buttons" instance=ExtResource("2_risl5")]
+layout_mode = 0
+offset_left = -40.0
+offset_top = 6.0
+offset_right = 8.0
+offset_bottom = 54.0
+
+[node name="Button_1_1" parent="Face_Buttons" instance=ExtResource("2_risl5")]
+layout_mode = 0
+offset_left = 32.0
+offset_top = 6.0
+offset_right = 80.0
+offset_bottom = 54.0
+input_action_name = "action_1_1"
+
+[node name="Directional_Buttons" type="Control" parent="."]
+layout_mode = 1
+anchor_left = 0.85
+anchor_top = 0.8
+anchor_right = 0.85
+anchor_bottom = 0.8
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Direction_Up" parent="Directional_Buttons" instance=ExtResource("2_risl5")]
+layout_mode = 0
+offset_left = -24.0
+offset_top = -60.0
+offset_right = 24.0
+offset_bottom = -12.0
+texture = ExtResource("3_fly6k")
+input_action_name = "direction_up"
+
+[node name="Direction_Right" parent="Directional_Buttons" instance=ExtResource("2_risl5")]
+layout_mode = 0
+offset_left = 40.0
+offset_top = 6.0
+offset_right = 88.0
+offset_bottom = 54.0
+texture = ExtResource("4_t0rhr")
+input_action_name = "direction_right"
+
+[node name="Direction_Down" parent="Directional_Buttons" instance=ExtResource("2_risl5")]
+layout_mode = 0
+offset_left = -24.0
+offset_top = 6.0
+offset_right = 24.0
+offset_bottom = 54.0
+texture = ExtResource("5_2r2iu")
+input_action_name = "direction_down"
+
+[node name="Direction_Left" parent="Directional_Buttons" instance=ExtResource("2_risl5")]
+layout_mode = 0
+offset_left = -88.0
+offset_top = 6.0
+offset_right = -40.0
+offset_bottom = 54.0
+texture = ExtResource("6_wfsli")
+input_action_name = "direction_left"

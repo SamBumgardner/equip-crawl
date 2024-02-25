@@ -1,6 +1,7 @@
 class_name Player extends Combatant
 
 signal player_move(distance : Position.Ranges, lateral_position : Position.Direction)
+signal action_used(action_index : InputIndices, remaining_count : int)
 
 @export var distance : Position.Ranges = Position.Ranges.MEDIUM
 @export var lateral_position : Position.Direction = Position.Direction.SOUTH
@@ -26,8 +27,6 @@ func _init():
 	hurt_visual_effect = VisualEffect.new("player_hurt")
 	block_visual_effect = VisualEffect.new("player_block")
 	defeated_visual_effect = VisualEffect.new("player_defeated")
-	for input_index in InputIndices:
-		available_actions.append(null)
 
 func _to_string():
 	return "Player"
@@ -72,6 +71,7 @@ func get_available_action(input : InputIndices) -> Action:
 	if available_actions.size() > input:
 		var selected_action = available_actions[input]
 		if selected_action != null and selected_action.consume_use():
+			action_used.emit(input, selected_action.remaining_uses)
 			result = available_actions[input]
 	return result
 
