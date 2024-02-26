@@ -16,18 +16,18 @@ extends Control
 
 func _ready():
 	# temp
-	button_displays[Player.InputIndices.UP].update_icon(load("res://art/input_display/action_icons/move_forward.png"))
-	button_displays[Player.InputIndices.RIGHT].update_icon(load("res://art/input_display/action_icons/move_right.png"))
-	button_displays[Player.InputIndices.DOWN].update_icon(load("res://art/input_display/action_icons/move_backward.png"))
-	button_displays[Player.InputIndices.LEFT].update_icon(load("res://art/input_display/action_icons/move_left.png"))
-
 	if player != null:
 		player.action_used.connect(_on_player_action_used)
-		_initalize_action_buttons()
+		_initalize_action_buttons(player.available_actions)
+	else:
+		var empty_actions_array : Array[Action] = []
+		for display in button_displays:
+			empty_actions_array.append(null)
+		_initalize_action_buttons(empty_actions_array)
 
-func _initalize_action_buttons():
-	for i in range(player.available_actions.size()):
-		var action = player.available_actions[i]
+func _initalize_action_buttons(actions_array : Array[Action]):
+	for i in range(actions_array.size()):
+		var action = actions_array[i]
 		_on_player_action_changed(i, action)
 
 func _on_player_action_changed(input : Player.InputIndices, action : Action):
