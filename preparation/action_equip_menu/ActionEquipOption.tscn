@@ -1,5 +1,6 @@
-[gd_scene load_steps=4 format=3 uid="uid://ctokxdn2n7lc0"]
+[gd_scene load_steps=5 format=3 uid="uid://ctokxdn2n7lc0"]
 
+[ext_resource type="Script" path="res://preparation/action_equip_menu/ActionEquipOption.gd" id="1_mkbqd"]
 [ext_resource type="Texture2D" uid="uid://xfa3tm78y3nx" path="res://art/input_display/button_backgrounds/button.png" id="1_p77m3"]
 [ext_resource type="Theme" uid="uid://cu2c5rnghr6e2" path="res://art/theme/new_theme.tres" id="1_rdjw3"]
 [ext_resource type="Texture2D" uid="uid://ca3dsxtimtih1" path="res://art/input_display/action_icons/basic_attack.png" id="2_4h7y4"]
@@ -7,6 +8,7 @@
 [node name="PanelContainer" type="PanelContainer"]
 offset_right = 120.0
 offset_bottom = 108.0
+script = ExtResource("1_mkbqd")
 
 [node name="Button" type="Button" parent="."]
 custom_minimum_size = Vector2(112, 100)
@@ -61,3 +63,5 @@ layout_mode = 2
 text = "Equip
 "
 horizontal_alignment = 1
+
+[connection signal="button_down" from="Button" to="." method="_test"]
