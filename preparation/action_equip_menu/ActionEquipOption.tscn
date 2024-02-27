@@ -1,13 +1,13 @@
-[gd_scene load_steps=5 format=3 uid="uid://ctokxdn2n7lc0"]
+[gd_scene load_steps=4 format=3 uid="uid://ctokxdn2n7lc0"]
 
 [ext_resource type="Script" path="res://preparation/action_equip_menu/ActionEquipOption.gd" id="1_mkbqd"]
-[ext_resource type="Texture2D" uid="uid://xfa3tm78y3nx" path="res://art/input_display/button_backgrounds/button.png" id="1_p77m3"]
 [ext_resource type="Theme" uid="uid://cu2c5rnghr6e2" path="res://art/theme/new_theme.tres" id="1_rdjw3"]
-[ext_resource type="Texture2D" uid="uid://ca3dsxtimtih1" path="res://art/input_display/action_icons/basic_attack.png" id="2_4h7y4"]
+[ext_resource type="PackedScene" uid="uid://db5t3k2on42ym" path="res://ActionBadge.tscn" id="3_4a5ew"]
 
 [node name="PanelContainer" type="PanelContainer"]
 offset_right = 120.0
 offset_bottom = 108.0
+theme = ExtResource("1_rdjw3")
 script = ExtResource("1_mkbqd")
 
 [node name="Button" type="Button" parent="."]
@@ -15,7 +15,7 @@ custom_minimum_size = Vector2(112, 100)
 layout_mode = 2
 theme = ExtResource("1_rdjw3")
 theme_override_font_sizes/font_size = 16
-flat = true
+text = " "
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 2
@@ -25,40 +25,15 @@ theme_override_constants/margin_top = 4
 theme_override_constants/margin_right = 4
 theme_override_constants/margin_bottom = 4
 
-[node name="ActionEquipOption" type="VBoxContainer" parent="MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
 layout_mode = 2
 size_flags_vertical = 4
 mouse_filter = 2
-theme = ExtResource("1_rdjw3")
 
-[node name="Action Name" type="Label" parent="MarginContainer/ActionEquipOption"]
+[node name="ActionEquipOption" parent="MarginContainer/VBoxContainer" instance=ExtResource("3_4a5ew")]
 layout_mode = 2
-text = "action-name"
-horizontal_alignment = 1
 
-[node name="Background" type="TextureRect" parent="MarginContainer/ActionEquipOption"]
-layout_mode = 2
-mouse_filter = 2
-texture = ExtResource("1_p77m3")
-stretch_mode = 3
-
-[node name="Icon" type="TextureRect" parent="MarginContainer/ActionEquipOption/Background"]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -24.0
-offset_top = -24.0
-offset_right = 24.0
-offset_bottom = 24.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-texture = ExtResource("2_4h7y4")
-
-[node name="Label" type="Label" parent="MarginContainer/ActionEquipOption"]
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
 text = "Equip
 "

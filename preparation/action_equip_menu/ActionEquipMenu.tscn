@@ -1,12 +1,37 @@
-[gd_scene load_steps=6 format=3 uid="uid://mhkxuhqxcccb"]
+[gd_scene load_steps=19 format=3 uid="uid://mhkxuhqxcccb"]
 
 [ext_resource type="Theme" uid="uid://cu2c5rnghr6e2" path="res://art/theme/new_theme.tres" id="1_dc71h"]
 [ext_resource type="PackedScene" uid="uid://ctokxdn2n7lc0" path="res://preparation/action_equip_menu/ActionEquipOption.tscn" id="2_ob603"]
 [ext_resource type="Script" path="res://preparation/action_equip_menu/ActionEquipMenu.gd" id="2_wjc05"]
 [ext_resource type="PackedScene" uid="uid://b4lk70r2fvrfs" path="res://combat/hud/input/InputDisplay.tscn" id="3_xbjpp"]
+[ext_resource type="Script" path="res://combat/action/examples/player/Action_PlayerAttack.gd" id="4_81trp"]
+[ext_resource type="Script" path="res://combat/action/examples/player/Action_PlayerPowerAttack.gd" id="5_uf1we"]
+[ext_resource type="Script" path="res://combat/action/examples/player/Action_PlayerMoveForward.gd" id="6_kuoha"]
+[ext_resource type="Script" path="res://combat/action/examples/player/Action_PlayerMoveRight.gd" id="7_3vrut"]
+[ext_resource type="Script" path="res://combat/action/examples/player/Action_PlayerMoveBackward.gd" id="8_o8vix"]
+[ext_resource type="Script" path="res://combat/action/examples/player/Action_PlayerMoveLeft.gd" id="9_8vlsm"]
+[ext_resource type="PackedScene" uid="uid://chlpm4w3tgmq4" path="res://preparation/action_equip_menu/BindActionPopup.tscn" id="11_blday"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cwmvm"]
 bg_color = Color(0, 0, 0, 1)
+
+[sub_resource type="Resource" id="Resource_s4ji4"]
+script = ExtResource("4_81trp")
+
+[sub_resource type="Resource" id="Resource_0x15n"]
+script = ExtResource("5_uf1we")
+
+[sub_resource type="Resource" id="Resource_soyjj"]
+script = ExtResource("6_kuoha")
+
+[sub_resource type="Resource" id="Resource_ig0d0"]
+script = ExtResource("7_3vrut")
+
+[sub_resource type="Resource" id="Resource_g0r8c"]
+script = ExtResource("8_o8vix")
+
+[sub_resource type="Resource" id="Resource_xlqov"]
+script = ExtResource("9_8vlsm")
 
 [node name="ColorRect" type="ColorRect"]
 anchors_preset = -1
@@ -46,7 +71,11 @@ offset_right = 126.0
 offset_bottom = 168.0
 grow_horizontal = 2
 
-[node name="Label" type="Label" parent="MarginContainer/ColorRect/VBoxContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/ColorRect/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_top = 10
+
+[node name="Label" type="Label" parent="MarginContainer/ColorRect/VBoxContainer/MarginContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 64
 text = "Loadout"
@@ -87,21 +116,27 @@ columns = 5
 
 [node name="ActionEquipOption" parent="MarginContainer/ColorRect/VBoxContainer/PanelContainer/MarginContainer/ScrollContainer/MarginContainer/GridContainer" instance=ExtResource("2_ob603")]
 layout_mode = 2
+action = SubResource("Resource_s4ji4")
 
 [node name="ActionEquipOption2" parent="MarginContainer/ColorRect/VBoxContainer/PanelContainer/MarginContainer/ScrollContainer/MarginContainer/GridContainer" instance=ExtResource("2_ob603")]
 layout_mode = 2
+action = SubResource("Resource_0x15n")
 
 [node name="ActionEquipOption3" parent="MarginContainer/ColorRect/VBoxContainer/PanelContainer/MarginContainer/ScrollContainer/MarginContainer/GridContainer" instance=ExtResource("2_ob603")]
 layout_mode = 2
+action = SubResource("Resource_soyjj")
 
 [node name="ActionEquipOption4" parent="MarginContainer/ColorRect/VBoxContainer/PanelContainer/MarginContainer/ScrollContainer/MarginContainer/GridContainer" instance=ExtResource("2_ob603")]
 layout_mode = 2
+action = SubResource("Resource_ig0d0")
 
 [node name="ActionEquipOption5" parent="MarginContainer/ColorRect/VBoxContainer/PanelContainer/MarginContainer/ScrollContainer/MarginContainer/GridContainer" instance=ExtResource("2_ob603")]
 layout_mode = 2
+action = SubResource("Resource_g0r8c")
 
 [node name="ActionEquipOption6" parent="MarginContainer/ColorRect/VBoxContainer/PanelContainer/MarginContainer/ScrollContainer/MarginContainer/GridContainer" instance=ExtResource("2_ob603")]
 layout_mode = 2
+action = SubResource("Resource_xlqov")
 
 [node name="ActionEquipOption7" parent="MarginContainer/ColorRect/VBoxContainer/PanelContainer/MarginContainer/ScrollContainer/MarginContainer/GridContainer" instance=ExtResource("2_ob603")]
 layout_mode = 2
@@ -138,3 +173,14 @@ anchor_bottom = 0.8
 grow_horizontal = 2
 theme_override_font_sizes/font_size = 48
 text = "Done"
+
+[node name="BindActionPopup" parent="." instance=ExtResource("11_blday")]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
