@@ -58,7 +58,7 @@ theme_override_constants/margin_right = 5
 theme_override_constants/margin_bottom = 5
 
 [node name="ScrollContainer" type="ScrollContainer" parent="MarginContainer/ColorRect/VBoxContainer/PanelContainer/MarginContainer"]
-custom_minimum_size = Vector2(750, 210)
+custom_minimum_size = Vector2(750, 265)
 layout_mode = 2
 follow_focus = true
 scroll_vertical_custom_step = 220.0
