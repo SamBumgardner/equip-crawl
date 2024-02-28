@@ -11,6 +11,9 @@ var equipped : bool:
 		equipped = value
 		is_equipped_sprite.visible = value
 
+func initialize(action_in : Action):
+	action = action_in
+
 func _ready():
 	if action != null:
 		action_badge.set_action(action)

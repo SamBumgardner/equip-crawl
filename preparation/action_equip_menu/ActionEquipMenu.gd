@@ -1,9 +1,10 @@
 class_name ActionEquipMenu extends ColorRect
 
+const EQUIP_OPTION_PRELOAD = preload("res://preparation/action_equip_menu/ActionEquipOption.tscn")
+
 signal loadout_selection_done(player_actions : Array[Action])
 
 @onready var action_option_grid_container : GridContainer = $MarginContainer/ColorRect/VBoxContainer/PanelContainer/MarginContainer/ScrollContainer/MarginContainer/GridContainer
-@onready var first_action_option : PanelContainer = $MarginContainer/ColorRect/VBoxContainer/PanelContainer/MarginContainer/ScrollContainer/MarginContainer/GridContainer/ActionEquipOption
 @onready var finished_button : Button = $MarginContainer/ColorRect/FinishedButton
 @onready var bind_action_popup : BindActionPopup = $BindActionPopup
 @onready var input_display : InputDisplay = $MarginContainer/ColorRect/InputDisplay
@@ -13,19 +14,31 @@ signal loadout_selection_done(player_actions : Array[Action])
 var current_bound_actions : Array[Action] = []
 
 func _ready():
+	if get_tree().current_scene == self:
+		set_possible_actions([Action_PlayerAttack.new()], [])
+	
 	for i in range(Player.InputIndices.size()):
 		current_bound_actions.append(null)
-	first_action_option.get_child(0).grab_focus()
-	
-	for action_option in action_option_buttons:
-		if action_option is ActionEquipOption:
-			action_option.equip_action_pressed.connect(_on_equip_option_pressed)
+	action_option_grid_container.get_child(0).get_child(0).grab_focus()
 	
 	bind_action_popup.action_bound.connect(_on_action_bound)
 
 func _input(event):
 	if event.is_action_pressed("ui_cancel"):
 		finished_button.grab_focus()
+
+func set_possible_actions(possible_actions : Array[Action], equipped_actions : Array[Action]):
+	for child in action_option_grid_container.get_children():
+		child.queue_free()
+	
+	for possible_action in possible_actions:
+		var equip_option : ActionEquipOption = EQUIP_OPTION_PRELOAD.instantiate()
+		equip_option.initialize(possible_action)
+		if possible_action in equipped_actions:
+			equip_option.equipped = true
+		action_option_grid_container.add_child(equip_option)
+		equip_option.equip_action_pressed.connect(_on_equip_option_pressed)
+	current_bound_actions = equipped_actions
 
 func _on_equip_option_pressed(action : Action):
 	_unbind_action(action)
@@ -58,5 +71,5 @@ func _on_finished_button_pressed():
 	hide()
 
 func _on_visibility_changed():
-	if visible && first_action_option != null:
-		first_action_option.get_child(0).grab_focus()
+	if visible && action_option_grid_container.get_children().size() > 0:
+		action_option_grid_container.get_child(0).get_child(0).grab_focus()
