@@ -6,12 +6,16 @@ class_name ActionEquipMenu extends ColorRect
 @onready var bind_action_popup : BindActionPopup = $BindActionPopup
 @onready var input_display : InputDisplay = $MarginContainer/ColorRect/InputDisplay
 
+@onready var action_option_buttons : Array[Node] = action_option_grid_container.get_children()
 
+var current_bound_actions : Array[Action] = []
 
 func _ready():
+	for i in range(Player.InputIndices.size()):
+		current_bound_actions.append(null)
 	first_action_option.get_child(0).grab_focus()
 	
-	for action_option in action_option_grid_container.get_children():
+	for action_option in action_option_buttons:
 		if action_option is ActionEquipOption:
 			action_option.equip_action_pressed.connect(_on_equip_option_pressed)
 	
@@ -22,10 +26,25 @@ func _input(event):
 		finished_button.grab_focus()
 
 func _on_equip_option_pressed(action : Action):
+	_unbind_action(action)
 	bind_action_popup.set_action(action)
 	bind_action_popup.show()
 
+func _unbind_action(action : Action):
+	get_action_option(action).equipped = false
+	for input_index in Player.InputIndices.values():
+		if current_bound_actions[input_index] == action:
+			current_bound_actions[input_index] = null
+			input_display._on_player_action_changed(input_index, null)
+
 func _on_action_bound(action : Action, input_index : Player.InputIndices):
 	input_display._on_player_action_changed(input_index, action)
+	get_action_option(action).equipped = true
+	current_bound_actions[input_index] = action
 	bind_action_popup.hide()
-	
+
+func get_action_option(action : Action) -> ActionEquipOption:
+	for action_option in action_option_buttons:
+		if action_option.action == action:
+			return action_option
+	return null
