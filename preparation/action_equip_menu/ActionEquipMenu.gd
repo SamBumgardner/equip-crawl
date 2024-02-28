@@ -53,3 +53,9 @@ func get_action_option(action : Action) -> ActionEquipOption:
 
 func _on_finished_button_pressed():
 	loadout_selection_done.emit(current_bound_actions)
+	hide()
+
+
+func _on_visibility_changed():
+	if visible && first_action_option != null:
+		first_action_option.get_child(0).grab_focus()

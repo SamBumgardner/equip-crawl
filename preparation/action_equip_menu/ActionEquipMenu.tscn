@@ -185,4 +185,5 @@ anchor_bottom = 0.5
 grow_horizontal = 2
 grow_vertical = 2
 
+[connection signal="visibility_changed" from="." to="." method="_on_visibility_changed"]
 [connection signal="pressed" from="MarginContainer/ColorRect/FinishedButton" to="." method="_on_finished_button_pressed"]

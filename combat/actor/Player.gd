@@ -20,7 +20,7 @@ var available_actions : Array[Action] = [
 func _init():
 	possible_states = [
 		PlayerIdle.new(self),
-		Player_AltCharge.new(self),
+		State_Charge.new(self),
 		State_Act.new(self),
 		State_Recover.new(self),
 	]
