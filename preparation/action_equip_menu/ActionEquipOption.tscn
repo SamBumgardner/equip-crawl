@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://preparation/action_equip_menu/ActionEquipOption.gd" id="1_mkbqd"]
 [ext_resource type="Theme" uid="uid://cu2c5rnghr6e2" path="res://art/theme/new_theme.tres" id="1_rdjw3"]
 [ext_resource type="PackedScene" uid="uid://db5t3k2on42ym" path="res://ActionBadge.tscn" id="3_4a5ew"]
-[ext_resource type="Texture2D" uid="uid://b2faonjy018ec" path="res://art/Selected.png" id="4_mybwo"]
+[ext_resource type="Texture2D" uid="uid://b2faonjy018ec" path="res://art/preparation/Selected.png" id="4_stw3c"]
 
 [node name="PanelContainer" type="PanelContainer"]
 offset_right = 120.0
@@ -45,7 +45,7 @@ visible = false
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 8
-texture = ExtResource("4_mybwo")
+texture = ExtResource("4_stw3c")
 stretch_mode = 2
 
 [connection signal="focus_entered" from="." to="." method="_on_focus_entered"]

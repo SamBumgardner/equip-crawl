@@ -1,5 +1,7 @@
 class_name ActionEquipMenu extends ColorRect
 
+signal loadout_selection_done(player_actions : Array[Action])
+
 @onready var action_option_grid_container : GridContainer = $MarginContainer/ColorRect/VBoxContainer/PanelContainer/MarginContainer/ScrollContainer/MarginContainer/GridContainer
 @onready var first_action_option : PanelContainer = $MarginContainer/ColorRect/VBoxContainer/PanelContainer/MarginContainer/ScrollContainer/MarginContainer/GridContainer/ActionEquipOption
 @onready var finished_button : Button = $MarginContainer/ColorRect/FinishedButton
@@ -48,3 +50,6 @@ func get_action_option(action : Action) -> ActionEquipOption:
 		if action_option.action == action:
 			return action_option
 	return null
+
+func _on_finished_button_pressed():
+	loadout_selection_done.emit(current_bound_actions)
