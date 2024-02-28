@@ -16,7 +16,11 @@ layout_mode = 2
 text = "action-name"
 horizontal_alignment = 1
 
-[node name="Background" type="TextureRect" parent="."]
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 2
+theme_override_constants/margin_bottom = 10
+
+[node name="Background" type="TextureRect" parent="MarginContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
@@ -24,7 +28,7 @@ mouse_filter = 2
 texture = ExtResource("2_8ylti")
 stretch_mode = 3
 
-[node name="Icon" type="TextureRect" parent="Background"]
+[node name="Icon" type="TextureRect" parent="MarginContainer/Background"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -40,3 +44,15 @@ grow_vertical = 2
 mouse_filter = 2
 texture = ExtResource("3_phit3")
 stretch_mode = 3
+
+[node name="UsesRemaining" type="Label" parent="MarginContainer/Background"]
+offset_left = 30.0
+offset_top = 30.0
+offset_right = 66.0
+offset_bottom = 62.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
+theme_override_constants/outline_size = 2
+theme_override_font_sizes/font_size = 32
+text = "10
+"

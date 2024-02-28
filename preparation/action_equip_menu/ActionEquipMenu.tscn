@@ -33,7 +33,7 @@ script = ExtResource("8_o8vix")
 [sub_resource type="Resource" id="Resource_xlqov"]
 script = ExtResource("9_8vlsm")
 
-[node name="ColorRect" type="ColorRect"]
+[node name="ActionEquipMEnu" type="ColorRect"]
 anchors_preset = -1
 anchor_left = 0.1
 anchor_top = 0.1

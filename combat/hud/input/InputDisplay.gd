@@ -1,4 +1,4 @@
-extends Control
+class_name InputDisplay extends Control
 
 @export var player : Player
 
