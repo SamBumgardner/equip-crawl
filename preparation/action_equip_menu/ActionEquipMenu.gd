@@ -30,15 +30,19 @@ func _input(event):
 func set_possible_actions(possible_actions : Array[Action], equipped_actions : Array[Action]):
 	for child in action_option_grid_container.get_children():
 		child.queue_free()
+	action_option_buttons = []
 	
 	for possible_action in possible_actions:
 		var equip_option : ActionEquipOption = EQUIP_OPTION_PRELOAD.instantiate()
 		equip_option.initialize(possible_action)
-		if possible_action in equipped_actions:
-			equip_option.equipped = true
 		action_option_grid_container.add_child(equip_option)
 		equip_option.equip_action_pressed.connect(_on_equip_option_pressed)
+		action_option_buttons.append(equip_option)
+	
 	current_bound_actions = equipped_actions
+	for i in range(current_bound_actions.size()):
+		_on_action_bound(current_bound_actions[i], i)
+
 
 func _on_equip_option_pressed(action : Action):
 	_unbind_action(action)
@@ -56,7 +60,8 @@ func _unbind_action(action : Action):
 func _on_action_bound(action : Action, input_index : Player.InputIndices):
 	_unbind_action(current_bound_actions[input_index])
 	input_display._on_player_action_changed(input_index, action)
-	get_action_option(action).equipped = true
+	if action != null:
+		get_action_option(action).equipped = true
 	current_bound_actions[input_index] = action
 	bind_action_popup.hide()
 

@@ -4,6 +4,8 @@ signal start_transition_out(transition_data : TransitionData, cleanup_callback :
 
 @export var is_starting_scene : bool = false
 
+@onready var action_equip_menu : ActionEquipMenu = $ActionEquipMenu
+
 var received_transition_data : TransitionData
 
 func _ready():
@@ -48,6 +50,9 @@ func init_scene(transitionData : TransitionData):
 
 func start_scene():
 	process_mode = Node.PROCESS_MODE_INHERIT
+	if received_transition_data == null:
+		received_transition_data = TransitionData.new()
+	action_equip_menu.set_possible_actions(received_transition_data.progression_data.unlocked_actions, received_transition_data.player_data.current_actions)
 
 func root_scene_actions():
 	is_starting_scene = true
