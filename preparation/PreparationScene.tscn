@@ -54,8 +54,8 @@ grow_vertical = 2
 [node name="Body" type="Label" parent="BodyContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 32
-text = "It would be nice if there was a way 
-to prepare for the dungeon below..."
+text = "You must ready yourself against 
+the dangers lurking below."
 horizontal_alignment = 1
 
 [node name="OpenEquipMenuButton" type="Button" parent="BodyContainer"]

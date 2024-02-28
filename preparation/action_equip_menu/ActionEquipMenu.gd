@@ -33,13 +33,15 @@ func _on_equip_option_pressed(action : Action):
 	bind_action_popup.show()
 
 func _unbind_action(action : Action):
-	get_action_option(action).equipped = false
-	for input_index in Player.InputIndices.values():
-		if current_bound_actions[input_index] == action:
-			current_bound_actions[input_index] = null
-			input_display._on_player_action_changed(input_index, null)
+	if action != null:
+		get_action_option(action).equipped = false
+		for input_index in Player.InputIndices.values():
+			if current_bound_actions[input_index] == action:
+				current_bound_actions[input_index] = null
+				input_display._on_player_action_changed(input_index, null)
 
 func _on_action_bound(action : Action, input_index : Player.InputIndices):
+	_unbind_action(current_bound_actions[input_index])
 	input_display._on_player_action_changed(input_index, action)
 	get_action_option(action).equipped = true
 	current_bound_actions[input_index] = action
@@ -54,7 +56,6 @@ func get_action_option(action : Action) -> ActionEquipOption:
 func _on_finished_button_pressed():
 	loadout_selection_done.emit(current_bound_actions)
 	hide()
-
 
 func _on_visibility_changed():
 	if visible && first_action_option != null:
