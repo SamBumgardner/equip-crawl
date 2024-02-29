@@ -90,4 +90,3 @@ layout_mode = 1
 
 [connection signal="pressed" from="BodyContainer/OpenEquipMenuButton" to="." method="_on_open_equip_menu_button_pressed"]
 [connection signal="pressed" from="FooterContainer/BeginButton" to="." method="_on_begin_button_pressed"]
-[connection signal="loadout_selection_done" from="ActionEquipMenu" to="." method="_on_loadout_selection_done"]
