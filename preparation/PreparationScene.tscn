@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://dh3qbsstasby4"]
+[gd_scene load_steps=4 format=3 uid="uid://dh3qbsstasby4"]
 
 [ext_resource type="Theme" uid="uid://cu2c5rnghr6e2" path="res://art/theme/new_theme.tres" id="1_p7ofc"]
 [ext_resource type="Script" path="res://preparation/PreparationScene.gd" id="2_mtbd8"]
+[ext_resource type="PackedScene" uid="uid://mhkxuhqxcccb" path="res://preparation/action_equip_menu/ActionEquipMenu.tscn" id="3_c8n6f"]
 
 [node name="PreparationScene" type="Control"]
 layout_mode = 3
@@ -53,23 +54,40 @@ grow_vertical = 2
 [node name="Body" type="Label" parent="BodyContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 32
-text = "It would be nice if there was a way 
-to prepare for the dungeon below..."
+text = "You must ready yourself against 
+the dangers lurking below."
 horizontal_alignment = 1
+
+[node name="OpenEquipMenuButton" type="Button" parent="BodyContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 32
+text = "Choose your Equipment"
 
 [node name="FooterContainer" type="MarginContainer" parent="."]
 layout_mode = 1
-anchors_preset = 12
+anchors_preset = -1
+anchor_left = 0.3
 anchor_top = 1.0
-anchor_right = 1.0
+anchor_right = 0.7
 anchor_bottom = 1.0
 offset_top = -114.0
 grow_horizontal = 2
 grow_vertical = 0
 theme_override_constants/margin_bottom = 50
 
-[node name="AdvanceInstructions" type="Label" parent="FooterContainer"]
+[node name="BeginButton" type="Button" parent="FooterContainer"]
 layout_mode = 2
-theme_override_font_sizes/font_size = 48
-text = "Press any Button to Continue"
-horizontal_alignment = 1
+size_flags_horizontal = 4
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 0
+theme_override_font_sizes/font_size = 64
+text = "Descend"
+
+[node name="ActionEquipMenu" parent="." instance=ExtResource("3_c8n6f")]
+visible = false
+layout_mode = 1
+
+[connection signal="pressed" from="BodyContainer/OpenEquipMenuButton" to="." method="_on_open_equip_menu_button_pressed"]
+[connection signal="pressed" from="FooterContainer/BeginButton" to="." method="_on_begin_button_pressed"]
+[connection signal="loadout_selection_done" from="ActionEquipMenu" to="." method="_on_loadout_selection_done"]

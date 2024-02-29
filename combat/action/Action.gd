@@ -1,4 +1,4 @@
-class_name Action extends RefCounted
+class_name Action extends Resource
 
 var name : String = "unset action name"
 var charge_time : float = 0
