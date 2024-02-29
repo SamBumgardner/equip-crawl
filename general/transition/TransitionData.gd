@@ -1,15 +1,27 @@
 class_name TransitionData extends RefCounted
 
+static var PLAYER_ACTIONS : Array[Action] = [
+		Action_PlayerMoveForward.new(),
+		Action_PlayerMoveRight.new(),
+		Action_PlayerMoveBackward.new(),
+		Action_PlayerMoveLeft.new(),
+		Action_PlayerAttack.new(),
+		Action_PlayerPowerAttack.new(),
+	]
+
 var next_scene_name : String = ""
 var exploration_data : ExplorationData
 var player_data : PlayerData
+var progression_data : ProgressionData
 
 func _init(next_scene_name_in : String = "exploration", 
 		exploration_data_in : ExplorationData = ExplorationData.new(),
-		player_data_in : PlayerData = PlayerData.new()):
+		player_data_in : PlayerData = PlayerData.new(),
+		progression_data_in : ProgressionData = ProgressionData.new()):
 	next_scene_name = next_scene_name_in
 	exploration_data = exploration_data_in
 	player_data = player_data_in
+	progression_data = progression_data_in
 	# let folks set up data about the player and everything else. 
 	# This is also probably an okay thing to use for saving(?) since it's what persists between scenes
 	
@@ -38,15 +50,15 @@ class PlayerData:
 	var max_health : int = 10
 	var current_health : int = 10
 	var current_actions : Array[Action] = [
-	Action_PlayerMoveForward.new(),
-	Action_PlayerMoveRight.new(),
-	Action_PlayerMoveBackward.new(),
-	Action_PlayerMoveLeft.new(),
-	null,
-	null,
-	Action_PlayerAttack.new(),
-	Action_PlayerPowerAttack.new(),
-]
+		TransitionData.PLAYER_ACTIONS[0],
+		TransitionData.PLAYER_ACTIONS[1],
+		TransitionData.PLAYER_ACTIONS[2],
+		TransitionData.PLAYER_ACTIONS[3],
+		null,
+		null,
+		TransitionData.PLAYER_ACTIONS[4],
+		TransitionData.PLAYER_ACTIONS[5],
+	]
 
 	func _to_string():
 		var result = ""
@@ -60,3 +72,13 @@ class PlayerData:
 		for action in current_actions:
 			if action != null:
 				action.remaining_uses = action.max_uses
+
+
+class ProgressionData:
+	var unlocked_actions : Array[Action] = TransitionData.PLAYER_ACTIONS
+
+	func _to_string():
+		var result = ""
+		result += "Progression data:\n"
+		result += "  unlocked actions: " + str(unlocked_actions)
+		return result
