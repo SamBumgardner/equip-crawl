@@ -31,8 +31,8 @@ func _is_received_effect_in_range(effect_to_check : CombatActionEffect) -> bool:
 	
 	if (effect_to_check.target == CombatActionEffect.Target.OTHER):
 		# effect came from Player
-		in_range = target_other.distance <= effect_range.max_range \
-			and target_other.distance >= effect_range.min_range
+		in_range = effect_range == null or (target_other.distance <= effect_range.max_range \
+			and target_other.distance >= effect_range.min_range)
 	
 	if (!in_range):
 		print("Effect ", effect_to_check, " missed!")

@@ -46,6 +46,8 @@ func send_combat_effects(current_state : CombatantStates.States):
 			combat_effects = _current_action.on_charge_start()
 		CombatantStates.States.ACT:
 			combat_effects = _current_action.on_act()
+		CombatantStates.States.RECOVER:
+			combat_effects = _current_action.on_recovery_end()
 		_:
 			combat_effects = []
 	

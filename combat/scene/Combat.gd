@@ -60,10 +60,12 @@ func _cleanup_scene():
 func init_scene(transitionData : TransitionData):
 	received_transition_data = transitionData
 	var player : Player = $Player
+	var enemy : Enemy = $Enemy
+	received_transition_data.player_data.assign_action_combat_targets(player, enemy)
+	
 	player.max_health = received_transition_data.player_data.max_health
 	player.health = received_transition_data.player_data.current_health
 	player.available_actions = received_transition_data.player_data.current_actions
-	pass # do stuff to make the transition smooth, persist data that needs to be persisted
 
 func start_scene():
 	process_mode = Node.PROCESS_MODE_INHERIT
