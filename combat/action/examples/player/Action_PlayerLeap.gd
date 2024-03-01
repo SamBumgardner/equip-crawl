@@ -8,7 +8,7 @@ func _init():
 	name = "Leap"
 	charge_time = .4
 	recovery_time = .1
-	#icon = preload("res://art/input_display/action_icons/move_forward.png")
+	icon = preload("res://art/input_display/action_icons/leap.png")
 	
 	var normal_jump_visual = VisualEffect.new("player_bounce_forward")
 	
@@ -21,10 +21,10 @@ func _init():
 		# land on em, both get hit, player's at close range
 		var jump_close = MoveEffect.new(CombatActionEffect.Target.SELF, null, 1, 
 			MoveEffect.LateralDirection.NONE, MoveEffect.RangeDirection.PLAYER_IN)
-		var self_damage = DamageEffect.new(CombatActionEffect.Target.SELF, null, 1)
+		#var self_damage = DamageEffect.new(CombatActionEffect.Target.SELF, null, 1) # non-intuitive and hard to communicate
 		var other_damage = DamageEffect.new(CombatActionEffect.Target.OTHER, null, 2)
 		# need alternate visual effect
-		medium_range_effects = [jump_close, self_damage, other_damage]
+		medium_range_effects = [jump_close, other_damage]
 	
 	if long_range_effects.is_empty():
 		var jump_close = MoveEffect.new(CombatActionEffect.Target.SELF, null, 2, 

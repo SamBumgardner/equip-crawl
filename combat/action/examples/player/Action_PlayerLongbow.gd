@@ -7,12 +7,13 @@ func _init():
 	name = "Longbow"
 	charge_time = 1.65
 	recovery_time = .5
-	#icon = preload("res://art/input_display/action_icons/basic_attack.png")
+	icon = preload("res://art/input_display/action_icons/longbow.png")
 	max_uses = 10
 	remaining_uses = 10
 	
 	if (on_charge_actions.is_empty()):
 		var visual_effect = VisualEffect.new("player_charge")
+		on_charge_actions = [visual_effect]
 	
 	if (on_act_actions.is_empty()):
 		var range1 = EffectiveRange.new(Position.Ranges.MEDIUM, Position.Ranges.LONG, 
@@ -24,3 +25,6 @@ func _init():
 
 func on_act() -> Array[CombatActionEffect]:
 	return on_act_actions
+
+func on_charge_start() -> Array[CombatActionEffect]:
+	return on_charge_actions

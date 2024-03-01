@@ -4,12 +4,13 @@ const BASE_DAMAGE : float = 2
 const BASE_DURATION : float = 1 
 
 static var on_act_actions:Array[CombatActionEffect]
+static var on_charge_start_actions:Array[CombatActionEffect]
 
 func _init():
 	name = "Lucky Hammer"
 	charge_time = 1.5
 	recovery_time = .5
-	icon = preload("res://art/input_display/action_icons/basic_attack.png")
+	icon = preload("res://art/input_display/action_icons/lucky_hammer.png")
 	max_uses = 7
 	remaining_uses = 7
 	
@@ -21,6 +22,11 @@ func _init():
 		var visual_effect = VisualEffect.new("player_bounce_forward")
 
 		on_act_actions = [damage_effect, stun_effect, visual_effect] 
+	
+	if (on_charge_start_actions.is_empty()):
+		var visual_effect = VisualEffect.new("player_charge")
+		on_charge_start_actions = [visual_effect]
+
 
 func on_act() -> Array[CombatActionEffect]:
 	var roll = randi_range(0 , 9)
@@ -33,3 +39,6 @@ func on_act() -> Array[CombatActionEffect]:
 		on_act_actions[1].duration = BASE_DURATION
 	
 	return on_act_actions
+
+func on_charge_start() -> Array[CombatActionEffect]:
+	return on_charge_start_actions

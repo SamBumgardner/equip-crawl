@@ -7,7 +7,6 @@ static var PLAYER_ACTIONS : Array[Action] = [
 		Action_PlayerMoveLeft.new(),
 		Action_PlayerAttack.new(),
 		Action_PlayerPowerAttack.new(),
-		Action_PlayerAttack.new(),
 		Action_PlayerLeap.new(),
 		Action_PlayerShortbow.new(),
 		Action_PlayerLongbow.new(),

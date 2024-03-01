@@ -7,7 +7,7 @@ func _init():
 	name = "Backflip Kick"
 	charge_time = .25
 	recovery_time = .1
-	icon = preload("res://art/input_display/action_icons/basic_attack.png")
+	icon = preload("res://art/input_display/action_icons/backflip_kick.png")
 	max_uses = 5
 	remaining_uses = 5
 	

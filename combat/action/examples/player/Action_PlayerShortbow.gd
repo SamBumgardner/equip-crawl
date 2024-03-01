@@ -7,7 +7,7 @@ func _init():
 	name = "Shortbow"
 	charge_time = 1.25
 	recovery_time = .5
-	#icon = preload("res://art/input_display/action_icons/basic_attack.png")
+	icon = preload("res://art/input_display/action_icons/shortbow.png")
 	max_uses = 10
 	remaining_uses = 10
 	
@@ -20,6 +20,10 @@ func _init():
 	
 	if (on_charge_actions.is_empty()):
 		var visual_effect = VisualEffect.new("player_charge")
+		on_charge_actions = [visual_effect]
 
 func on_act() -> Array[CombatActionEffect]:
 	return on_act_actions
+
+func on_charge_start() -> Array[CombatActionEffect]:
+	return on_charge_actions

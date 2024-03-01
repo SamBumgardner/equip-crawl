@@ -9,7 +9,7 @@ func _init():
 	name = "Backstab Dagger"
 	charge_time = 0
 	recovery_time = .5
-	icon = preload("res://art/input_display/action_icons/basic_attack.png")
+	icon = preload("res://art/input_display/action_icons/dagger.png")
 	max_uses = 20
 	remaining_uses = 20
 	
