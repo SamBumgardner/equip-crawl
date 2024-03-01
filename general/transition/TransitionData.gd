@@ -11,6 +11,10 @@ static var PLAYER_ACTIONS : Array[Action] = [
 		Action_PlayerLeap.new(),
 		Action_PlayerShortbow.new(),
 		Action_PlayerLongbow.new(),
+		Action_PlayerKick.new(),
+		Action_PlayerHammer.new(),
+		Action_PlayerBackflipKick.new(),
+		Action_PlayerDagger.new(),
 	]
 
 var next_scene_name : String = ""
@@ -76,6 +80,12 @@ class PlayerData:
 		for action in current_actions:
 			if action != null:
 				action.remaining_uses = action.max_uses
+	
+	func assign_action_combat_targets(player : Player, enemy : Enemy):
+		for action in current_actions:
+			if action != null:
+				action.player = player
+				action.enemy = enemy
 
 
 class ProgressionData:

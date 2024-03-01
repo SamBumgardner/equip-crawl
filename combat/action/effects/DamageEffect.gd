@@ -15,7 +15,7 @@ func _init(target_in:Target = Target.OTHER,
 	element = element_in
 
 func _to_string():
-	var parent = EffectType.find_key(type) + " w/ range " + effective_range.to_string()
+	var parent = EffectType.find_key(type) + " w/ range " +  (effective_range.to_string() if effective_range != null else "ALL")
 	return parent + ", %s damage %d" % [DamageElement.find_key(element), amount]
 
 enum DamageElement {
