@@ -18,6 +18,7 @@ func _ready():
 		_on_health_changed(combatant.health, combatant.max_health, true)
 
 func _on_health_changed(health : float, max_health : float, is_setup : bool = false):
+	chase_bar.value = value_bar.value # Comment this out if you want to have the orange bar keep extending as you do multiple hits.
 	label.text = "%d/%d" % [health, max_health]
 	value_bar.value = health / max_health * 100
 	
