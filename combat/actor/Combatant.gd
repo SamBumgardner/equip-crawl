@@ -102,7 +102,6 @@ func _apply_damage_effect(received_effect : DamageEffect):
 		visual_effect_triggered.emit(block_visual_effect.visual_effect_to_play, block_visual_effect)
 	
 	health -= incoming_damage
-	health_changed.emit(health, max_health)
 	print(self, " took ", incoming_damage, " damage. ", health, " health remaining.")
 
 # Abstract. Child classes should override this for functionality.
