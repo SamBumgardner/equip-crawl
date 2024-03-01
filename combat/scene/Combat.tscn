@@ -4,10 +4,10 @@
 [ext_resource type="Theme" uid="uid://cu2c5rnghr6e2" path="res://art/theme/new_theme.tres" id="1_f5rn2"]
 [ext_resource type="Script" path="res://combat/actor/Player.gd" id="1_sflhy"]
 [ext_resource type="Script" path="res://combat/actor/Enemy.gd" id="2_mj7ad"]
-[ext_resource type="Script" path="res://combat/hud/HealthBar.gd" id="4_k71jw"]
 [ext_resource type="PackedScene" uid="uid://cbn4igbnqmkil" path="res://combat/util/CombatManager.tscn" id="4_l55h8"]
 [ext_resource type="PackedScene" uid="uid://c84dm2wmi7hvj" path="res://combat/hud/CastBar.tscn" id="5_yh8wn"]
 [ext_resource type="PackedScene" uid="uid://bp38hjotenmy4" path="res://combat/hud/radar.tscn" id="6_th5sy"]
+[ext_resource type="PackedScene" uid="uid://dk5oytxi62ids" path="res://combat/hud/HealthBar.tscn" id="7_n8v7k"]
 [ext_resource type="Script" path="res://combat/hud/BigEnemySprite.gd" id="7_sxnab"]
 [ext_resource type="Texture2D" uid="uid://c2tvvpousoq80" path="res://art/combat/player_silhouette.png" id="8_xfxku"]
 [ext_resource type="Script" path="res://combat/hud/BigPlayerSprite.gd" id="9_h8oon"]
@@ -128,30 +128,21 @@ target_other = NodePath("../Player")
 player = NodePath("../Player")
 enemy = NodePath("../Enemy")
 
-[node name="Health_Enemy" type="ProgressBar" parent="." node_paths=PackedStringArray("combatant")]
-custom_minimum_size = Vector2(0, 50)
+[node name="Health_Enemy" parent="." node_paths=PackedStringArray("combatant") instance=ExtResource("7_n8v7k")]
 layout_mode = 1
 anchors_preset = 10
-anchor_right = 1.0
-offset_bottom = 4.0
-grow_horizontal = 2
-show_percentage = false
-script = ExtResource("4_k71jw")
+anchor_top = 0.0
+anchor_bottom = 0.0
+offset_top = 0.0
+offset_bottom = 1.0
+grow_vertical = 1
 combatant = NodePath("../Enemy")
 
-[node name="Health_Player" type="ProgressBar" parent="." node_paths=PackedStringArray("combatant")]
-custom_minimum_size = Vector2(0, 50)
+[node name="Health_Player" parent="." node_paths=PackedStringArray("combatant") instance=ExtResource("7_n8v7k")]
 layout_mode = 1
-anchors_preset = 12
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_top = -27.0
-grow_horizontal = 2
-grow_vertical = 0
-show_percentage = false
-script = ExtResource("4_k71jw")
+offset_top = -1.0
 combatant = NodePath("../Player")
+health_bar_color = Color(0, 0.392157, 0, 1)
 
 [node name="CastBar_Enemy" parent="." node_paths=PackedStringArray("combatant") instance=ExtResource("5_yh8wn")]
 layout_mode = 1
@@ -404,9 +395,9 @@ warning_manager = NodePath("../../../WarningManager")
 
 [node name="WarningSprite_Surround" type="Sprite2D" parent="Warnings/ScreenSurround" node_paths=PackedStringArray("player", "warning_manager")]
 modulate = Color(1, 1, 1, 0.498039)
-position = Vector2(575, 565)
+position = Vector2(576, 566)
 rotation = 1.5708
-scale = Vector2(1, 1150)
+scale = Vector2(1.002, 1152)
 texture = SubResource("GradientTexture1D_c3ry5")
 script = ExtResource("13_kxryw")
 player = NodePath("../../../Player")
@@ -414,9 +405,9 @@ warning_manager = NodePath("../../../WarningManager")
 
 [node name="WarningSprite_Surround2" type="Sprite2D" parent="Warnings/ScreenSurround" node_paths=PackedStringArray("player", "warning_manager")]
 modulate = Color(1, 1, 1, 0.498039)
-position = Vector2(575, 80)
+position = Vector2(576, 82)
 rotation = -1.5708
-scale = Vector2(1, 1150)
+scale = Vector2(1.002, 1152)
 texture = SubResource("GradientTexture1D_c3ry5")
 script = ExtResource("13_kxryw")
 player = NodePath("../../../Player")
@@ -424,8 +415,8 @@ warning_manager = NodePath("../../../WarningManager")
 
 [node name="WarningSprite_Surround3" type="Sprite2D" parent="Warnings/ScreenSurround" node_paths=PackedStringArray("player", "warning_manager")]
 modulate = Color(1, 1, 1, 0.498039)
-position = Vector2(1120, 323)
-scale = Vector2(1, 550)
+position = Vector2(1120, 324)
+scale = Vector2(1, 548)
 texture = SubResource("GradientTexture1D_c3ry5")
 script = ExtResource("13_kxryw")
 player = NodePath("../../../Player")
@@ -433,9 +424,9 @@ warning_manager = NodePath("../../../WarningManager")
 
 [node name="WarningSprite_Surround4" type="Sprite2D" parent="Warnings/ScreenSurround" node_paths=PackedStringArray("player", "warning_manager")]
 modulate = Color(1, 1, 1, 0.498039)
-position = Vector2(32, 323)
+position = Vector2(32, 324)
 rotation = -3.14159
-scale = Vector2(1, 550)
+scale = Vector2(1, 548)
 texture = SubResource("GradientTexture1D_c3ry5")
 script = ExtResource("13_kxryw")
 player = NodePath("../../../Player")
