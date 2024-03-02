@@ -50,6 +50,10 @@ func _apply_move_effect(received_effect : MoveEffect):
 	print(self, " turned! New facing is ", facing)
 	enemy_turn.emit(facing)
 
+func _apply_stun_effect(received_effect : StunEffect):
+	super(received_effect)
+	threat_warning_cancel.emit(_current_action)
+
 func get_range_direction_toward_player() -> EffectiveRange.RangeDirections:
 	var aim_direction_to_player = EffectiveRange.RangeDirections.FRONT
 	

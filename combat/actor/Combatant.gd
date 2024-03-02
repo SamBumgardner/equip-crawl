@@ -102,7 +102,6 @@ func _apply_move_effect(received_effect : MoveEffect):
 func _apply_stun_effect(received_effect : StunEffect):
 	print("*** STUNNED ***")
 	unapplied_stun_duration = max(unapplied_stun_duration, received_effect.duration)
-	# todo: cancel any on-going warnings (just something enemies gotta do)
 
 func set_current_action(new_action : Action, _head_start : float = 0):
 	_current_action = new_action
