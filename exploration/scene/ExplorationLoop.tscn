@@ -1,7 +1,9 @@
-[gd_scene load_steps=3 format=3 uid="uid://bxlfg0h305d7d"]
+[gd_scene load_steps=5 format=3 uid="uid://bxlfg0h305d7d"]
 
 [ext_resource type="Theme" uid="uid://cu2c5rnghr6e2" path="res://art/theme/new_theme.tres" id="1_mw3o0"]
 [ext_resource type="Script" path="res://exploration/scene/ExplorationLoop.gd" id="2_bbnl1"]
+[ext_resource type="PackedScene" uid="uid://db5t3k2on42ym" path="res://ActionBadge.tscn" id="3_a64yh"]
+[ext_resource type="PackedScene" uid="uid://mhkxuhqxcccb" path="res://preparation/action_equip_menu/ActionEquipMenu.tscn" id="4_4oba7"]
 
 [node name="ExplorationLoop" type="Control"]
 layout_mode = 3
@@ -35,51 +37,80 @@ theme_override_font_sizes/font_size = 64
 text = "Exploration"
 horizontal_alignment = 1
 
-[node name="FloorNumberDisplay" type="VBoxContainer" parent="."]
+[node name="FloorContentsDisplay" type="VBoxContainer" parent="."]
 layout_mode = 1
-anchors_preset = 8
+anchors_preset = -1
 anchor_left = 0.5
-anchor_top = 0.5
+anchor_top = 0.3
 anchor_right = 0.5
-anchor_bottom = 0.5
+anchor_bottom = 0.3
 offset_left = -91.0
 offset_top = -38.5
 offset_right = 91.0
 offset_bottom = 38.5
 grow_horizontal = 2
-grow_vertical = 2
 
-[node name="DelvingLine_0" type="Label" parent="FloorNumberDisplay"]
+[node name="DelvingLine_0" type="Label" parent="FloorContentsDisplay"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 40
 text = "You have reached Floor"
 horizontal_alignment = 1
 
-[node name="FloorNumber" type="Label" parent="FloorNumberDisplay"]
+[node name="FloorNumber" type="Label" parent="FloorContentsDisplay"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 80
 text = "X"
 horizontal_alignment = 1
 
-[node name="DelvingLine_2" type="Label" parent="FloorNumberDisplay"]
+[node name="Discovery" type="HBoxContainer" parent="FloorContentsDisplay"]
 layout_mode = 2
-theme_override_font_sizes/font_size = 48
-text = "Your expedition continues..."
-horizontal_alignment = 1
+size_flags_horizontal = 4
+size_flags_vertical = 4
 
-[node name="PressToContinueDisplay" type="MarginContainer" parent="."]
+[node name="Label" type="Label" parent="FloorContentsDisplay/Discovery"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "And have discovered:"
+
+[node name="ActionBadge" parent="FloorContentsDisplay/Discovery" instance=ExtResource("3_a64yh")]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="FloorContentsDisplay"]
+layout_mode = 2
+theme_override_constants/margin_top = 50
+
+[node name="OpenEquipMenuButton" type="Button" parent="FloorContentsDisplay/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 32
+text = "Choose your Equipment"
+
+[node name="FooterContainer" type="MarginContainer" parent="."]
 layout_mode = 1
-anchors_preset = 12
+anchors_preset = -1
+anchor_left = 0.3
 anchor_top = 1.0
-anchor_right = 1.0
+anchor_right = 0.7
 anchor_bottom = 1.0
-offset_top = -23.0
+offset_top = -114.0
 grow_horizontal = 2
 grow_vertical = 0
 theme_override_constants/margin_bottom = 50
 
-[node name="ContinueText" type="Label" parent="PressToContinueDisplay"]
+[node name="DescendButton" type="Button" parent="FooterContainer"]
 layout_mode = 2
-theme_override_font_sizes/font_size = 48
-text = "Press any Button to Continue"
-horizontal_alignment = 1
+size_flags_horizontal = 4
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 0
+theme_override_font_sizes/font_size = 64
+text = "Descend"
+
+[node name="ActionEquipMenu" parent="." instance=ExtResource("4_4oba7")]
+visible = false
+layout_mode = 1
+grow_horizontal = 1
+grow_vertical = 1
+
+[connection signal="pressed" from="FloorContentsDisplay/MarginContainer/OpenEquipMenuButton" to="." method="_on_open_equip_menu_button_pressed"]
+[connection signal="pressed" from="FooterContainer/DescendButton" to="." method="_on_begin_button_pressed"]
+[connection signal="loadout_selection_done" from="ActionEquipMenu" to="." method="_on_loadout_selection_done"]

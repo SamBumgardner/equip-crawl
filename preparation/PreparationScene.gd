@@ -38,6 +38,7 @@ func _signal_transition_out():
 	if received_transition_data == null:
 		received_transition_data = TransitionData.new()
 	received_transition_data.next_scene_name = Transition.EXPLORATION
+	received_transition_data.player_data.available_actions = received_transition_data.player_data.current_actions.filter(func(x):return x != null)
 	start_transition_out.emit(received_transition_data, _cleanup_scene)
 	# need to stop own input processing:
 	process_mode = Node.PROCESS_MODE_DISABLED
