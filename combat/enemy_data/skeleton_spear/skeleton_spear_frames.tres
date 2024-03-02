@@ -1,0 +1,66 @@
+[gd_resource type="SpriteFrames" load_steps=7 format=3 uid="uid://ds0txs80vmsy4"]
+
+[ext_resource type="Texture2D" uid="uid://borh5bbiyd8fw" path="res://combat/enemy_data/skeleton_spear/skeleton_spear.png" id="1_hcg3t"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_r1m7a"]
+atlas = ExtResource("1_hcg3t")
+region = Rect2(256, 0, 256, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mombx"]
+atlas = ExtResource("1_hcg3t")
+region = Rect2(0, 0, 256, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jayvo"]
+atlas = ExtResource("1_hcg3t")
+region = Rect2(0, 0, 256, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vlaxg"]
+atlas = ExtResource("1_hcg3t")
+region = Rect2(256, 256, 256, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_a7j6k"]
+atlas = ExtResource("1_hcg3t")
+region = Rect2(0, 256, 256, 256)
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_r1m7a")
+}],
+"loop": true,
+"name": &"back",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mombx")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jayvo")
+}],
+"loop": true,
+"name": &"front",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vlaxg")
+}],
+"loop": true,
+"name": &"left",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_a7j6k")
+}],
+"loop": true,
+"name": &"right",
+"speed": 5.0
+}]

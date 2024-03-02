@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=3 uid="uid://ctcumrw8jrht"]
+[gd_scene load_steps=22 format=3 uid="uid://ctcumrw8jrht"]
 
 [ext_resource type="Script" path="res://combat/scene/Combat.gd" id="1_6tv01"]
 [ext_resource type="Theme" uid="uid://cu2c5rnghr6e2" path="res://art/theme/new_theme.tres" id="1_f5rn2"]
@@ -7,85 +7,17 @@
 [ext_resource type="PackedScene" uid="uid://cbn4igbnqmkil" path="res://combat/util/CombatManager.tscn" id="4_l55h8"]
 [ext_resource type="PackedScene" uid="uid://c84dm2wmi7hvj" path="res://combat/hud/CastBar.tscn" id="5_yh8wn"]
 [ext_resource type="PackedScene" uid="uid://bp38hjotenmy4" path="res://combat/hud/radar.tscn" id="6_th5sy"]
-[ext_resource type="PackedScene" uid="uid://dk5oytxi62ids" path="res://combat/hud/HealthBar.tscn" id="7_n8v7k"]
+[ext_resource type="PackedScene" uid="uid://cy6mn63arb02j" path="res://combat/hud/HealthBar.tscn" id="7_n8v7k"]
 [ext_resource type="Script" path="res://combat/hud/BigEnemySprite.gd" id="7_sxnab"]
 [ext_resource type="Texture2D" uid="uid://c2tvvpousoq80" path="res://art/combat/player_silhouette.png" id="8_xfxku"]
 [ext_resource type="Script" path="res://combat/hud/BigPlayerSprite.gd" id="9_h8oon"]
+[ext_resource type="SpriteFrames" uid="uid://ds0txs80vmsy4" path="res://combat/enemy_data/skeleton_spear/skeleton_spear_frames.tres" id="9_io6cq"]
 [ext_resource type="Script" path="res://combat/util/AnimationManager.gd" id="10_6l13k"]
 [ext_resource type="Script" path="res://combat/util/WarningManager.gd" id="11_atr0g"]
 [ext_resource type="Texture2D" uid="uid://dr1hw3nsnbb2b" path="res://art/combat/danger_panel.png" id="12_6momg"]
 [ext_resource type="Script" path="res://combat/hud/WarningSprite_Player.gd" id="13_kxryw"]
 [ext_resource type="Texture2D" uid="uid://x4jtmox8c8gi" path="res://art/combat/side_panel.png" id="14_upo2c"]
 [ext_resource type="PackedScene" uid="uid://b4lk70r2fvrfs" path="res://combat/hud/input/InputDisplay.tscn" id="17_gjpcg"]
-
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_dmas6"]
-load_path = "res://.godot/imported/skeleton_spear.png-ffdc3a3fa9e04d0fdc16576652e8227c.ctex"
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_evc8h"]
-atlas = SubResource("CompressedTexture2D_dmas6")
-region = Rect2(256, 0, 256, 256)
-
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_an75c"]
-load_path = "res://.godot/imported/skeleton_spear.png-ffdc3a3fa9e04d0fdc16576652e8227c.ctex"
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_lpthw"]
-atlas = SubResource("CompressedTexture2D_an75c")
-region = Rect2(0, 0, 256, 256)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_r475d"]
-atlas = SubResource("CompressedTexture2D_an75c")
-region = Rect2(0, 0, 256, 256)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_yatbm"]
-atlas = SubResource("CompressedTexture2D_an75c")
-region = Rect2(256, 256, 256, 256)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_uqp0l"]
-atlas = SubResource("CompressedTexture2D_an75c")
-region = Rect2(0, 256, 256, 256)
-
-[sub_resource type="SpriteFrames" id="SpriteFrames_fgj0i"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_evc8h")
-}],
-"loop": true,
-"name": &"back",
-"speed": 5.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_lpthw")
-}],
-"loop": true,
-"name": &"default",
-"speed": 5.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_r475d")
-}],
-"loop": true,
-"name": &"front",
-"speed": 5.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_yatbm")
-}],
-"loop": true,
-"name": &"left",
-"speed": 5.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_uqp0l")
-}],
-"loop": true,
-"name": &"right",
-"speed": 5.0
-}]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_gk418"]
 animations = [{
@@ -169,8 +101,8 @@ warning_manager = NodePath("../WarningManager")
 [node name="BigEnemySprite" type="AnimatedSprite2D" parent="." node_paths=PackedStringArray("player", "enemy")]
 z_index = -2
 position = Vector2(575, 300)
-sprite_frames = SubResource("SpriteFrames_fgj0i")
-animation = &"front"
+sprite_frames = ExtResource("9_io6cq")
+animation = &"right"
 script = ExtResource("7_sxnab")
 player = NodePath("../Player")
 enemy = NodePath("../Enemy")

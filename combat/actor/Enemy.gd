@@ -10,16 +10,19 @@ signal threat_warning_cancel(canceled_action : Action)
 var facing : Position.Direction = Position.Direction.SOUTH
 
 func _init():
+	hurt_visual_effect = VisualEffect.new("enemy_hurt")
+	block_visual_effect = VisualEffect.new("enemy_block")
+	defeated_visual_effect = VisualEffect.new("enemy_defeated_default")
+
+func initialize_data(enemy_data : EnemyData):
+	max_health = enemy_data.maximum_health
+	health = max_health
 	possible_states = [
-		EnemyIdle.new(self),
+		enemy_data.idle_state_resource.new(self),
 		State_Charge.new(self),
 		State_Act.new(self),
 		State_Recover.new(self),
 	]
-	hurt_visual_effect = VisualEffect.new("enemy_hurt")
-	block_visual_effect = VisualEffect.new("enemy_block")
-	defeated_visual_effect = VisualEffect.new("enemy_defeated_default")
-	set_current_action(Action_SpearThrust.new(self))
 
 func _to_string():
 	return "Enemy"

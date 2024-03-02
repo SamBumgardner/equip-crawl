@@ -20,15 +20,18 @@ var next_scene_name : String = ""
 var exploration_data : ExplorationData
 var player_data : PlayerData
 var progression_data : ProgressionData
+var combat_data : CombatData
 
 func _init(next_scene_name_in : String = "exploration", 
 		exploration_data_in : ExplorationData = ExplorationData.new(),
 		player_data_in : PlayerData = PlayerData.new(),
-		progression_data_in : ProgressionData = ProgressionData.new()):
+		progression_data_in : ProgressionData = ProgressionData.new(),
+		combat_data_in : CombatData = CombatData.new()):
 	next_scene_name = next_scene_name_in
 	exploration_data = exploration_data_in
 	player_data = player_data_in
 	progression_data = progression_data_in
+	combat_data = combat_data_in
 	# let folks set up data about the player and everything else. 
 	# This is also probably an okay thing to use for saving(?) since it's what persists between scenes
 	
@@ -95,3 +98,7 @@ class ProgressionData:
 		result += "Progression data:\n"
 		result += "  unlocked actions: " + str(unlocked_actions)
 		return result
+
+
+class CombatData:
+	var enemy_data : EnemyData = preload("res://combat/enemy_data/skeleton_spear/skeleton_spear.tres")

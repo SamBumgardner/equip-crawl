@@ -66,6 +66,9 @@ func init_scene(transitionData : TransitionData):
 	player.max_health = received_transition_data.player_data.max_health
 	player.health = received_transition_data.player_data.current_health
 	player.available_actions = received_transition_data.player_data.current_actions
+	
+	enemy.initialize_data(received_transition_data.combat_data.enemy_data)
+	$BigEnemySprite.initialize_data(received_transition_data.combat_data.enemy_data)
 
 func start_scene():
 	process_mode = Node.PROCESS_MODE_INHERIT

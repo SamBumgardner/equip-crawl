@@ -18,6 +18,9 @@ func _ready():
 		enemy.enemy_turn.connect(_on_enemy_turn)
 		_on_enemy_turn(enemy.facing)
 
+func initialize_data(enemy_data : EnemyData):
+	sprite_frames = enemy_data.animated_sprite
+
 func _on_player_move(distance : Position.Ranges, lateral_position : Position.Direction):
 	scale = enemy_sizes[distance - 1]
 	_play_facing_animation(lateral_position, enemy.facing)
