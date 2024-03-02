@@ -1,6 +1,6 @@
 class_name Action_PlayerHammer extends Action
 
-const BASE_DAMAGE : float = 2
+const BASE_DAMAGE : float = 3
 const BASE_DURATION : float = 1 
 
 static var on_act_actions:Array[CombatActionEffect]

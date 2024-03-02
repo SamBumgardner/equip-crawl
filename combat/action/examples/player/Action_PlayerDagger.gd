@@ -10,8 +10,8 @@ func _init():
 	charge_time = 0
 	recovery_time = .5
 	icon = preload("res://art/input_display/action_icons/dagger.png")
-	max_uses = 20
-	remaining_uses = 20
+	max_uses = 10
+	remaining_uses = 10
 	
 	if (on_act_actions.is_empty()):
 		var range1 = EffectiveRange.new(Position.Ranges.SHORT, Position.Ranges.SHORT, 

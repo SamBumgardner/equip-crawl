@@ -9,6 +9,8 @@ func _init():
 	charge_time = .4
 	recovery_time = .1
 	icon = preload("res://art/input_display/action_icons/leap.png")
+	max_uses = 5
+	remaining_uses = 5
 	
 	var normal_jump_visual = VisualEffect.new("player_bounce_forward")
 	

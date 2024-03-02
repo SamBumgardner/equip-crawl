@@ -8,6 +8,8 @@ func _init():
 	recovery_time = .25
 	display_cast_bar = false
 	icon = preload("res://art/input_display/action_icons/move_right.png")
+	max_uses = 7
+	remaining_uses = 7
 	
 	if (on_act_actions.is_empty()):
 		var range1 = EffectiveRange.new(Position.Ranges.SHORT, Position.Ranges.LONG, 
