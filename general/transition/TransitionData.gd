@@ -101,5 +101,4 @@ class ProgressionData:
 
 
 class CombatData:
-	var enemy_data : EnemyData = preload("res://combat/enemy_data/onion/onion_red/onion_red.tres")
-	#var enemy_data : EnemyData = preload("res://combat/enemy_data/skeleton_spear/skeleton_spear.tres")
+	var enemy_data : EnemyData = preload("res://combat/enemy_data/onion/onion_basic/onion_basic.tres")
