@@ -11,7 +11,7 @@
 [ext_resource type="Script" path="res://combat/hud/BigEnemySprite.gd" id="7_sxnab"]
 [ext_resource type="Texture2D" uid="uid://c2tvvpousoq80" path="res://art/combat/player_silhouette.png" id="8_xfxku"]
 [ext_resource type="Script" path="res://combat/hud/BigPlayerSprite.gd" id="9_h8oon"]
-[ext_resource type="SpriteFrames" uid="uid://ds0txs80vmsy4" path="res://combat/enemy_data/skeleton_spear/skeleton_spear_frames.tres" id="9_io6cq"]
+[ext_resource type="SpriteFrames" uid="uid://c7gradiqp0yor" path="res://combat/enemy_data/onion/onion_red/onion_red_frames.tres" id="9_vvoqa"]
 [ext_resource type="Script" path="res://combat/util/AnimationManager.gd" id="10_6l13k"]
 [ext_resource type="Script" path="res://combat/util/WarningManager.gd" id="11_atr0g"]
 [ext_resource type="Texture2D" uid="uid://dr1hw3nsnbb2b" path="res://art/combat/danger_panel.png" id="12_6momg"]
@@ -101,7 +101,7 @@ warning_manager = NodePath("../WarningManager")
 [node name="BigEnemySprite" type="AnimatedSprite2D" parent="." node_paths=PackedStringArray("player", "enemy")]
 z_index = -2
 position = Vector2(575, 300)
-sprite_frames = ExtResource("9_io6cq")
+sprite_frames = ExtResource("9_vvoqa")
 animation = &"right"
 script = ExtResource("7_sxnab")
 player = NodePath("../Player")
@@ -126,6 +126,7 @@ enemy = NodePath("../Enemy")
 
 [node name="Warnings" type="Node2D" parent="."]
 visible = false
+z_index = -3
 
 [node name="Front" type="Node2D" parent="Warnings"]
 
