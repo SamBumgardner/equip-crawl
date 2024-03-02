@@ -5,15 +5,19 @@ class_name WarningManager extends Node
 var warning_positions : Array
 
 func _init():
+	_initalize_empty_warning_positions()
+
+func _initalize_empty_warning_positions():
 	warning_positions = []
 	for lateral_position in range(0, 4):
 		warning_positions.append([])
 		for range_position in range(0, 3):
 			warning_positions[lateral_position].append([])
-	
+
 func _ready():
 	if enemy != null:
 		enemy.threat_warning_new.connect(_on_threat_warning_new)
+		enemy.threat_warning_cancel.connect(_on_threat_warning_cancel)
 
 func get_warning_for_position(requested_position : Vector2i) -> WarningTracker:
 	if requested_position.x >= 4 || requested_position.x < 0 \
@@ -46,6 +50,9 @@ func _on_threat_warning_new(threatened_positions : Array,
 	for possible_position in threatened_positions:
 		var position_warnings = warning_positions[possible_position.x][possible_position.y - 1]
 		_add_warning(remaining_time, position_warnings)
+
+func _on_threat_warning_cancel(canceled_action : Action):
+	_initalize_empty_warning_positions()
 
 func _add_warning(time_until_triggered : float, position_warnings : Array):
 	var new_warning = WarningTracker.new(time_until_triggered)
