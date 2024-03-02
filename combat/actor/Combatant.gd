@@ -38,18 +38,9 @@ func _ready():
 func _physics_process(delta):
 	state_machine.physics_process(delta)
 
-func send_combat_effects(current_state : CombatantStates.States):
+func send_combat_effects(trigger_timing : Action.ActionTriggers):
 	var combat_effects : Array[CombatActionEffect]
-	
-	match current_state:
-		CombatantStates.States.CHARGE:
-			combat_effects = _current_action.on_charge_start()
-		CombatantStates.States.ACT:
-			combat_effects = _current_action.on_act()
-		CombatantStates.States.RECOVER:
-			combat_effects = _current_action.on_recovery_end()
-		_:
-			combat_effects = []
+	combat_effects = _current_action.get_effects_for_trigger(trigger_timing)
 	
 	#TODO: run effects through ongoing statuses, then send em to their target
 	var target_self_effects : Array[CombatActionEffect] = []

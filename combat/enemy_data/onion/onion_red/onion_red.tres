@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="EnemyData" load_steps=3 format=3 uid="uid://cnlatjp6n1qj7"]
+
+[ext_resource type="SpriteFrames" uid="uid://c7gradiqp0yor" path="res://combat/enemy_data/onion/onion_red/onion_red_frames.tres" id="1_46l86"]
+[ext_resource type="Script" path="res://combat/enemy_data/EnemyData.gd" id="1_my7v3"]
+
+[resource]
+script = ExtResource("1_my7v3")
+name = "Red Onion"
+maximum_health = 15
+animated_sprite = ExtResource("1_46l86")

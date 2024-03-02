@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="EnemyData" load_steps=4 format=3 uid="uid://xd41yd84ckri"]
+
+[ext_resource type="SpriteFrames" uid="uid://dmy83a05lpbir" path="res://combat/enemy_data/onion/onion_green/onion_green_frames.tres" id="1_rvdpy"]
+[ext_resource type="Script" path="res://combat/enemy_data/onion/onion_green/onion_green_idle.gd" id="2_pdirf"]
+[ext_resource type="Script" path="res://combat/enemy_data/EnemyData.gd" id="3_mhpss"]
+
+[resource]
+script = ExtResource("3_mhpss")
+name = "Onion"
+maximum_health = 10
+animated_sprite = ExtResource("1_rvdpy")
+idle_state_resource = ExtResource("2_pdirf")

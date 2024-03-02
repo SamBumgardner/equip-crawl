@@ -1,5 +1,19 @@
 class_name Action extends Resource
 
+enum ActionTriggers {
+	CHARGE_START = 0,
+	ACT = 1,
+	RECOVERY_START = 2,
+	RECOVERY_END = 3,
+}
+
+var trigger_action_lookup = [
+	on_charge_start,
+	on_act,
+	on_recovery_start,
+	on_recovery_end
+]
+
 var name : String = "unset action name"
 var charge_time : float = 0
 var recovery_time : float = 0
@@ -17,10 +31,16 @@ var enemy : Enemy
 func _to_string():
 	return name
 
+func get_effects_for_trigger(trigger_timing : ActionTriggers) -> Array[CombatActionEffect]:
+	return trigger_action_lookup[trigger_timing].call()
+
+func on_charge_start() -> Array[CombatActionEffect]:
+	return []
+
 func on_act() -> Array[CombatActionEffect]:
 	return []
 
-func on_charge_start() -> Array[CombatActionEffect]:
+func on_recovery_start() -> Array[CombatActionEffect]:
 	return []
 
 func on_recovery_end() -> Array[CombatActionEffect]:
@@ -28,9 +48,9 @@ func on_recovery_end() -> Array[CombatActionEffect]:
 
 func get_all_threatened_ranges():
 	var threatened_ranges = []
-	threatened_ranges.append(_extract_threatened_ranges(on_charge_start()))
-	threatened_ranges.append(_extract_threatened_ranges(on_act()))
-	threatened_ranges.append(_extract_threatened_ranges(on_recovery_end()))
+	for trigger : int in ActionTriggers.values():
+		var effects = get_effects_for_trigger(trigger)
+		threatened_ranges.append(_extract_threatened_ranges(effects))
 	
 	return threatened_ranges
 

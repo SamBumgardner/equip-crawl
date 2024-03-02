@@ -1,11 +1,11 @@
-class_name SkeletonSpearIdle extends ActorState
+class_name OnionRedIdle extends ActorState
 
 var actions : Dictionary
 
 func _init(owner_in : Combatant):
 	super(owner_in)
 	actions = {
-		"turn": Action_Turn.new(owner, .5, 0),
+		#"turn": Action_Turn.new(owner),
 		"move": Action_MidrangeMove.new(owner),
 		"sweep": Action_SpearSweep.new(owner),
 		"thrust": Action_SpearThrust.new(owner),
