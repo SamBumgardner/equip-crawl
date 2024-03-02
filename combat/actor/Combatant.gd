@@ -21,7 +21,7 @@ signal visual_effect_triggered(effect_name : String, origin : CombatActionEffect
 
 @export var target_other : Combatant
 
-var state_machine : StateMachine 
+var state_machine : StateMachine = StateMachine.new()
 var possible_states : Array[ActorState] # child classes are responsible for setting this up in _init()
 var hurt_visual_effect : VisualEffect # child classes are responsible for setting this up in _init
 var block_visual_effect : VisualEffect # child classes are responsible for setting this up in _init
@@ -32,24 +32,15 @@ var _current_action : Action
 var unapplied_stun_duration : float = 0
 
 func _ready():
-	state_machine = StateMachine.new()
-	state_machine.initialize(self, possible_states, CombatantStates.States.IDLE)
+	if !possible_states.is_empty():
+		state_machine.initialize(self, possible_states, CombatantStates.States.IDLE)
 
 func _physics_process(delta):
 	state_machine.physics_process(delta)
 
-func send_combat_effects(current_state : CombatantStates.States):
+func send_combat_effects(trigger_timing : Action.ActionTriggers):
 	var combat_effects : Array[CombatActionEffect]
-	
-	match current_state:
-		CombatantStates.States.CHARGE:
-			combat_effects = _current_action.on_charge_start()
-		CombatantStates.States.ACT:
-			combat_effects = _current_action.on_act()
-		CombatantStates.States.RECOVER:
-			combat_effects = _current_action.on_recovery_end()
-		_:
-			combat_effects = []
+	combat_effects = _current_action.get_effects_for_trigger(trigger_timing)
 	
 	#TODO: run effects through ongoing statuses, then send em to their target
 	var target_self_effects : Array[CombatActionEffect] = []

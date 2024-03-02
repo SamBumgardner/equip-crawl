@@ -7,6 +7,13 @@ signal start_transition_out(transition_data : TransitionData, cleanup_callback :
 
 @onready var floor_number_label : Label = $FloorNumberDisplay/FloorNumber
 
+var enemy_list = [
+	preload("res://combat/enemy_data/skeleton_spear/skeleton_spear.tres"),
+	preload("res://combat/enemy_data/onion/onion_basic/onion_basic.tres"),
+	preload("res://combat/enemy_data/onion/onion_red/onion_red.tres"),
+	preload("res://combat/enemy_data/onion/onion_green/onion_green.tres"),
+]
+
 var received_transition_data : TransitionData
 
 func _ready():
@@ -35,6 +42,7 @@ func _signal_transition_out():
 		received_transition_data = TransitionData.new()
 	received_transition_data.next_scene_name = Transition.COMBAT
 	received_transition_data.exploration_data.floor_number = current_floor_number
+	received_transition_data.combat_data.enemy_data = enemy_list[current_floor_number % enemy_list.size()] 
 	start_transition_out.emit(received_transition_data, _cleanup_scene)
 	# need to stop own input processing:
 	process_mode = Node.PROCESS_MODE_DISABLED

@@ -20,7 +20,8 @@ func physics_process(delta : float) -> StateChange:
 
 func enter():
 	time_remaining = owner._current_action.recovery_time
+	owner.send_combat_effects(Action.ActionTriggers.RECOVERY_START)
 	print(owner, " is now in recovery for ", owner._current_action.recovery_time, " seconds")
 
 func exit():
-	owner.send_combat_effects(CombatantStates.States.RECOVER)
+	owner.send_combat_effects(Action.ActionTriggers.RECOVERY_END)

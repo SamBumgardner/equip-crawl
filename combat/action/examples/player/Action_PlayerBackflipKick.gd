@@ -6,7 +6,7 @@ static var on_recovery_end_actions:Array[CombatActionEffect]
 func _init():
 	name = "Backflip Kick"
 	charge_time = .25
-	recovery_time = .1
+	recovery_time = .2
 	icon = preload("res://art/input_display/action_icons/backflip_kick.png")
 	max_uses = 5
 	remaining_uses = 5
@@ -27,5 +27,5 @@ func _init():
 func on_act() -> Array[CombatActionEffect]:
 	return on_act_actions
 
-func on_recovery_end() -> Array[CombatActionEffect]:
+func on_recovery_start() -> Array[CombatActionEffect]:
 	return on_recovery_end_actions

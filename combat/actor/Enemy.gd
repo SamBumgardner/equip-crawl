@@ -10,16 +10,20 @@ signal threat_warning_cancel(canceled_action : Action)
 var facing : Position.Direction = Position.Direction.SOUTH
 
 func _init():
+	hurt_visual_effect = VisualEffect.new("enemy_hurt")
+	block_visual_effect = VisualEffect.new("enemy_block")
+	defeated_visual_effect = VisualEffect.new("enemy_defeated_default")
+
+func initialize_data(enemy_data : EnemyData):
+	max_health = enemy_data.maximum_health
+	health = max_health
 	possible_states = [
-		EnemyIdle.new(self),
+		enemy_data.idle_state_resource.new(self),
 		State_Charge.new(self),
 		State_Act.new(self),
 		State_Recover.new(self),
 	]
-	hurt_visual_effect = VisualEffect.new("enemy_hurt")
-	block_visual_effect = VisualEffect.new("enemy_block")
-	defeated_visual_effect = VisualEffect.new("enemy_defeated_default")
-	set_current_action(Action_SpearThrust.new(self))
+	state_machine.initialize(self, possible_states, CombatantStates.States.IDLE)
 
 func _to_string():
 	return "Enemy"
@@ -46,6 +50,18 @@ func _apply_move_effect(received_effect : MoveEffect):
 	print(self, " turned! New facing is ", facing)
 	enemy_turn.emit(facing)
 
+func get_range_direction_toward_player() -> EffectiveRange.RangeDirections:
+	var aim_direction_to_player = EffectiveRange.RangeDirections.FRONT
+	
+	var player_position_relative_to_self = (target_other.lateral_position - facing + 4) % 4 
+	match player_position_relative_to_self:
+		0: aim_direction_to_player = EffectiveRange.RangeDirections.FRONT
+		1: aim_direction_to_player = EffectiveRange.RangeDirections.RIGHT
+		2: aim_direction_to_player = EffectiveRange.RangeDirections.BACK
+		3: aim_direction_to_player = EffectiveRange.RangeDirections.LEFT
+	
+	return aim_direction_to_player
+
 func get_turn_direction_toward_player() -> MoveEffect.LateralDirection:
 	var turn_direction_to_player = MoveEffect.LateralDirection.NONE
 	
@@ -63,26 +79,25 @@ func get_distance_to_player() -> Position.Ranges:
 
 func broadcast_threat_warning(triggering_action : Action, head_start : float = 0):
 	var threatened_ranges_by_action_state = triggering_action.get_all_threatened_ranges()
-	var threatened_positions_charge_start = []
-	var threatened_positions_act = []
-	var threatened_positions_recovery_end = []
 	
-	for effectiveRange in threatened_ranges_by_action_state[0]:
-		threatened_positions_charge_start \
-			.append_array(convert_effective_range_to_position(effectiveRange))
-	threat_warning_new.emit(threatened_positions_charge_start, 0, triggering_action)
-	
-	for effectiveRange in threatened_ranges_by_action_state[1]:
-		threatened_positions_act \
-			.append_array(convert_effective_range_to_position(effectiveRange))
-	threat_warning_new.emit(threatened_positions_act, 
+	_broadcast_specific_action_state_warnings(threatened_ranges_by_action_state[Action.ActionTriggers.CHARGE_START],
+		0, triggering_action)
+	_broadcast_specific_action_state_warnings(threatened_ranges_by_action_state[Action.ActionTriggers.ACT],
 		triggering_action.charge_time - head_start, triggering_action)
+	_broadcast_specific_action_state_warnings(threatened_ranges_by_action_state[Action.ActionTriggers.RECOVERY_START],
+		triggering_action.charge_time - head_start, triggering_action)
+	_broadcast_specific_action_state_warnings(threatened_ranges_by_action_state[Action.ActionTriggers.RECOVERY_END],
+		triggering_action.charge_time + triggering_action.recovery_time - head_start, 
+		triggering_action)
+
+func _broadcast_specific_action_state_warnings(threatened_ranges : Array[EffectiveRange], 
+		time_until_triggered : float, triggering_action : Action):
+	var threatened_positions = []
+	for effective_range in threatened_ranges:
+		threatened_positions.append_array(convert_effective_range_to_position(effective_range))
 	
-	for effectiveRange in threatened_ranges_by_action_state[2]:
-		threatened_positions_recovery_end \
-			.append_array(convert_effective_range_to_position(effectiveRange))
-	threat_warning_new.emit(threatened_positions_recovery_end, 
-		triggering_action.charge_time + triggering_action.recovery_time - head_start, triggering_action)
+	if threatened_positions.size() > 0:
+		threat_warning_new.emit(threatened_positions, time_until_triggered, triggering_action)
 
 func convert_effective_range_to_position(effectiveRange : EffectiveRange) -> Array[Vector2i]:
 	var threatened_positions : Array[Vector2i] = []

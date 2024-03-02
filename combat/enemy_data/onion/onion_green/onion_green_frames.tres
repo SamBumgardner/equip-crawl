@@ -1,0 +1,66 @@
+[gd_resource type="SpriteFrames" load_steps=7 format=3 uid="uid://dmy83a05lpbir"]
+
+[ext_resource type="Texture2D" uid="uid://cbqq0mhtw8t0l" path="res://combat/enemy_data/onion/onion_green/green_onion.png" id="1_11kri"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1bhtb"]
+atlas = ExtResource("1_11kri")
+region = Rect2(256, 0, 256, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wbkt7"]
+atlas = ExtResource("1_11kri")
+region = Rect2(0, 0, 256, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_u1rja"]
+atlas = ExtResource("1_11kri")
+region = Rect2(0, 0, 256, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_k3ba8"]
+atlas = ExtResource("1_11kri")
+region = Rect2(256, 256, 256, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7gssg"]
+atlas = ExtResource("1_11kri")
+region = Rect2(0, 256, 256, 256)
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1bhtb")
+}],
+"loop": true,
+"name": &"back",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wbkt7")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_u1rja")
+}],
+"loop": true,
+"name": &"front",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_k3ba8")
+}],
+"loop": true,
+"name": &"left",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7gssg")
+}],
+"loop": true,
+"name": &"right",
+"speed": 5.0
+}]

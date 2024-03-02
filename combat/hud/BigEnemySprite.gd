@@ -7,6 +7,7 @@ class_name BigEnemySprite extends AnimatedSprite2D
 
 # angle we should rotate the icon for different directions
 var enemy_sizes : Array[Vector2] = [Vector2(1.5, 1.5), Vector2(1, 1), Vector2(.75, .75)]
+var current_size : Vector2 = Vector2.ONE
 
 var current_tween : Tween
 
@@ -18,8 +19,12 @@ func _ready():
 		enemy.enemy_turn.connect(_on_enemy_turn)
 		_on_enemy_turn(enemy.facing)
 
+func initialize_data(enemy_data : EnemyData):
+	sprite_frames = enemy_data.animated_sprite
+
 func _on_player_move(distance : Position.Ranges, lateral_position : Position.Direction):
-	scale = enemy_sizes[distance - 1]
+	current_size = enemy_sizes[distance - 1]
+	scale = current_size
 	_play_facing_animation(lateral_position, enemy.facing)
 
 func _on_enemy_turn(direction : Position.Direction):
@@ -39,6 +44,7 @@ func reset_tweening(): # TODO: tag system for visual effects to determine what s
 	# reset position
 	position = start_position
 	modulate = Color.WHITE
+	scale = current_size
 	
 	if current_tween != null:
 		current_tween.kill()

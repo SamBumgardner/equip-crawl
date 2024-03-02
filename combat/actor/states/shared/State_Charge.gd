@@ -20,5 +20,5 @@ func physics_process(delta : float) -> StateChange:
 
 func enter():
 	time_remaining = owner._current_action.charge_time
-	owner.send_combat_effects(CombatantStates.States.CHARGE)
+	owner.send_combat_effects(Action.ActionTriggers.CHARGE_START)
 	print(owner, " is now charging for ", owner._current_action.charge_time, " seconds")

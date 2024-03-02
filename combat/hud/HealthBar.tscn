@@ -1,8 +1,8 @@
-[gd_scene load_steps=8 format=3 uid="uid://dk5oytxi62ids"]
+[gd_scene load_steps=8 format=3 uid="uid://cy6mn63arb02j"]
 
 [ext_resource type="Theme" uid="uid://cu2c5rnghr6e2" path="res://art/theme/new_theme.tres" id="1_8vu6e"]
 [ext_resource type="Script" path="res://combat/hud/HealthBar.gd" id="1_37kk7"]
-[ext_resource type="Texture2D" uid="uid://bs4rnerj66n15" path="res://art/combat/health_bar_border.png" id="2_sqtnc"]
+[ext_resource type="Texture2D" path="res://art/combat/health_bar_border.png" id="2_sqtnc"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dmba1"]
 bg_color = Color(0, 0, 0, 1)

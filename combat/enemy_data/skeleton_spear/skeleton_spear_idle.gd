@@ -1,4 +1,15 @@
-class_name EnemyIdle extends ActorState
+class_name SkeletonSpearIdle extends ActorState
+
+var actions : Dictionary
+
+func _init(owner_in : Combatant):
+	super(owner_in)
+	actions = {
+		"turn": Action_Turn.new(owner, .5, 0),
+		"move": Action_MidrangeMove.new(owner),
+		"sweep": Action_SpearSweep.new(owner),
+		"thrust": Action_SpearThrust.new(owner),
+	}
 
 func physics_process(delta : float) -> StateChange:
 	if owner.unapplied_stun_duration > 0:
@@ -11,9 +22,9 @@ func physics_process(delta : float) -> StateChange:
 	# for now, will just make them immediately start charging
 	
 	if (owner as Enemy).get_turn_direction_toward_player() != MoveEffect.LateralDirection.NONE:
-		owner.set_current_action(Action_Turn.new(owner), delta)
+		owner.set_current_action(actions["turn"], delta)
 	elif (owner as Enemy).get_distance_to_player() == Position.Ranges.LONG and !(owner._current_action is Action_MidrangeMove):
-		owner.set_current_action(Action_MidrangeMove.new(owner), delta)
+		owner.set_current_action(actions["move"], delta)
 	elif (owner as Enemy).get_distance_to_player() == Position.Ranges.SHORT:
 		owner.set_current_action(Action_SpearSweep.new(owner), delta)
 	else:
