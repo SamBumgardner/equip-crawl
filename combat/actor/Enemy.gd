@@ -50,6 +50,18 @@ func _apply_move_effect(received_effect : MoveEffect):
 	print(self, " turned! New facing is ", facing)
 	enemy_turn.emit(facing)
 
+func get_range_direction_toward_player() -> EffectiveRange.RangeDirections:
+	var aim_direction_to_player = EffectiveRange.RangeDirections.FRONT
+	
+	var player_position_relative_to_self = (target_other.lateral_position - facing + 4) % 4 
+	match player_position_relative_to_self:
+		0: aim_direction_to_player = EffectiveRange.RangeDirections.FRONT
+		1: aim_direction_to_player = EffectiveRange.RangeDirections.RIGHT
+		2: aim_direction_to_player = EffectiveRange.RangeDirections.BACK
+		3: aim_direction_to_player = EffectiveRange.RangeDirections.LEFT
+	
+	return aim_direction_to_player
+
 func get_turn_direction_toward_player() -> MoveEffect.LateralDirection:
 	var turn_direction_to_player = MoveEffect.LateralDirection.NONE
 	

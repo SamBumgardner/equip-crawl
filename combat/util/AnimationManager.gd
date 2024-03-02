@@ -10,6 +10,7 @@ class_name AnimationManager extends Node
 	"enemy_lunge": _enemy_lunge,
 	"enemy_charge": _enemy_charge,
 	"enemy_squish": _enemy_squish,
+	"enemy_squeeze": _enemy_squeeze,
 	"enemy_hurt": _combatant_modulate.bind(enemy_sprite, Color.DARK_RED),
 	"enemy_block": _combatant_modulate.bind(enemy_sprite, Color.DIM_GRAY),
 	"enemy_defeated_default": _defeat_combatant.bind(enemy_sprite),
@@ -71,15 +72,26 @@ func shake_sprite(_progress, big_sprite, intensity : float):
 	big_sprite.position = big_sprite.start_position + (Vector2.ONE.rotated(randf_range(0, 6.29)) * intensity)
 
 func _enemy_squish():
+	var squish_scale = Vector2(1.2, .6)
+	var squish_position = Vector2(0, 75)
+	var squish_callable = _enemy_squash_offset.bind(squish_scale, squish_position)
 	var new_tween : Tween = enemy_sprite.reset_tweening()
-	new_tween.tween_method(_enemy_squish_offset, 0.0, 1.0, .1)
-	new_tween.tween_method(_enemy_squish_offset, 1.0, 0.0, .4)
+	new_tween.tween_method(squish_callable, 0.0, 1.0, .1)
+	new_tween.tween_method(squish_callable, 1.0, 0.0, .4)
 
-func _enemy_squish_offset(progress : float):
+func _enemy_squeeze():
+	var squeeze_scale = Vector2(.5, 1.2)
+	var squeeze_position = Vector2(0, 0)
+	var squish_callable = _enemy_squash_offset.bind(squeeze_scale, squeeze_position)
+	var new_tween : Tween = enemy_sprite.reset_tweening()
+	new_tween.tween_method(squish_callable, 0.0, 1.0, .1)
+	new_tween.tween_method(squish_callable, 1.0, 0.0, .4)
+
+func _enemy_squash_offset(progress : float, target_scale : Vector2, target_position : Vector2):
 	enemy_sprite.scale = enemy_sprite.current_size.lerp(
-		enemy_sprite.current_size * Vector2(1.2, .6), progress)
+		enemy_sprite.current_size * target_scale, progress)
 	enemy_sprite.position = enemy_sprite.start_position.lerp(
-		enemy_sprite.start_position + Vector2(0, 75), progress)
+		enemy_sprite.start_position + target_position, progress)
 
 func _player_lateral_move(direction : MoveEffect.LateralDirection):
 	var new_tween : Tween = player_sprite.reset_tweening()

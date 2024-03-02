@@ -7,6 +7,6 @@
 [resource]
 script = ExtResource("1_urubu")
 name = "Spear-wielding Skeleton"
-maximum_health = 10
+maximum_health = 30
 animated_sprite = ExtResource("1_bav88")
 idle_state_resource = ExtResource("2_yx46f")
