@@ -23,6 +23,7 @@ func initialize_data(enemy_data : EnemyData):
 		State_Act.new(self),
 		State_Recover.new(self),
 	]
+	state_machine.initialize(self, possible_states, CombatantStates.States.IDLE)
 
 func _to_string():
 	return "Enemy"
