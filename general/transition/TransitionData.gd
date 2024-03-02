@@ -105,6 +105,10 @@ class ProgressionData:
 		result += "Progression data:\n"
 		result += "  unlocked actions: " + str(unlocked_actions)
 		return result
+	
+	func refresh_action_uses():
+		for action in unlocked_actions:
+			action.remaining_uses = action.max_uses
 
 
 class CombatData:

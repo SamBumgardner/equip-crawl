@@ -48,7 +48,9 @@ func _cleanup_scene():
 
 func init_scene(transitionData : TransitionData):
 	received_transition_data = transitionData
+	transitionData.player_data = TransitionData.PlayerData.new()
 	transitionData.player_data.restore()
+	transitionData.progression_data.refresh_action_uses()
 	received_transition_data.exploration_data.reset()
 
 func start_scene():
