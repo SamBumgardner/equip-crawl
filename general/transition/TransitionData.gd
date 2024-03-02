@@ -69,6 +69,7 @@ class PlayerData:
 		TransitionData.PLAYER_ACTIONS[4],
 		TransitionData.PLAYER_ACTIONS[5],
 	]
+	var available_actions : Array[Action] = current_actions.filter(func(x): return x != null)
 
 	func _to_string():
 		var result = ""
@@ -83,6 +84,12 @@ class PlayerData:
 			if action != null:
 				action.remaining_uses = action.max_uses
 	
+	func remove_empty_actions():
+		for i in range(current_actions.size()):
+			if current_actions[i] != null and current_actions[i].remaining_uses == 0:
+				available_actions.remove_at(available_actions.find(current_actions[i]))
+				current_actions[i] = null
+	
 	func assign_action_combat_targets(player : Player, enemy : Enemy):
 		for action in current_actions:
 			if action != null:
@@ -91,13 +98,17 @@ class PlayerData:
 
 
 class ProgressionData:
-	var unlocked_actions : Array[Action] = TransitionData.PLAYER_ACTIONS
+	var unlocked_actions : Array[Action] = TransitionData.PLAYER_ACTIONS.duplicate(true)
 
 	func _to_string():
 		var result = ""
 		result += "Progression data:\n"
 		result += "  unlocked actions: " + str(unlocked_actions)
 		return result
+	
+	func refresh_action_uses():
+		for action in unlocked_actions:
+			action.remaining_uses = action.max_uses
 
 
 class CombatData:
