@@ -2,13 +2,15 @@ class_name OnionRedIdle extends ActorState
 
 var actions : Dictionary
 
+var attack_phase : int = 0
+
 func _init(owner_in : Combatant):
 	super(owner_in)
 	actions = {
-		#"turn": Action_Turn.new(owner),
-		"move": Action_MidrangeMove.new(owner),
-		"sweep": Action_SpearSweep.new(owner),
-		"thrust": Action_SpearThrust.new(owner),
+		"turn": Action_Turn.new(owner, .1, .1),
+		"assault_short": Action_OnionLayeredAssault.new(owner, Position.Ranges.SHORT),
+		"assault_medium": Action_OnionLayeredAssault.new(owner, Position.Ranges.MEDIUM, .75),
+		"assault_long": Action_OnionLayeredAssault.new(owner, Position.Ranges.LONG, .5),
 	}
 
 func physics_process(delta : float) -> StateChange:
@@ -18,17 +20,18 @@ func physics_process(delta : float) -> StateChange:
 		state_change.next_state = CombatantStates.States.ACT
 		state_change.remaining_delta = delta
 		return state_change
-	# todo: use logic tree here to decide if a new action should begin.
-	# for now, will just make them immediately start charging
 	
-	if (owner as Enemy).get_turn_direction_toward_player() != MoveEffect.LateralDirection.NONE:
+	if attack_phase == 0 and (owner as Enemy).get_turn_direction_toward_player() != MoveEffect.LateralDirection.NONE:
 		owner.set_current_action(actions["turn"], delta)
-	elif (owner as Enemy).get_distance_to_player() == Position.Ranges.LONG and !(owner._current_action is Action_MidrangeMove):
-		owner.set_current_action(actions["move"], delta)
-	elif (owner as Enemy).get_distance_to_player() == Position.Ranges.SHORT:
-		owner.set_current_action(Action_SpearSweep.new(owner), delta)
-	else:
-		owner.set_current_action(Action_SpearThrust.new(owner), delta)
+	elif attack_phase == 0:
+		attack_phase += 1
+	
+	if attack_phase == 1:
+		owner.set_current_action(actions["assault_short"], delta)
+		attack_phase += 1
+	elif attack_phase == 2:
+		owner.set_current_action(actions["assault_medium"], delta)
+		attack_phase = 0
 	
 	state_change.next_state = CombatantStates.States.CHARGE
 	state_change.remaining_delta = delta

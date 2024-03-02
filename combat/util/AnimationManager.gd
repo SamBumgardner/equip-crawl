@@ -8,6 +8,8 @@ class_name AnimationManager extends Node
 @onready var possible_effects : Dictionary = {
 	"enemy_move": _enemy_move,
 	"enemy_lunge": _enemy_lunge,
+	"enemy_charge": _enemy_charge,
+	"enemy_squish": _enemy_squish,
 	"enemy_hurt": _combatant_modulate.bind(enemy_sprite, Color.DARK_RED),
 	"enemy_block": _combatant_modulate.bind(enemy_sprite, Color.DIM_GRAY),
 	"enemy_defeated_default": _defeat_combatant.bind(enemy_sprite),
@@ -60,6 +62,24 @@ func _lunge_offset(lunge_distance : float):
 		MoveEffect.LateralDirection.OPPOSITE:
 			lunge_offset = Vector2(0, -lunge_distance)
 	enemy_sprite.position = enemy_sprite.start_position + lunge_offset
+
+func _enemy_charge():
+	var new_tween : Tween = enemy_sprite.reset_tweening()
+	new_tween.tween_method(shake_sprite.bind(enemy_sprite, 1), 0, 0, .5)
+
+func shake_sprite(_progress, big_sprite, intensity : float):
+	big_sprite.position = big_sprite.start_position + (Vector2.ONE.rotated(randf_range(0, 6.29)) * intensity)
+
+func _enemy_squish():
+	var new_tween : Tween = enemy_sprite.reset_tweening()
+	new_tween.tween_method(_enemy_squish_offset, 0.0, 1.0, .1)
+	new_tween.tween_method(_enemy_squish_offset, 1.0, 0.0, .4)
+
+func _enemy_squish_offset(progress : float):
+	enemy_sprite.scale = enemy_sprite.current_size.lerp(
+		enemy_sprite.current_size * Vector2(1.2, .6), progress)
+	enemy_sprite.position = enemy_sprite.start_position.lerp(
+		enemy_sprite.start_position + Vector2(0, 75), progress)
 
 func _player_lateral_move(direction : MoveEffect.LateralDirection):
 	var new_tween : Tween = player_sprite.reset_tweening()
@@ -130,10 +150,11 @@ func _player_slash():
 	new_tween.tween_method(_player_offset.bind(1, -1), slash_distance, -slash_distance, slash_time)
 	new_tween.tween_method(_player_offset.bind(1, -1), -slash_distance, 0, recover_time)
 
-func _combatant_modulate(combatant_sprite, start_color : Color):
+func _combatant_modulate(combatant_sprite, start_color : Color) -> Tween:
 	var new_tween : Tween = combatant_sprite.reset_tweening()
 	new_tween.tween_property(combatant_sprite, "modulate", start_color, 0)
 	new_tween.tween_property(combatant_sprite, "modulate", Color.WHITE, .2)
+	return new_tween
 
 func _defeat_combatant(combatant_sprite):
 	var charge_wiggle_frequency = .01
